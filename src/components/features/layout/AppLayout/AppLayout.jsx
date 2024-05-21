@@ -1,0 +1,15 @@
+import { Outlet } from "react-router-dom";
+import { Container } from "./Styles";
+import { Header, Footer } from "../../../../components";
+
+export default function AppLayout() {
+  return (
+    <Container>
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
+    </Container>
+  );
+}
