@@ -1,3 +1,6 @@
+import api from "./api";
+import useAuthStore from "../stores/auth";
+
 //CategoryType endpoints
 
 export const getCategoryType = async (filters = {}) => {

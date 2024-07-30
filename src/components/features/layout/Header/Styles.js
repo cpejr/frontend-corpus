@@ -13,7 +13,7 @@ export const MenuHamburguer = styled(MenuOutlined)`
 export const Container = styled.div`
   height: 7rem;
   display: flex;
-  background-color: ${colors.background.primary};
+  background-color: ${colors.black};
   align-items: center;
   justify-content: space-between;
   padding: 0 3rem;

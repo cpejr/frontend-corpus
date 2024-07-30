@@ -17,7 +17,7 @@ export default function HamburguerMenu() {
       style,
     };
   }
-  const { globalLanguage, setGlobalLanguage } = useGlobalLanguage();
+  const { globalLanguage } = useGlobalLanguage();
   const translations = TranslateText({ globalLanguage });
 
   const menuItems = [
@@ -33,9 +33,9 @@ export default function HamburguerMenu() {
         getItem(translations.headerText5, "/"),
         ...(isAdmin
           ? [
-              getItem("Gerenciar Usuários", "/"),
-              getItem("Gerenciar Acervo", "/"),
-              getItem("Gerenciar Eventos", "/"),
+              getItem(translations.headerAdmText1, "/"),
+              getItem(translations.headerAdmText2, "/"),
+              getItem(translations.headerAdmText3, "/"),
             ]
           : []),
       ]

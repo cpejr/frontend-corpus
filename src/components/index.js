@@ -14,3 +14,5 @@ export { default as AppLayout } from "./features/layout/AppLayout/AppLayout.jsx"
 export { default as ModalDeleteEvent } from "./features/modals/ModalDeleteEvent/ModalDeleteEvent.jsx";
 export { default as ModalEditEvent } from "./features/modals/ModalEditEvent/ModalEditEvent.jsx";
 export { default as Table } from "./features/Table/Table.jsx";
+export { default as SearchBar } from "./features/SearchBar/SearchBar.jsx";
+//export { default as LargeCard } from "./features/LargeCard/LargeCard.jsx";

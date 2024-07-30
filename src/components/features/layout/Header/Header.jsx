@@ -10,7 +10,6 @@ import { image } from "../../../../assets";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthStore from "../../../../stores/auth";
-import LoginSocialArea from "./LoginSocialArea";
 import HamburguerMenu from "./HambuguerMenu";
 import "react-toastify/dist/ReactToastify.css";
 import { useGlobalLanguage } from "../../../../stores/globalLanguage";
@@ -19,7 +18,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { flagEN, flagES, flagPT } from "../../../../assets";
 import { TranslateText } from "./translations";
 
-export default function header() {
+export default function Head() {
   const [collapse, setCollapse] = useState(false);
 
   const { globalLanguage, setGlobalLanguage } = useGlobalLanguage();
@@ -45,7 +44,7 @@ export default function header() {
     },
     {
       label: translations.headerText3,
-      url: "/",
+      url: "/video",
     },
     {
       label: translations.headerText4,
@@ -83,7 +82,6 @@ export default function header() {
       <City src={image} onClick={() => navigate("/")}></City>
       <Header model={items} />
       <HamburguerMenu />
-      <LoginSocialArea />
       <Select>
         <Selected onClick={() => setCollapse((prev) => !prev)}>
           <img

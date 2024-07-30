@@ -1,21 +1,15 @@
-import React, {
-  createContext,
-  useContext,
-  useMemo,
-  useState,
-  useEffect,
-} from 'react';
+import { createContext, useContext, useMemo, useState, useEffect } from "react";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
-  const storedLanguage = localStorage.getItem('globalLanguage');
-  const [globalLanguage, setGlobalLanguage] = useState(storedLanguage || 'PT');
+  const storedLanguage = localStorage.getItem("globalLanguage");
+  const [globalLanguage, setGlobalLanguage] = useState(storedLanguage || "PT");
 
   useEffect(() => {
-    localStorage.setItem('globalLanguage', globalLanguage);
+    localStorage.setItem("globalLanguage", globalLanguage);
   }, [globalLanguage]);
 
   const value = useMemo(
