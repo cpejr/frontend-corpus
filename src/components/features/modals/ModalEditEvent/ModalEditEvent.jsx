@@ -22,25 +22,12 @@ export default function ModalEditEvent({
   close,
   _id,
   modal,
-  transformArrayItems,
   updateEvent,
 }) {
-  const [idsCategoryType, setIdsCategoryType] = useState([]);
-  const [idsCategoryPrice, setIdsCategoryPrice] = useState([]);
   const [archivesArray, setArchivesArray] = useState([]);
   const [date, setDate] = useState();
 
-  const setCategories = () => {
-    setIdsCategoryType(event?.id_categoryType?.map((ids) => ids._id) || []);
-    setIdsCategoryPrice(event?.id_categoryPrice?.map((ids) => ids._id) || []);
-  };
-  useEffect(() => {
-    if (modal) {
-      setCategories();
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modal]);
+  useEffect(() => {}, [modal]);
   // On Submit
   const onSubmit = (data) => {
     let uploadEvent = {};
@@ -53,8 +40,6 @@ export default function ModalEditEvent({
     const body = {
       ...data,
       date: date,
-      id_categoryType: idsCategoryType,
-      id_categoryPrice: idsCategoryPrice,
       uploadEvent: uploadEvent,
     };
 
@@ -130,9 +115,6 @@ export default function ModalEditEvent({
             placeholder={event?.eventUpload?.name}
           />
           <MultipleSelect
-            value={idsCategoryPrice}
-            onChange={(e) => setIdsCategoryPrice(e.value)}
-            options={transformArrayItems(categoryPrice)}
             optionLabel="label"
             placeholder="Escolha as características"
             className="w-full md:w-20rem"
@@ -140,9 +122,6 @@ export default function ModalEditEvent({
             color="black"
           />
           <MultipleSelect
-            value={idsCategoryType}
-            onChange={(e) => setIdsCategoryType(e.value)}
-            options={transformArrayItems(categoryType)}
             optionLabel="label"
             placeholder="Escolha as características"
             className="w-full md:w-20rem"
