@@ -11,12 +11,9 @@ import {
 } from "./Styles";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "react-toastify";
 import { newEventValidationSchema } from "../../../../pages/ManageVideos/utils";
 import FormSiriusInput from "../../../common/FormSiriusInput/FormSiriusInput";
 import { useState, useEffect } from "react";
-import { useGetCategoryPrice } from "../../../../hooks/query/categoryPrice";
-import { useGetCategoryType } from "../../../../hooks/query/categoryType";
 import UploadInput from "../../../common/UploadInput/UploadInput";
 import formatDate from "../../../../utils/formatDate";
 
@@ -32,17 +29,6 @@ export default function ModalEditEvent({
   const [idsCategoryPrice, setIdsCategoryPrice] = useState([]);
   const [archivesArray, setArchivesArray] = useState([]);
   const [date, setDate] = useState();
-
-  const { data: categoryType } = useGetCategoryType({
-    onError: (err) => {
-      toast.error(err);
-    },
-  });
-  const { data: categoryPrice } = useGetCategoryPrice({
-    onError: (err) => {
-      toast.error(err);
-    },
-  });
 
   const setCategories = () => {
     setIdsCategoryType(event?.id_categoryType?.map((ids) => ids._id) || []);

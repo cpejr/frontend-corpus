@@ -1,17 +1,15 @@
 import { useState } from "react";
-import { useGetCategoryPrice } from "../../hooks/query/categoryPrice";
-import { useGetCategoryType } from "../../hooks/query/categoryType";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
 import Button from "../../components/common/Button/Button";
 import {
-  useCreateEvents,
-  useDeleteEvents,
-  useGetEvents,
-  useUpdateEvents,
-} from "../../hooks/query/events";
+  useCreateVideos,
+  useDeleteVideos,
+  useGetVideos,
+  useUpdateVideos,
+} from "../../hooks/query/videos";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { newEventValidationSchema } from "./utils";
@@ -39,26 +37,25 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { useGlobalLanguage } from "../../stores/globalLanguage";
 import { TranslateText } from "./translations";
 
-export default function ManageEvents() {
+export default function ManageVideos() {
   const queryClient = useQueryClient();
   const [date, setDate] = useState(null);
-  const [idCategoriesTypes, setIdCategoriesTypes] = useState([]);
-  const [idCategoriesPrices, setIdCategoriesPrices] = useState([]);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState(null);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [archivesArray, setArchivesArray] = useState([]);
   const [archiveError, setArchiveError] = useState(false);
-  const { data: events } = useGetEvents({
-    onError: (err) => {
-      toast.error(err);
-    },
-  });
 
   //translations
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
+
+  const { data: events } = useGetVideos({
+    onError: (err) => {
+      toast.error(err);
+    },
+  });
 
   const formattedEvents =
     events && Array.isArray(events)
@@ -74,23 +71,12 @@ export default function ManageEvents() {
         }))
       : [];
 
-  const { data: categoryType } = useGetCategoryType({
-    onError: (err) => {
-      toast.error(err);
-    },
-  });
-  const { data: categoryPrice } = useGetCategoryPrice({
-    onError: (err) => {
-      toast.error(err);
-    },
-  });
-
   const { mutate: createEvent, isPending: isCreateEventPending } =
-    useCreateEvents({
+    useCreateVideos({
       onSuccess: () => {
         toast.success("Evento criado com sucesso");
         queryClient.invalidateQueries({
-          queryKey: ["events"],
+          queryKey: ["videos"],
         });
       },
       onError: (err) => {
@@ -98,11 +84,11 @@ export default function ManageEvents() {
       },
     });
 
-  const { mutate: deleteEvent, isPending: isPendingDelete } = useDeleteEvents({
+  const { mutate: deleteEvent, isPending: isPendingDelete } = useDeleteVideos({
     onSuccess: () => {
       toast.success("Evento deletado com sucesso");
       queryClient.invalidateQueries({
-        queryKey: ["events"],
+        queryKey: ["videos"],
       });
     },
     onError: (err) => {
@@ -110,11 +96,11 @@ export default function ManageEvents() {
     },
   });
 
-  const { mutate: updateEvent, isPending: isPendingUpdate } = useUpdateEvents({
+  const { mutate: updateEvent, isPending: isPendingUpdate } = useUpdateVideos({
     onSuccess: () => {
       toast.success("Evento editado com sucesso");
       queryClient.invalidateQueries({
-        queryKey: ["events"],
+        queryKey: ["videos"],
       });
     },
     onError: (err) => {
@@ -155,8 +141,6 @@ export default function ManageEvents() {
       const combinedData = {
         ...data,
         date: date,
-        id_categoryPrice: idCategoriesPrices,
-        id_categoryType: idCategoriesTypes,
         uploadEvent,
       };
       createEvent(combinedData);
@@ -237,12 +221,6 @@ export default function ManageEvents() {
           />
           <Selects>
             <MultipleSelect
-              value={idCategoriesTypes}
-              name="id_categoryType"
-              onChange={(e) => {
-                setIdCategoriesTypes(e.value);
-              }}
-              options={transformArrayItems(categoryType)}
               optionLabel="label"
               placeholder={translation.placeholder6}
               className="w-full md:w-20rem"
@@ -250,12 +228,6 @@ export default function ManageEvents() {
             />
 
             <MultipleSelect
-              value={idCategoriesPrices}
-              name="id_categoryPrice"
-              onChange={(e) => {
-                setIdCategoriesPrices(e.value);
-              }}
-              options={transformArrayItems(categoryPrice)}
               optionLabel="label"
               placeholder={translation.placeholder7}
               className="w-full md:w-20rem"
