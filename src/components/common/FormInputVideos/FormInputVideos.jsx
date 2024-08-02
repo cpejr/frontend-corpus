@@ -7,7 +7,7 @@ import {
   ErrorMessage,
 } from "./Styles";
 
-export default function FormInputEvents({
+export default function FormInputVideos({
   name,
   label,
   placeholder,
@@ -40,8 +40,8 @@ export default function FormInputEvents({
     </Container>
   );
 }
-FormInputEvents.defaultProps = { color: "white" };
-FormInputEvents.propTypes = {
+FormInputVideos.defaultProps = { color: "white" };
+FormInputVideos.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
   placeholder: PropTypes.string.isRequired,

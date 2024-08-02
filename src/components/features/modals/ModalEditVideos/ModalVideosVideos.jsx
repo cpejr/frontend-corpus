@@ -11,18 +11,18 @@ import {
 } from "./Styles";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { newEventValidationSchema } from "../../../../pages/ManageVideos/utils";
+import { newVideosValidationSchema } from "../../../../pages/ManageVideos/utils";
 import FormSiriusInput from "../../../common/FormSiriusInput/FormSiriusInput";
 import { useState, useEffect } from "react";
 import UploadInput from "../../../common/UploadInput/UploadInput";
 import formatDate from "../../../../utils/formatDate";
 
-export default function ModalEditEvent({
-  event,
+export default function ModalEditVideos({
+  videos,
   close,
   _id,
   modal,
-  updateEvent,
+  updateVideos,
 }) {
   const [archivesArray, setArchivesArray] = useState([]);
   const [date, setDate] = useState();
@@ -30,9 +30,9 @@ export default function ModalEditEvent({
   useEffect(() => {}, [modal]);
   // On Submit
   const onSubmit = (data) => {
-    let uploadEvent = {};
+    let uploadVideos = {};
     if (archivesArray[0]) {
-      uploadEvent = {
+      uploadVideos = {
         base64: archivesArray[0]?.base64,
         name: archivesArray[0]?.name,
       };
@@ -40,10 +40,10 @@ export default function ModalEditEvent({
     const body = {
       ...data,
       date: date,
-      uploadEvent: uploadEvent,
+      uploadVideos: uploadVideos,
     };
 
-    updateEvent({ _id: _id, body: body });
+    updateVideos({ _id: _id, body: body });
     close();
   };
   const {
@@ -51,7 +51,7 @@ export default function ModalEditEvent({
     register,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(newEventValidationSchema),
+    resolver: zodResolver(newVideosValidationSchema),
   });
   return (
     <Container>
@@ -66,17 +66,17 @@ export default function ModalEditEvent({
         <Form onSubmit={handleSubmit(onSubmit)}>
           <FormSiriusInput
             name="name"
-            label="Nome do evento:"
-            defaultValue={event?.name}
+            label="Nome do Videoso:"
+            defaultValue={videos?.name}
             register={register}
-            placeholder="Nome do evento:"
+            placeholder="Nome do Videoso:"
             errors={errors}
             color="black"
           />
           <FormSiriusInput
             name="shortDescription"
             label="Descrição curta:"
-            defaultValue={event.shortDescription}
+            defaultValue={videos.shortDescription}
             register={register}
             placeholder="Descrição curta:"
             errors={errors}
@@ -85,7 +85,7 @@ export default function ModalEditEvent({
           <FormSiriusInput
             name="longDescription"
             label="Descrição longa:"
-            defaultValue={event.longDescription}
+            defaultValue={videos.longDescription}
             register={register}
             placeholder="Descrição longa:"
             errors={errors}
@@ -94,9 +94,9 @@ export default function ModalEditEvent({
           <FormSiriusInput
             name="link"
             label="Link:"
-            defaultValue={event.link}
+            defaultValue={videos.link}
             register={register}
-            placeholder="Link do evento:"
+            placeholder="Link do Videoso:"
             errors={errors}
             color="black"
           />
@@ -108,11 +108,11 @@ export default function ModalEditEvent({
             register={register}
             setArchivesArray={setArchivesArray}
             archivesArray={archivesArray}
-            values={[{ name: event?.eventUpload?.name, base64: undefined }]}
+            values={[{ name: videos?.VideosUpload?.name, base64: undefined }]}
             color={"black"}
             hasButtons={false}
             width="100%"
-            placeholder={event?.eventUpload?.name}
+            placeholder={videos?.VideosUpload?.name}
           />
           <MultipleSelect
             optionLabel="label"
@@ -133,7 +133,7 @@ export default function ModalEditEvent({
             onChange={(e) => setDate(e.value)}
             readOnlyInput
             name="data"
-            placeholder={formatDate({ value: event?.date })}
+            placeholder={formatDate({ value: videos?.date })}
             showButtonBar
             dateFormat="dd/mm/yy"
           />
@@ -159,11 +159,11 @@ export default function ModalEditEvent({
   );
 }
 
-ModalEditEvent.propTypes = {
+ModalEditVideos.propTypes = {
   _id: PropTypes.string.isRequired,
-  event: PropTypes.object.isRequired,
+  videos: PropTypes.object.isRequired,
   close: PropTypes.func.isRequired,
   modal: PropTypes.bool.isRequired,
   transformArrayItems: PropTypes.func.isRequired,
-  updateEvent: PropTypes.func.isRequired,
+  updateVideos: PropTypes.func.isRequired,
 };

@@ -12,11 +12,11 @@ import {
 } from "../../hooks/query/videos";
 import { useQueryClient } from "@tanstack/react-query";
 
-import { newEventValidationSchema } from "./utils";
+import { newVideosValidationSchema } from "./utils";
 import {
-  FormInputEvents,
-  ModalDeleteEvent,
-  ModalEditEvent,
+  FormInputVideos,
+  ModalDeleteVideos,
+  ModalEditVideos,
   Table,
 } from "../../components";
 import {
@@ -27,7 +27,7 @@ import {
   Selects,
   MultipleSelect,
   Calendar,
-  EventButtons,
+  Buttons,
   LoadingStyles,
   BackgroundTitle,
 } from "./Styles";
@@ -42,8 +42,8 @@ export default function ManageVideos() {
   const [date, setDate] = useState(null);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const [selectedEventId, setSelectedEventId] = useState(null);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [selectedVideoId, setSelectedVideoId] = useState(null);
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const [archivesArray, setArchivesArray] = useState([]);
   const [archiveError, setArchiveError] = useState(false);
 
@@ -51,30 +51,30 @@ export default function ManageVideos() {
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
 
-  const { data: events } = useGetVideos({
+  const { data: videos } = useGetVideos({
     onError: (err) => {
       toast.error(err);
     },
   });
 
-  const formattedEvents =
-    events && Array.isArray(events)
-      ? events.map((event) => ({
-          name: event.name,
-          shortDescription: event.shortDescription,
+  const formattedVideos =
+    videos && Array.isArray(videos)
+      ? videos.map((video) => ({
+          name: video.name,
+          shortDescription: video.shortDescription,
           manage: (
-            <EventButtons>
-              <FaTrash onClick={() => handleOpenDeleteModal(event._id)} />
-              <FaEdit onClick={() => handleOpenEditModal(event)} />
-            </EventButtons>
+            <Buttons>
+              <FaTrash onClick={() => handleOpenDeleteModal(video._id)} />
+              <FaEdit onClick={() => handleOpenEditModal(video)} />
+            </Buttons>
           ),
         }))
       : [];
 
-  const { mutate: createEvent, isPending: isCreateEventPending } =
+  const { mutate: createVideo, isPending: isCreateVideoPending } =
     useCreateVideos({
       onSuccess: () => {
-        toast.success("Evento criado com sucesso");
+        toast.success("Video criado com sucesso");
         queryClient.invalidateQueries({
           queryKey: ["videos"],
         });
@@ -84,9 +84,9 @@ export default function ManageVideos() {
       },
     });
 
-  const { mutate: deleteEvent, isPending: isPendingDelete } = useDeleteVideos({
+  const { mutate: deleteVideo, isPending: isPendingDelete } = useDeleteVideos({
     onSuccess: () => {
-      toast.success("Evento deletado com sucesso");
+      toast.success("Video deletado com sucesso");
       queryClient.invalidateQueries({
         queryKey: ["videos"],
       });
@@ -96,9 +96,9 @@ export default function ManageVideos() {
     },
   });
 
-  const { mutate: updateEvent, isPending: isPendingUpdate } = useUpdateVideos({
+  const { mutate: updateVideo, isPending: isPendingUpdate } = useUpdateVideos({
     onSuccess: () => {
-      toast.success("Evento editado com sucesso");
+      toast.success("Video editado com sucesso");
       queryClient.invalidateQueries({
         queryKey: ["videos"],
       });
@@ -109,41 +109,41 @@ export default function ManageVideos() {
   });
   // Modal Functions
 
-  const handleOpenDeleteModal = (eventId) => {
-    setSelectedEventId(eventId);
+  const handleOpenDeleteModal = (videoId) => {
+    setSelectedVideoId(videoId);
     setDeleteModalOpen(true);
   };
 
-  const handleOpenEditModal = (event) => {
-    setSelectedEventId(event?._id);
-    setSelectedEvent(event);
+  const handleOpenEditModal = (video) => {
+    setSelectedVideoId(video?._id);
+    setSelectedVideo(video);
     setEditModalOpen(true);
   };
 
   const handleCloseEditModal = async () => {
-    setSelectedEvent(null);
-    setSelectedEventId(null);
+    setSelectedVideo(null);
+    setSelectedVideoId(null);
     setEditModalOpen(false);
   };
 
   const handleCloseDeleteModal = () => {
-    setSelectedEventId(null);
+    setSelectedVideoId(null);
     setDeleteModalOpen(false);
   };
 
   const onSubmit = (data, e) => {
-    let uploadEvent = {};
+    let uploadVideo = {};
     if (archivesArray[0]) {
-      uploadEvent = {
+      uploadVideo = {
         base64: archivesArray[0].base64,
         name: archivesArray[0].name,
       };
       const combinedData = {
         ...data,
         date: date,
-        uploadEvent,
+        uploadVideo,
       };
-      createEvent(combinedData);
+      createVideo(combinedData);
       e.target.reset();
       setArchivesArray([]);
       setArchiveError(false);
@@ -155,7 +155,7 @@ export default function ManageVideos() {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(newEventValidationSchema) });
+  } = useForm({ resolver: zodResolver(newVideosValidationSchema) });
 
   const columns = [
     { field: "name", header: translation.table1 },
@@ -179,27 +179,27 @@ export default function ManageVideos() {
       </BackgroundTitle>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Section>
-          <FormInputEvents
+          <FormInputVideos
             name="name"
             placeholder={translation.placeholder1}
             errors={errors}
             register={register}
             inputKey="1"
           />
-          <FormInputEvents
+          <FormInputVideos
             name="shortDescription"
             placeholder={translation.placeholder2}
             errors={errors}
             register={register}
             inputKey="3"
           />
-          <FormInputEvents
+          <FormInputVideos
             name="longDescription"
             placeholder={translation.placeholder3}
             errors={errors}
             register={register}
           />
-          <FormInputEvents
+          <FormInputVideos
             name="link"
             placeholder={translation.placeholder4}
             errors={errors}
@@ -245,25 +245,25 @@ export default function ManageVideos() {
           </Selects>
         </Section>
         <Button type="submit" width="150px" height="50px">
-          {isCreateEventPending ? <LoadingOutlined /> : translation.button1}
+          {isCreateVideoPending ? <LoadingOutlined /> : translation.button1}
         </Button>
       </Form>
       <Title>{translation.title2}</Title>
       {isDeleteModalOpen && (
-        <ModalDeleteEvent
-          id={selectedEventId}
+        <ModalDeleteVideos
+          id={selectedVideoId}
           closeModal={handleCloseDeleteModal}
-          handleEventDelete={deleteEvent}
+          handleVideoDelete={deleteVideo}
           modal={true}
           destroyOnClose
         />
       )}
       {isEditModalOpen && (
-        <ModalEditEvent
-          _id={selectedEventId}
+        <ModalEditVideos
+          _id={selectedVideoId}
           modal={true}
-          event={selectedEvent}
-          updateEvent={updateEvent}
+          video={selectedVideo}
+          updateVideo={updateVideo}
           close={handleCloseEditModal}
           transformArrayItems={transformArrayItems}
           destroyOnClose
@@ -275,7 +275,7 @@ export default function ManageVideos() {
           <LoadingOutlined />
         </LoadingStyles>
       ) : (
-        <Table columns={columns} data={formattedEvents} />
+        <Table columns={columns} data={formattedVideos} />
       )}
     </Container>
   );

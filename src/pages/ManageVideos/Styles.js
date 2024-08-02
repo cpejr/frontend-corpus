@@ -75,7 +75,7 @@ export const Section = styled.section`
   }
 `;
 
-export const EventButtons = styled.div`
+export const Buttons = styled.div`
   display: flex;
   gap: 8px;
 `;

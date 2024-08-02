@@ -3,8 +3,8 @@ import Button from "../../../common/Button/Button";
 import { colors } from "../../../../styles/stylesVariables";
 import { Container, Message, ModalStyle } from "./Styles";
 
-export default function ModalDeleteEvent({
-  handleEventDelete,
+export default function ModalDeleteVideos({
+  handleVideosDelete,
   id,
   modal,
   closeModal,
@@ -23,10 +23,10 @@ export default function ModalDeleteEvent({
       destroyOnClose
     >
       <Container>
-        <Message>Tem certeza que deseja excluir esse evento?</Message>
+        <Message>Tem certeza que deseja excluir esse Video?</Message>
         <Button
           onClick={() => {
-            handleEventDelete(id);
+            handleVideosDelete(id);
             closeModal();
           }}
           type="button"
@@ -49,8 +49,8 @@ export default function ModalDeleteEvent({
   );
 }
 
-ModalDeleteEvent.propTypes = {
-  handleEventDelete: PropTypes.func.isRequired,
+ModalDeleteVideos.propTypes = {
+  handleVideosDelete: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   modal: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
