@@ -1,40 +1,56 @@
 import PropTypes from "prop-types";
-import { Container, Label, StyledInput, ErrorMessage } from "./Styles";
+import { Container, IconContainer, StyledInput } from "./Styles";
 
-export default function FormSiriusInput({
-  name,
-  label,
+export default function FormInput({
+  inputKey,
   placeholder,
-  errors,
+  error,
   register,
   defaultValue,
-  readOnly,
+  type,
+  icon: Icon,
+  color,
+  width,
+  placeholdercolor,
   ...props
 }) {
-  const errorMessage = errors?.[name]?.message;
+  const errorMessage = error[inputKey]?.message;
   return (
     <Container>
-      <Label htmlFor={name}>{label}</Label>
-      <StyledInput
-        id={name}
-        {...register(name)}
-        placeholder={placeholder}
-        defaultValue={defaultValue}
-        {...props}
-        readOnly={readOnly}
-        error={!!errorMessage}
-      />
-      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      <IconContainer>
+        {Icon && (
+          <Icon style={{ width: "2rem", height: "3.5rem", color: color }} />
+        )}
+        <StyledInput
+          id={inputKey}
+          inputKey={inputKey}
+          type={type}
+          autoComplete="off"
+          {...(register && { ...register(inputKey) })}
+          placeholder={placeholder}
+          defaultValue={defaultValue}
+          error={errorMessage}
+          color={color}
+          placeholdercolor={placeholdercolor}
+          width={width}
+          {...props}
+        />
+      </IconContainer>
     </Container>
   );
 }
-
-FormSiriusInput.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string,
+FormInput.defaultProps = {
+  width: "70%",
+};
+FormInput.propTypes = {
+  inputKey: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  register: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
+  register: PropTypes.func,
+  error: PropTypes.bool.isRequired,
   defaultValue: PropTypes.string,
-  readOnly: PropTypes.string,
+  width: PropTypes.string,
+  type: PropTypes.string,
+  color: PropTypes.string,
+  icon: PropTypes.elementType,
+  placeholdercolor: PropTypes.string,
 };
