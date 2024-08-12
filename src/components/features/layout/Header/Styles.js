@@ -5,15 +5,28 @@ import { breakpoints, colors, fonts } from "../../../../styles/stylesVariables";
 import { MenuOutlined } from "@ant-design/icons";
 
 export const MenuHamburguer = styled(MenuOutlined)`
-  .ant-menu-title-content {
-    color: black;
+  color: ${colors.font.primary};
+`;
+
+export const Hamburguer = styled(Menu)`
+  display: none;
+  border-bottom: none;
+  background-color: ${colors.background.header};
+  margin-right: 50px;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    display: flex;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    display: flex;
   }
 `;
 
 export const Container = styled.div`
   height: 7rem;
   display: flex;
-  background-color: ${colors.black};
+  background-color: ${colors.background.header};
   align-items: center;
   justify-content: space-between;
   padding: 0 3rem;
@@ -23,65 +36,12 @@ export const Container = styled.div`
   }
 `;
 
-export const City = styled.img`
-  width: 50px;
+export const LogoHeader = styled.img`
+  width: 150px;
   display: flex;
   cursor: pointer;
-`;
-
-export const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-left: 15px;
-  padding-right: 0;
-  border-left: 2px solid ${colors.font.primary};
-  @media (max-width: ${breakpoints.smallTablet}) {
-    border-left: 0;
-  }
-`;
-
-export const SocialMedias = styled.div`
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  @media (max-width: ${breakpoints.smallTablet}) {
+  @media (max-width: ${breakpoints.mobile}) {
     display: none;
-  }
-`;
-
-export const Hamburguer = styled(Menu)`
-  width: 0rem;
-  border-bottom: none;
-  background-color: ${colors.background.primary};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  @media (max-width: ${breakpoints.tablet}) {
-    width: 8rem;
-  }
-  @media (max-width: ${breakpoints.smallTablet}) {
-    width: 6rem;
-  }
-  @media (max-width: ${breakpoints.smallDevice}) {
-    width: 4rem;
-  }
-`;
-
-export const LoadingStyles = styled.div`
-  display: "block";
-  font-size: 24px;
-`;
-
-export const LoginSocial = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  @media (max-width: ${breakpoints.tablet}) {
-    min-width: 0;
   }
 `;
 
@@ -115,18 +75,6 @@ export const LoginButton = styled.button`
     font-size: 0.8rem;
   }
 `;
-export const ModalStyle = styled(Modal)`
-  .ant-modal-content {
-    background-color: ${colors.background.primary};
-    padding: 1rem;
-    align-items: center;
-    justify-content: center;
-    color: ${colors.font.primary};
-    padding: 6;
-    margin: 0;
-    border-radius: none;
-  }
-`;
 export const Header = styled(Menubar)`
   display: flex;
   flex-direction: row;
@@ -134,18 +82,29 @@ export const Header = styled(Menubar)`
   padding: 0 1rem;
   width: 100%;
 
-  .p-menubar-root-list {
-    display: flex;
-    gap: 1rem;
+  .p-menuitem {
+    color: ${colors.font.primary};
+    padding: 10px;
   }
 
-  .p-menuitem {
-    padding: 0.5rem 1rem;
-    color: goldenrod;
-    font-weight: 400;
-    font-size: 1rem;
+  .p-menuitem-text {
+    text-decoration: none;
+    font-size: 125%;
+    color: ${colors.font.primary};
+
+    &:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+    }
+  }
+  @media (max-width: ${breakpoints.tablet}) {
+    display: none;
+  }
+  @media (max-width: ${breakpoints.mobile}) {
+    display: none;
   }
 `;
+
 export const Select = styled.div`
   display: flex;
   flex-direction: column;
@@ -182,11 +141,11 @@ export const Selected = styled.div`
   @media (max-width: ${breakpoints.tablet}) {
     padding-left: 1.4rem;
     svg {
-      color: white;
+      color: ${colors.font.primary};
     }
     p {
       text-align: center;
-      color: white;
+      color: ${colors.font.primary};
     }
   }
 `;
@@ -201,13 +160,13 @@ export const LanguageSelector = styled.div`
   overflow-y: hidden;
 
   font-weight: 700;
-  background-color: white;
+  background-color: ${colors.background.header};
 
   border-radius: 0.5rem;
   gap: 0.3rem;
   button {
     border: none;
-    background-color: white;
+    background-color: ${colors.background.header};
     width: 3.5rem;
     display: flex;
     flex-direction: column;

@@ -20,26 +20,21 @@ export default function HamburguerMenu() {
   const { globalLanguage } = useGlobalLanguage();
   const translations = TranslateText({ globalLanguage });
 
-  const menuItems = [
-    getItem(
-      "",
-      "hamburger",
-      <MenuHamburguer style={{ color: "orange", fontSize: "25px" }} />,
-      [
-        getItem(translations.headerText1, "/sobre-nos"),
-        getItem(translations.headerText2, "/manage-videos"),
-        getItem(translations.headerText3, "/"),
-        getItem(translations.headerText4, "/"),
-        getItem(translations.headerText5, "/"),
-        ...(isAdmin
-          ? [
-              getItem(translations.headerAdmText1, "/"),
-              getItem(translations.headerAdmText2, "/"),
-              getItem(translations.headerAdmText3, "/"),
-            ]
-          : []),
-      ]
-    ),
+  const items = [
+    getItem("", "hamburger", <MenuHamburguer style={{ fontSize: "25px" }} />, [
+      getItem(translations.home, "/"),
+      getItem(translations.headerText1, "/sobre-nos"),
+      getItem(translations.headerText2, "/manage-videos"),
+      getItem(translations.headerText3, "/politica-de-privacidade"),
+      getItem(translations.headerText4, "/videos"),
+      ...(isAdmin
+        ? [
+            getItem(translations.headerAdmText1, "/"),
+            getItem(translations.headerAdmText2, "/"),
+            getItem(translations.headerAdmText3, "/"),
+          ]
+        : []),
+    ]),
   ];
 
   function onClick(key) {
@@ -51,7 +46,7 @@ export default function HamburguerMenu() {
     <Hamburguer
       onClick={(e) => onClick(e.key)}
       mode="horizontal"
-      items={menuItems}
+      items={items}
       triggerSubMenuAction="click"
     ></Hamburguer>
   );
