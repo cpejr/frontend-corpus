@@ -11,7 +11,7 @@ import {
 } from "./Styles";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { newVideosValidationSchema } from "../../../../pages/ManageVideos/utils";
+import { newValidationSchema } from "../../../../pages/ManageVideos/utils";
 import FormSiriusInput from "../../../common/FormSiriusInput/FormSiriusInput";
 import { useState, useEffect } from "react";
 import UploadInput from "../../../common/UploadInput/UploadInput";
@@ -51,7 +51,7 @@ export default function ModalEditVideos({
     register,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(newVideosValidationSchema),
+    resolver: zodResolver(newValidationSchema),
   });
   return (
     <Container>

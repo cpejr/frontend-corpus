@@ -1,7 +1,7 @@
 //Esse código foi copiado do acervo
 import { z } from "zod";
 // Form Validation
-export const newVideosValidationSchema = z
+export const newValidationSchema = z
   .object({
     name: z
       .string({ required_error: "O nome é obrigatório" })
