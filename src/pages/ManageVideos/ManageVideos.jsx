@@ -1,21 +1,13 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 //import { LoadingOutlined } from "@ant-design/icons";
 //import Button from "../../components/common/Button/Button";
 import { FormSubmit } from "../../components";
-import { Container, Title, Form, Section, BackgroundTitle } from "./Styles";
-import { newValidationSchema } from "./utils"; // Consider renomear para algo mais genérico se necessário
+import { Container, Title, Section, BackgroundTitle } from "./Styles";
+import { newValidationSchema } from "./utils";
 
 import { TranslateText as translation } from "./translations"; // Mantendo o alias `translation` para consistência
 
 export default function FormPage() {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm({ resolver: zodResolver(newValidationSchema) }); // Consider renomear `newVideosValidationSchema` para algo mais apropriado
-
   // Define os campos do formulário
   const [inputs] = useState([
     {
@@ -70,28 +62,25 @@ export default function FormPage() {
     },
   ]);
 
-  // Função para tratar o envio do formulário
-  const onSubmit = (data) => {
-    console.log("Dados do Formulário", data);
-  };
+  function handleSubmit(data) {
+    console.log("esse comentário é um teste", data);
+  }
 
   return (
     <Container>
       <BackgroundTitle>
         <Title>{translation.title1}</Title>
       </BackgroundTitle>
-      <Form onSubmit={handleSubmit((data) => console.log(data))}>
-        <Section>
-          <FormSubmit
-            inputs={inputs}
-            onSubmit={onSubmit}
-            schema={newValidationSchema}
-            loading={false}
-            requestError={errors}
-            register={register}
-          />
-        </Section>
-      </Form>
+
+      <Section>
+        <FormSubmit
+          inputs={inputs}
+          onSubmit={handleSubmit}
+          schema={newValidationSchema}
+          loading={false}
+        />
+      </Section>
+
       <Title>{translation.title2}</Title>
     </Container>
   );
