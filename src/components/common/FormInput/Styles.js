@@ -5,28 +5,28 @@ export const Container = styled.div`
   flex-direction: column;
   font-style: normal;
   font-weight: 500;
-
   width: 100%;
 `;
 
 export const StyledInput = styled.input`
   width: ${(props) => props?.width};
-  height: 3rem;
+  height: auto;
   padding: 0.8rem 1.6rem;
-  border-radius: 0.4rem;
-  color: ${(props) => props?.color};
+  border-radius: 0%;
+  color: black;
+  background-color: white;
   cursor: ${(props) => props?.cursor};
   font-size: 20px;
-  background-color: inherit;
+
   padding-right: 25px;
-  background: url(${(props) => props?.icon}) no-repeat;
+
   background-size: 40px;
   background-position: 95%;
   outline: none;
   border: ${(props) =>
     props?.error ? "0.1rem red solid" : `0.1rem ${props?.color} solid`};
   &::placeholder {
-    color: ${(props) => props?.color};
+    color: black;
   }
   @media (max-width: 700px) {
     font-size: 16px;
@@ -47,6 +47,9 @@ export const StyledInput = styled.input`
   }
   &:hover {
     border-color: #f19709;
+  }
+  &:placeholdercolor {
+    color: black;
   }
 `;
 export const IconContainer = styled.div`

@@ -12,6 +12,7 @@ export default function FormDatePicker({
   control,
   setValue,
   error,
+  color,
   placeholder,
   isSubmitSuccessful,
   defaultValue,
@@ -49,6 +50,7 @@ export default function FormDatePicker({
             placeholderText={placeholder}
             onChange={handleChange}
             dateFormat="dd/MM/yyyy"
+            color={color}
           />
         )}
       />
@@ -68,4 +70,5 @@ FormDatePicker.propTypes = {
   setValue: PropTypes.func,
   isSubmitSuccessful: PropTypes.bool,
   defaultValue: PropTypes.date,
+  color: PropTypes.string,
 };

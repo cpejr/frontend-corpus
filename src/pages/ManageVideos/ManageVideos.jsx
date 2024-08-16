@@ -12,27 +12,27 @@ export default function FormPage() {
   const [inputs] = useState([
     {
       type: "text",
-      key: "nome",
+      key: "name",
       placeholder: "Digite seu nome",
-      label: "Nome",
+      label: "name",
     },
     {
       type: "text",
-      key: "descricaoCurta",
+      key: "shortDescription",
       placeholder: "Descreva brevemente aqui",
-      label: "Descrição curta",
+      label: "shortDescription",
     },
     {
       type: "text",
-      key: "descricaoLonga",
+      key: "longDescription",
       placeholder: "Descreva como quiser aqui",
-      label: "Descrição longa",
+      label: "longDescription",
     },
     {
       type: "text",
       key: "link",
       placeholder: "Cole aqui seu link",
-      label: "Link",
+      label: "link",
     },
     {
       type: "select",

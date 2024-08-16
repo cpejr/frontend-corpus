@@ -27,8 +27,8 @@ export const StyledDatePicker = styled(DatePicker)`
   width: 100%;
   border-bottom: ${(props) =>
     props?.error ? "1px solid #ff0000" : "1px solid #570b87"} !important;
-  color: ${(props) => (props?.error ? "#ff0000" : "black")};
-  background-color: ${(props) => (props?.error ? "#ffe6e6" : "white")};
+  color: black;
+  background-color: white;
   border-radius: 4px;
   font-size: 1em;
   z-index: 10;
@@ -42,17 +42,17 @@ export const StyledDatePicker = styled(DatePicker)`
   }
 
   ::placeholder {
-    color: ${(props) => (props?.error ? "#FF4040" : "#424242")};
+    color: black;
     font-style: italic;
   }
 
   &:hover {
-    background-color: ${(props) => (props?.error ? "#ffdada" : "#f4f4f4")};
+    background-color: white;
   }
 
   .react-datepicker__day--selected {
     background-color: #570b87; /* Cor de fundo do dia selecionado */
-    color: white; /* Cor do texto do dia selecionado */
+    color: black; /* Cor do texto do dia selecionado */
   }
 
   .react-datepicker {
@@ -63,11 +63,12 @@ export const StyledDatePicker = styled(DatePicker)`
     border-radius: 4px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     background-color: white;
+    color: black;
   }
 
   .react-datepicker__header {
     background-color: #570b87;
-    color: white;
+    color: black;
     border-bottom: 1px solid #570b87;
   }
 

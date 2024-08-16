@@ -43,6 +43,7 @@ export default function FormSubmit({
                 type={input.type}
                 label={input.label}
                 placeholder={input.placeholder}
+                placeholdercolor="black"
                 icon={input.icon}
                 error={errors[input.key] ? true : false || requestError}
                 defaultValue={input.value}
@@ -90,6 +91,7 @@ export default function FormSubmit({
                 setValue={setValue}
                 defaultValue={input?.defaultValue}
                 isSubmitSuccessful={isSubmitSuccessful}
+                color={color}
               />
               {errors[input.key]?.message && (
                 <ErrorMessage>{errors[input.key]?.message}</ErrorMessage>

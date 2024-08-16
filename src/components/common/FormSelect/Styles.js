@@ -33,12 +33,12 @@ export const StyledSelect = styled.select`
   border-bottom: ${(props) =>
     props?.error ? "1px solid #ff0000" : "1px solid #570b87"} !important;
   border-radius: 0.4rem;
-  color: ${(props) => props?.color};
-  background-color: inherit;
+  color: black;
+  background-color: white;
   font-size: 20px;
   font-family: "Roboto Condensed";
   padding-right: 25px;
-  background: url(${(props) => props?.icon}) no-repeat;
+  color: black;
   background-size: 40px;
   background-position: 95%;
   outline: none;
@@ -51,7 +51,7 @@ export const StyledSelect = styled.select`
     outline: none;
   }
   &::placeholder {
-    color: ${(props) => props?.color};
+    color: black;
   }
   @media (max-width: 700px) {
     font-size: 16px;
