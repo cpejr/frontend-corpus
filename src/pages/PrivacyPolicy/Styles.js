@@ -36,7 +36,7 @@ export const Line = styled.hr`
   }
   @media (max-width: ${breakpoints.mobile}) {
     margin: 0 auto;
-    width: 500px;
+    max-width: 40%;
   }
 `;
 
@@ -49,7 +49,7 @@ export const BackgroundTitle = styled.div`
     height: 100px;
   }
   @media (max-width: ${breakpoints.mobile}) {
-    padding-top: 2rem;
+    //padding-top: 2rem;
     height: 80px;
   }
 `;
@@ -71,7 +71,7 @@ export const Title = styled.div`
   }
   @media (max-width: ${breakpoints.mobile}) {
     text-align: center;
-    max-width: 40%;
+    max-width: 60%;
     font-size: 4vw;
     margin: 0 auto;
   }

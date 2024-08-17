@@ -1,18 +1,12 @@
 import styled from "styled-components";
-import { Menu, Modal } from "antd";
+import { Menu } from "antd";
 import { Menubar } from "primereact/menubar";
 import { breakpoints, colors, fonts } from "../../../../styles/stylesVariables";
-import { MenuOutlined } from "@ant-design/icons";
-
-export const MenuHamburguer = styled(MenuOutlined)`
-  color: ${colors.font.primary};
-`;
 
 export const Hamburguer = styled(Menu)`
   display: none;
   border-bottom: none;
   background-color: ${colors.background.header};
-  margin-right: 50px;
 
   @media (max-width: ${breakpoints.tablet}) {
     display: flex;
@@ -20,6 +14,16 @@ export const Hamburguer = styled(Menu)`
 
   @media (max-width: ${breakpoints.mobile}) {
     display: flex;
+  }
+  .ant-menu-light.ant-menu-submenu-popup > .ant-menu {
+    background-color: gold;
+  }
+  .ant-menu-light > .ant-menu .ant-menu-item-selected {
+    background-color: gold;
+  }
+
+  li.ant-menu-item.ant-menu-item-only-child {
+    color: gold;
   }
 `;
 

@@ -28,7 +28,7 @@ export function TranslateText({ globalLanguage }) {
     textButton3 = "saiba mais!";
   }
   if (globalLanguage === "EN") {
-    titleLogo = "Core of Communication Studies";
+    titleLogo = "CORE OF COMMUNICATION STUDIES";
     subtitleLogo = "(Inter-)Cultural in Interaction";
     title1 = "About us";
     paragraph1 =
@@ -44,7 +44,7 @@ export function TranslateText({ globalLanguage }) {
     textButton3 = "learn more!";
   }
   if (globalLanguage === "ES") {
-    titleLogo = "Núcleo de Estudios de Comunicación";
+    titleLogo = "NÚCLEO DE ESTUDIOS DE COMUNICACIÓN";
     subtitleLogo = "(Inter-)Cultural en Interacción";
     title1 = "Sobre nosotros";
     paragraph1 =

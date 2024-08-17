@@ -2,7 +2,7 @@
 export const colors = {
   blue: {
     background: "#080B10",
-    accent: "#013C9D",
+    accent: "transparent",
     light: "#639dff",
     accentShadow: "rgba(1, 60, 157, 0.25)",
     dark: "#232A36",
@@ -19,7 +19,7 @@ export const colors = {
     secondary: "#6B9080",
     header: "#6B9080",
     hover: "#53190a",
-    menu: "#1C1C1C",
+    menu: "cyan",
     white: "#FFF",
   },
   modals: {
@@ -38,10 +38,7 @@ export const colors = {
     cardBackground: "#111720",
     veryLight: "#d9d9d9",
   },
-  white: "#FFF",
-  black: "#000",
-  transparent: "rgba(0, 0, 0, 0)",
-  shadow: "rgba(0, 0, 0, 0.25)",
+  white: "#6B9080",
 };
 
 export const fonts = {

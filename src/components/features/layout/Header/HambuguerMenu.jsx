@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { Hamburguer, MenuHamburguer } from "../Header/Styles";
+import { Hamburguer } from "../Header/Styles";
 import useAuthStore from "../../../../stores/auth";
 import { TranslateText } from "./translations";
 import { useGlobalLanguage } from "../../../../stores/globalLanguage";
+import { MenuOutlined } from "@ant-design/icons";
 
 export default function HamburguerMenu() {
   const isAdmin = useAuthStore((state) => state?.auth?.user?.type);
@@ -21,20 +22,25 @@ export default function HamburguerMenu() {
   const translations = TranslateText({ globalLanguage });
 
   const items = [
-    getItem("", "hamburger", <MenuHamburguer style={{ fontSize: "25px" }} />, [
-      getItem(translations.home, "/"),
-      getItem(translations.headerText1, "/sobre-nos"),
-      getItem(translations.headerText2, "/manage-videos"),
-      getItem(translations.headerText3, "/politica-de-privacidade"),
-      getItem(translations.headerText4, "/videos"),
-      ...(isAdmin
-        ? [
-            getItem(translations.headerAdmText1, "/"),
-            getItem(translations.headerAdmText2, "/"),
-            getItem(translations.headerAdmText3, "/"),
-          ]
-        : []),
-    ]),
+    getItem(
+      "",
+      "hamburger",
+      <MenuOutlined style={{ fontSize: "25px", color: "white" }} />,
+      [
+        getItem(translations.home, "/"),
+        getItem(translations.headerText1, "/sobre-nos"),
+        getItem(translations.headerText4, "/politica-de-privacidade"),
+        getItem(translations.headerText3, "/video"),
+        getItem(translations.headerText2, "/manage-videos"),
+        ...(isAdmin
+          ? [
+              getItem(translations.headerAdmText1, "/"),
+              getItem(translations.headerAdmText2, "/"),
+              getItem(translations.headerAdmText3, "/"),
+            ]
+          : []),
+      ]
+    ),
   ];
 
   function onClick(key) {
