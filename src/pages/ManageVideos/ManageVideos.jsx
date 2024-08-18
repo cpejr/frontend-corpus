@@ -1,14 +1,11 @@
 import { useState } from "react";
-//import { LoadingOutlined } from "@ant-design/icons";
-//import Button from "../../components/common/Button/Button";
 import { FormSubmit } from "../../components";
 import { Container, Title, Section, BackgroundTitle } from "./Styles";
 import { newValidationSchema } from "./utils";
 
-import { TranslateText as translation } from "./translations"; // Mantendo o alias `translation` para consistência
+import { TranslateText as translation } from "./translations";
 
 export default function FormPage() {
-  // Define os campos do formulário
   const [inputs] = useState([
     {
       type: "text",

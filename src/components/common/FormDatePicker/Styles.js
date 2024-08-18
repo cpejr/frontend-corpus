@@ -51,50 +51,19 @@ export const StyledDatePicker = styled(DatePicker)`
   }
 
   .react-datepicker__day--selected {
-    background-color: #570b87; /* Cor de fundo do dia selecionado */
-    color: black; /* Cor do texto do dia selecionado */
+    background-color: #570b87;
+    color: black;
   }
 
   .react-datepicker {
     width: 100%;
     max-width: 350px;
     z-index: 1000;
-    margin-top: 5px; /* Espaço entre o input e o calendário */
+    margin-top: 5px;
     border-radius: 4px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     background-color: white;
     color: black;
-  }
-
-  .react-datepicker__header {
-    background-color: #570b87;
-    color: black;
-    border-bottom: 1px solid #570b87;
-  }
-
-  .react-datepicker__current-month {
-    color: white;
-    font-weight: bold;
-  }
-
-  .react-datepicker__navigation--previous,
-  .react-datepicker__navigation--next {
-    top: 10px;
-  }
-
-  .react-datepicker__day-name,
-  .react-datepicker__day {
-    margin: 0.2rem;
-    width: 2.5rem;
-    line-height: 2.5rem;
-    text-align: center;
-  }
-
-  .react-datepicker__day {
-    &:hover {
-      background-color: #f4f4f4;
-      border-radius: 50%;
-    }
   }
 `;
 export const ErrorMessage = styled.p`

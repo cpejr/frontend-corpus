@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form as FormContainer, ErrorMessage, InputKeep } from "./Styles";
 import { LoadingOutlined } from "@ant-design/icons";
-import FormInput from "../FormInput/FormInput";
-import Button from "../Button/Button";
-import FormSelect from "../FormSelect/FormSelect";
-import FormDatePicker from "../FormDatePicker/FormDatePicker";
+import FormInput from "../../common/FormInput/FormInput";
+import Button from "../../common/Button/Button";
+import FormSelect from "../../common/FormSelect/FormSelect";
+import FormDatePicker from "../../common/FormDatePicker/FormDatePicker";
+import { newValidationSchema } from "../../../pages/ManageVideos/utils";
 
 export default function FormSubmit({
   inputs,
@@ -39,6 +40,7 @@ export default function FormSubmit({
           return (
             <InputKeep key={input.key}>
               <FormInput
+                schema={newValidationSchema}
                 inputKey={input.key}
                 type={input.type}
                 label={input.label}
@@ -60,6 +62,7 @@ export default function FormSubmit({
           return (
             <InputKeep key={input.key}>
               <FormSelect
+                schema={newValidationSchema}
                 inputKey={input.key}
                 type={input.type}
                 label={input.label}
@@ -82,6 +85,7 @@ export default function FormSubmit({
           return (
             <InputKeep key={input.key}>
               <FormDatePicker
+                schema={newValidationSchema}
                 inputKey={input.key}
                 label={input.label}
                 placeholder={input.placeholder}
