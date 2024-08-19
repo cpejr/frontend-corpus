@@ -27,12 +27,5 @@ export const newValidationSchema = z
       .min(1, { message: "O link não pode estár vazio" }),
 
     select: z.string().nonempty("Não deixe essa opção vazia"),
-
-    date: z
-      .date()
-      .nullable()
-      .refine((date) => date !== null, {
-        message: "Você deve escolher uma data",
-      }),
   })
   .nonstrict();

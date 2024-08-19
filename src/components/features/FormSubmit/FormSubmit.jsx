@@ -95,6 +95,9 @@ export default function FormSubmit({
                 setValue={setValue}
                 defaultValue={input?.defaultValue}
                 isSubmitSuccessful={isSubmitSuccessful}
+                onChange={(date) =>
+                  setValue(input.key, date, { shouldValidate: true })
+                }
                 color={color}
               />
               {errors[input.key]?.message && (
