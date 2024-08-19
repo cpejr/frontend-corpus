@@ -33,9 +33,9 @@ export default function FormPage() {
     },
     {
       type: "select",
-      key: "formacao",
+      key: "select",
       placeholder: "Selecione sua formação",
-      label: "Formação",
+      label: "select",
       options: [
         { value: "medico", name: "Médico" },
         { value: "estudante", name: "Estudante" },
@@ -43,9 +43,9 @@ export default function FormPage() {
     },
     {
       type: "select",
-      key: "area",
+      key: "select",
       placeholder: "Selecione sua área",
-      label: "Área de atuação",
+      label: "select",
       options: [
         { value: "nenhuma", name: "Nenhuma" },
         { value: "medicina", name: "Medicina" },
@@ -53,9 +53,9 @@ export default function FormPage() {
     },
     {
       type: "date",
-      key: "dataNascimento",
+      key: "date",
       placeholder: "Selecione sua data de nascimento",
-      label: "Data de nascimento",
+      label: "date",
     },
   ]);
 

@@ -25,5 +25,14 @@ export const newValidationSchema = z
     link: z
       .string({ required_error: "O link é obrigatório" })
       .min(1, { message: "O link não pode estár vazio" }),
+
+    select: z.string().nonempty("Não deixe essa opção vazia"),
+
+    date: z
+      .date()
+      .nullable()
+      .refine((date) => date !== null, {
+        message: "Você deve escolher uma data",
+      }),
   })
   .nonstrict();
