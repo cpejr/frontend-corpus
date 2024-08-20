@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { colors } from "../../../styles/stylesVariables";
 import { RiAccountCircleLine } from "react-icons/ri";
 
-export const Container = styled.div``;
 export const Button = styled.button`
   background-color: transparent;
   border-radius: 10px;

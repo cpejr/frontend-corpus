@@ -1,6 +1,7 @@
-import { Button, Container, Icon } from "./Style";
+import { Button, Icon } from "./Style";
 import { useGlobalLanguage } from "../../../stores/globalLanguage";
 import { TranslateText } from "./translations";
+import PropTypes from "prop-types";
 
 export default function LoginButton({ logged, onClick }) {
   const { globalLanguage } = useGlobalLanguage();
@@ -13,3 +14,7 @@ export default function LoginButton({ logged, onClick }) {
     </Button>
   );
 }
+LoginButton.propTypes = {
+  logged: PropTypes.bool,
+  onClick: PropTypes.func,
+};
