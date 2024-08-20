@@ -1,5 +1,3 @@
-//Esse código foi copiado do acervo
-
 import { Title, Container, TextLine, BackgroundTitle, Line } from "./Styles";
 
 import { useGlobalLanguage } from "../../stores/globalLanguage";

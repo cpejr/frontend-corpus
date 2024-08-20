@@ -1,4 +1,3 @@
-//Esse código foi copiado do acervo
 import styled from "styled-components";
 import { breakpoints, colors } from "../../styles/stylesVariables";
 import { MultiSelect } from "primereact/multiselect";

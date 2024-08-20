@@ -9,21 +9,11 @@ export const Hamburguer = styled(Menu)`
   background-color: ${colors.background.header};
 
   @media (max-width: ${breakpoints.tablet}) {
-    display: flex;
+    display: block;
   }
 
   @media (max-width: ${breakpoints.mobile}) {
-    display: flex;
-  }
-  .ant-menu-light.ant-menu-submenu-popup > .ant-menu {
-    background-color: gold;
-  }
-  .ant-menu-light > .ant-menu .ant-menu-item-selected {
-    background-color: gold;
-  }
-
-  li.ant-menu-item.ant-menu-item-only-child {
-    color: gold;
+    display: block;
   }
 `;
 

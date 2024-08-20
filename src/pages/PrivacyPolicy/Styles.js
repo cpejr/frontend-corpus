@@ -1,4 +1,3 @@
-//Esse código foi copiado do acervo
 import styled from "styled-components";
 import { breakpoints, colors, fonts } from "../../styles/stylesVariables";
 

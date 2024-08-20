@@ -7,11 +7,9 @@ export default function LoginButton({ logged, onClick }) {
   const translation = TranslateText({ globalLanguage });
 
   return (
-    <Container>
-      <Button onClick={onClick}>
-        {logged ? translation.login2 : translation.login1}
-        <Icon />
-      </Button>
-    </Container>
+    <Button onClick={onClick}>
+      {logged ? translation.login2 : translation.login1}
+      <Icon />
+    </Button>
   );
 }

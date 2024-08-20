@@ -11,8 +11,10 @@ import { logoFooter } from "../../../../assets";
 
 import { useGlobalLanguage } from "../../../../stores/globalLanguage";
 import { TranslateText } from "./translations";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
+  const navigate = useNavigate();
   //translations
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
