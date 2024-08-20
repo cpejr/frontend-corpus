@@ -1,5 +1,13 @@
 //styleVariables
 export const colors = {
+  blue: {
+    background: "#080B10",
+    accent: "transparent",
+    light: "#639dff",
+    accentShadow: "rgba(1, 60, 157, 0.25)",
+    dark: "#232A36",
+    hover: "#1655BC",
+  },
   font: {
     primary: "#F6FFF8",
     secondary: "#FFF",
