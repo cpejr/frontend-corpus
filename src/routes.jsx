@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 import { AppLayout } from "./components";
-import { AboutUs, PrivacyPolicy, Videos } from "./pages";
+import { AboutUs, PrivacyPolicy, Videos, RegisterPage } from "./pages";
 import ManageVideos from "./pages/ManageVideos/ManageVideos";
 import Home from "./pages/Home/Home";
 
@@ -18,6 +18,7 @@ const router = createBrowserRouter(
         <Route path="manage-videos" element={<ManageVideos />} />
         <Route path="politica-de-privacidade" element={<PrivacyPolicy />} />
         <Route path="sobre-nos" element={<AboutUs />} />
+        <Route path="register" element={<RegisterPage/>}/>
       </Route>
     </Route>
   )
