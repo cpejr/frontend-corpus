@@ -61,7 +61,8 @@ export const Form = styled.form`
 export const Section = styled.section`
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 100%;
+  justify-content: space-between;
   height: 100%;
   gap: 2rem;
   margin-bottom: 30px;

@@ -4,9 +4,9 @@ export { default as Link } from "./common/Link/Link.js";
 export { default as FormInput } from "./common/FormInput/FormInput.jsx";
 export { default as SubmitButton } from "./common/SubmitButton/SubmitButton.jsx";
 export { default as UploadInput } from "./common/UploadInput/UploadInput.jsx";
-export { default as FormInputVideos } from "./common/FormInputVideos/FormInputVideos.jsx";
+export { default as FormDatePicker } from "./common/FormDatePicker/FormDatePicker.jsx";
 export { default as FormSiriusInput } from "./common/FormSiriusInput/FormSiriusInput.jsx";
-
+export { default as FormSubmit } from "./common/FormSubmit/FormSubmit.jsx";
 //Features
 export { default as Header } from "./features/layout/Header/Header.jsx";
 export { default as Footer } from "./features/layout/Footer/Footer.jsx";
