@@ -11,10 +11,6 @@ export const Hamburguer = styled(Menu)`
   @media (max-width: ${breakpoints.tablet}) {
     display: block;
   }
-
-  @media (max-width: ${breakpoints.mobile}) {
-    display: block;
-  }
 `;
 
 export const Container = styled.div`
@@ -105,7 +101,6 @@ export const Select = styled.div`
   gap: 0.5rem;
 
   font-weight: 700;
-  align-self: center;
   :hover {
     cursor: pointer;
     text-decoration: underline;
@@ -132,6 +127,7 @@ export const Selected = styled.div`
   flex-direction: row;
   align-items: center;
   min-width: 4.2rem;
+  padding: 1px;
   @media (max-width: ${breakpoints.tablet}) {
     padding-left: 1.4rem;
     svg {
@@ -146,7 +142,7 @@ export const Selected = styled.div`
 export const LanguageSelector = styled.div`
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
   z-index: 200;
   margin-top: 2rem;
   transition: height 1s ease-in-out;
@@ -179,5 +175,8 @@ export const LanguageSelector = styled.div`
         text-decoration-thickness: 0.2rem;
       }
     }
+  }
+  @media (max-width: ${breakpoints.tablet}) {
+    margin-left: 1.25rem;
   }
 `;

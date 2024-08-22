@@ -12,7 +12,7 @@ export function TranslateText({ globalLanguage }) {
   if (globalLanguage === "PT") {
     headerText1 = "Sobre nós";
     headerText2 = "Gerenciar Vídeos";
-    headerText3 = "vídeos";
+    headerText3 = "Vídeos";
     headerText4 = "Políticas de privacidade";
     headerText5 = "texto";
     headerAdmText1 = "texto";
@@ -23,7 +23,7 @@ export function TranslateText({ globalLanguage }) {
   if (globalLanguage === "EN") {
     headerText1 = "About Us";
     headerText2 = "Manage videos";
-    headerText3 = "videos";
+    headerText3 = "Videos";
     headerText4 = "Privacy policies";
     headerText5 = "text";
     headerAdmText1 = "text";
@@ -33,8 +33,8 @@ export function TranslateText({ globalLanguage }) {
   }
   if (globalLanguage === "ES") {
     headerText1 = "Sobre nosotros";
-    headerText2 = "Administrar Videos";
-    headerText3 = "videos";
+    headerText2 = "Administrar Vídeos";
+    headerText3 = "Vídeos";
     headerText4 = "Políticas de privacidad";
     headerText5 = "texto";
     headerAdmText1 = "texto";
