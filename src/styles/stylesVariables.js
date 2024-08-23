@@ -17,7 +17,7 @@ export const colors = {
   background: {
     primary: "#A4C3B2",
     secondary: "#6B9080",
-    hover: "#53190a",
+    hover: "#6B9080",
     menu: "#1C1C1C",
     white: "#FFF",
   },

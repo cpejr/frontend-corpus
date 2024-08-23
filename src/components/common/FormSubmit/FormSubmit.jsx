@@ -15,6 +15,7 @@ export default function FormSubmit({
   color,
   loading,
   requestError,
+  buttonText,
   ...props
 }) {
   const {
@@ -100,8 +101,8 @@ export default function FormSubmit({
         }
         return null;
       })}
-      <Button type="submit" fontSize="1.2em" width="150px !important">
-        {loading ? <LoadingOutlined /> : "Enviar"}
+      <Button type="submit" fontSize="1.2em" width="40% !important">
+        {loading ? <LoadingOutlined /> : buttonText}
       </Button>
     </FormContainer>
   );
@@ -116,4 +117,5 @@ FormSubmit.propTypes = {
   selectedOptionsInitial: PropTypes.object,
   requestError: PropTypes.bool,
   setSelectType: PropTypes.string,
+  buttonText: PropTypes.string,
 };
