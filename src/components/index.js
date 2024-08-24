@@ -4,6 +4,7 @@ export { default as Link } from "./common/Link/Link.js";
 export { default as FormInput } from "./common/FormInput/FormInput.jsx";
 export { default as FormDatePicker } from "./common/FormDatePicker/FormDatePicker.jsx";
 export { default as FormSubmit } from "./features/FormSubmit/FormSubmit.jsx";
+export { default as Calendar } from "./common/Calendar/Calendar.jsx";
 //Features
 export { default as Header } from "./features/layout/Header/Header.jsx";
 export { default as Footer } from "./features/layout/Footer/Footer.jsx";

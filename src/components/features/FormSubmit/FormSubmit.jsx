@@ -6,9 +6,9 @@ import { LoadingOutlined } from "@ant-design/icons";
 import FormInput from "../../common/FormInput/FormInput";
 import Button from "../../common/Button/Button";
 import FormSelect from "../../common/FormSelect/FormSelect";
-import FormDatePicker from "../../common/FormDatePicker/FormDatePicker";
 import { newValidationSchema } from "../../../pages/ManageVideos/utils";
 
+import CalendarFunction from "../../common/Calendar/Calendar";
 export default function FormSubmit({
   inputs,
   onSubmit,
@@ -84,7 +84,7 @@ export default function FormSubmit({
         } else if (input.type === "date") {
           return (
             <InputKeep key={input.key}>
-              <FormDatePicker
+              <CalendarFunction
                 schema={newValidationSchema}
                 inputKey={input.key}
                 label={input.label}
