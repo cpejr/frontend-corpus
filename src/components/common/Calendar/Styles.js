@@ -17,6 +17,7 @@ export const StyledCalendar = styled(Calendar)`
   background-color: aliceblue;
   height: 30px;
   border-radius: 0.4rem;
+
   ::placeholder {
     font-size: 1rem;
     font-weight: bold;
