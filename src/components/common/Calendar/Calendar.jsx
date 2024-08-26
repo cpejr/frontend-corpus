@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Controller } from "react-hook-form";
-import { registerLocale } from "react-datepicker";
-import { ptBR } from "date-fns/locale/pt-BR";
-import { Container, Label, StyledCalendar } from "./Styles";
+import { Container, StyledCalendar } from "./Styles";
 
 export default function CalendarFunction({
   inputKey,
-  label,
-
   control,
   setValue,
   error,
@@ -32,7 +28,6 @@ export default function CalendarFunction({
 
   return (
     <Container>
-      <Label>{label}</Label>
       <Controller
         name={inputKey}
         control={control}
@@ -41,9 +36,9 @@ export default function CalendarFunction({
           <StyledCalendar
             error={error}
             selected={date}
-            placeholderText={placeholder}
-            onChange={handleChange}
-            dateFormat="dd/MM/yyyy"
+            placeholder={placeholder}
+            onChange={(e) => handleChange(e.value)}
+            dateFormat="dd/mm/yy"
             color={color}
             value={date}
           />

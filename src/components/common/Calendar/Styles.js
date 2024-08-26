@@ -11,21 +11,31 @@ export const Container = styled.div`
   height: auto;
 `;
 
-export const Label = styled.label`
-  color: ${colors.background.primary};
-
-  @media (max-width: ${breakpoints.tablet}) {
-    font-size: 1.5rem;
-  }
-  @media (max-width: ${breakpoints.mobile}) {
-    font-size: 1rem;
-  }
-`;
 export const StyledCalendar = styled(Calendar)`
   display: flex;
-  padding: 1%;
-  height: auto;
-  width: 100%;
-  background-color: white;
-  border-radius: 50px;
+  justify-content: center;
+  background-color: aliceblue;
+  height: 30px;
+  border-radius: 0.4rem;
+  ::placeholder {
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+  }
+  .p-inputtext {
+    background-color: white;
+    border-radius: 0.4rem;
+    color: black;
+    border: solid 1px ${colors.font.primary};
+    width: 225px;
+    &:hover {
+      border-color: ${colors.accent.hover};
+    }
+    @media (max-width: ${breakpoints.tablet}) {
+      width: 100%;
+    }
+    @media (max-width: ${breakpoints.smallTablet}) {
+      width: 225px;
+    }
+  }
 `;
