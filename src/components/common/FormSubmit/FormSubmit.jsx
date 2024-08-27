@@ -13,6 +13,7 @@ export default function FormSubmit({
   onSubmit,
   schema,
   color,
+  resetForm,
   loading,
   requestError,
   buttonText,
@@ -30,7 +31,9 @@ export default function FormSubmit({
   });
   function submitHandler(data) {
     onSubmit(data);
-    reset();
+    if(resetForm){
+      reset();
+    }
   }
 
   return (
@@ -114,6 +117,7 @@ FormSubmit.propTypes = {
   schema: PropTypes.object.isRequired,
   color: PropTypes.string,
   loading: PropTypes.bool,
+  resetForm: PropTypes.bool,
   selectedOptionsInitial: PropTypes.object,
   requestError: PropTypes.bool,
   setSelectType: PropTypes.string,
