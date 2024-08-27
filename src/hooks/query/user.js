@@ -3,6 +3,7 @@ import {
   getUsers,
   deleteUser,
   updateUser,
+  createUsers,
   login,
 } from "../../services/endpoints";
 
@@ -33,6 +34,17 @@ export function useUpdateUsers({
 } = {}) {
   return useMutation({
     mutationFn: updateUser,
+    onSuccess,
+    onError,
+  });
+}
+
+export function useCreateUsers({
+  onSuccess = () => {},
+  onError = (err) => console.log(err),
+} = {}) {
+  return useMutation({
+    mutationFn: createUsers,
     onSuccess,
     onError,
   });
