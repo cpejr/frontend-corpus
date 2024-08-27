@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form as FormContainer, ErrorMessage, InputKeep } from "./Styles";
+import { Form as FormContainer, ErrorMessage, InputKeep, CheckSection, Checkbox, CheckText } from "./Styles";
 import { LoadingOutlined } from "@ant-design/icons";
 import FormInput from "../../common/FormInput/FormInput";
 import Button from "../../common/Button/Button";
@@ -14,7 +14,6 @@ export default function FormSubmit({
   onSubmit,
   schema,
   color,
-  resetForm,
   loading,
   requestError,
   buttonText,
@@ -32,9 +31,7 @@ export default function FormSubmit({
   });
   function submitHandler(data) {
     onSubmit(data);
-    if(resetForm){
-      reset();
-    }
+    reset();
   }
 
   return (
@@ -110,6 +107,24 @@ export default function FormSubmit({
               {requestError && <ErrorMessage>Campos inválidos</ErrorMessage>}
             </InputKeep>
           );
+        } else if (input.type === "checkbox") {
+          return (
+            <InputKeep key={input.key}>
+              <CheckSection>
+                <Checkbox type="checkbox"
+                          schema={newValidationSchema}
+                          inputKey={input.key}
+                          label={input.label}
+                          error={errors[input.key] ? true : false || requestError}
+                          defaultValue={input?.value}
+                          register={register}/>
+                <CheckText>{input?.placeholder}</CheckText>
+              </CheckSection>
+              {errors[input.key]?.message && (
+                <ErrorMessage>{errors[input.key]?.message}</ErrorMessage>
+              )}
+            </InputKeep>
+          );
         }
         return null;
       })}
@@ -126,7 +141,6 @@ FormSubmit.propTypes = {
   schema: PropTypes.object.isRequired,
   color: PropTypes.string,
   loading: PropTypes.bool,
-  resetForm: PropTypes.bool,
   selectedOptionsInitial: PropTypes.object,
   requestError: PropTypes.bool,
   setSelectType: PropTypes.string,

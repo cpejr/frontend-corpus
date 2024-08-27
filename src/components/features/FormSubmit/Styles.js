@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { breakpoints } from "../../../styles/stylesVariables";
 
 export const Form = styled.form`
   align-items: center;
@@ -30,6 +31,9 @@ export const ErrorMessage = styled.p`
   margin-top: 10px;
 `;
 export const InputKeep = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   color: black;
 `;
@@ -44,5 +48,29 @@ export const Selects = styled.div`
     flex-direction: column;
     gap: 1rem;
     align-items: center;
+  }
+`;
+
+export const CheckSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 15px;
+`;
+
+export const Checkbox = styled.input`
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  @media (max-width: ${breakpoints.smallMobile}){
+    width: 15px;
+    height: 15px;
+  }
+`;
+
+export const CheckText = styled.p`
+  font-size: 20px;
+  @media (max-width: ${breakpoints.smallMobile}){
+    font-size: 15px;
   }
 `;
