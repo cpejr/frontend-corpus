@@ -55,7 +55,6 @@ export const CheckSection = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 15px;
 `;
 
 export const Checkbox = styled.input`

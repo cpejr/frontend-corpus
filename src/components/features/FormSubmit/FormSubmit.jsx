@@ -116,8 +116,8 @@ export default function FormSubmit({
                           inputKey={input.key}
                           label={input.label}
                           error={errors[input.key] ? true : false || requestError}
-                          defaultValue={input?.value}
-                          register={register}/>
+                          defaultChecked={input?.value}
+                          {...register(input.key)}/>
                 <CheckText>{input?.placeholder}</CheckText>
               </CheckSection>
               {errors[input.key]?.message && (

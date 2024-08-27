@@ -1,6 +1,6 @@
 import { useState } from "react";
-import FormSubmit from "../../components/common/FormSubmit/FormSubmit";
-import { Checkbox, Container, CheckSection, Title, CheckText, DivContainer, TextClick, Text, ErrorText } from "./Styles";
+import FormSubmit from "../../components/features/FormSubmit/FormSubmit";
+import { Container, Title, DivContainer, TextClick, Text } from "./Styles";
 import { validationSchema } from "./utils";
 
 export default function RegisterPage() {
@@ -37,6 +37,12 @@ export default function RegisterPage() {
       placeholder: "Senha",
       label: "password",
     },
+    {
+      type: "checkbox",
+      key: "acceptTerms",
+      placeholder: "Concordo com as politícas de privacidade",
+      label: "acceptTerms",
+    },
   ]);
 
   const [inputsLogin] = useState([
@@ -54,18 +60,9 @@ export default function RegisterPage() {
     },
   ]);
 
-  // Variáveis de controle de cadastro
-  const [acceptTerms, setAcceptTerms] = useState(false);
-  const [errorNotCheck, setErrorNotCheck] = useState(false);
 
   const registerSubmit = (data) => {
-    if(acceptTerms){
-      console.log(data);
-      setAcceptTerms(false);
-      setErrorNotCheck(false);
-    }else{
-      setErrorNotCheck(true);
-    }
+    console.log(data);
   };
 
   return (
@@ -75,12 +72,7 @@ export default function RegisterPage() {
         <FormSubmit resetForm={true} inputs={inputsLogin} buttonText="Fazer Login"></FormSubmit>
         <Text>Esqueceu a senha? Recupere <TextClick>aqui</TextClick></Text>
         <Title>Se não, faça ele agora:</Title>
-        <FormSubmit onSubmit={registerSubmit} schema={validationSchema} loading={false} resetForm={acceptTerms} inputs={inputsRegister} buttonText="Fazer Cadastro"></FormSubmit>
-        <CheckSection>
-          <Checkbox type="checkbox" checked={acceptTerms} onChange={() => setAcceptTerms(!acceptTerms)}></Checkbox>
-          <CheckText>Concordo com as politícas de privacidade</CheckText>
-        </CheckSection>
-        {!!errorNotCheck && <ErrorText>Aceite as politícas de privacidade antes de prosseguir!</ErrorText>}
+        <FormSubmit onSubmit={registerSubmit} schema={validationSchema} loading={false} inputs={inputsRegister} buttonText="Fazer Cadastro"></FormSubmit>
       </DivContainer>
     </Container>
   );

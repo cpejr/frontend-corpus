@@ -24,4 +24,6 @@ export const validationSchema = z
       .string({ required_error: "O telefone é obrigatório" })
       .min(13, { message: "Coloque um número de telefone válido" })
       .max(13, { message: "Coloque um número de telefone válido" }),
+
+    acceptTerms: z.boolean().refine((val) => val === true, { message: "Você deve aceitar os termos e condições" }),
   });

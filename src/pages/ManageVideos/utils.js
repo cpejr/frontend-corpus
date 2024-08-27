@@ -26,7 +26,7 @@ export const newValidationSchema = z
       .string({ required_error: "O link é obrigatório" })
       .min(1, { message: "O link não pode estár vazio" }),
     
-    acceptTerms: z.literal(true, { message: "Você deve aceitar os termos e condições" }),
+    acceptTerms: z.boolean().refine((val) => val === true, { message: "Você deve aceitar os termos e condições" }),
 
     select: z.string().nonempty("Não deixe essa opção vazia"),
   })
