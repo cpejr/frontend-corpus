@@ -1,14 +1,10 @@
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Controller } from "react-hook-form";
-import { useEffect, useState } from "react";
-import { registerLocale } from "react-datepicker";
-import { ptBR } from "date-fns/locale/pt-BR";
-import { Container, Label, StyledDatePicker } from "./Styles";
+import { Container, StyledCalendar } from "./Styles";
 
-export default function FormDatePicker({
+export default function CalendarFunction({
   inputKey,
-  label,
-  icon: Icon,
   control,
   setValue,
   error,
@@ -17,7 +13,6 @@ export default function FormDatePicker({
   isSubmitSuccessful,
   defaultValue,
 }) {
-  registerLocale("ptBR", ptBR);
   const [date, setDate] = useState(defaultValue || null);
 
   const handleChange = (dateChange) => {
@@ -33,34 +28,29 @@ export default function FormDatePicker({
 
   return (
     <Container>
-      <Label>{label}</Label>
-      {Icon && (
-        <Icon style={{ width: "2rem", marginTop: "2px", color: "#570b87" }} />
-      )}
-
       <Controller
         name={inputKey}
         control={control}
         defaultValue={date}
         render={() => (
-          <StyledDatePicker
+          <StyledCalendar
             error={error}
             selected={date}
-            locale="ptBR"
-            placeholderText={placeholder}
-            onChange={handleChange}
-            dateFormat="dd/MM/yyyy"
+            placeholder={placeholder}
+            onChange={(e) => handleChange(e.value)}
+            dateFormat="dd/mm/yy"
             color={color}
+            value={date}
           />
         )}
       />
     </Container>
   );
 }
-FormDatePicker.defaultProps = {
+CalendarFunction.defaultProps = {
   width: "100%",
 };
-FormDatePicker.propTypes = {
+CalendarFunction.propTypes = {
   inputKey: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   error: PropTypes.bool,

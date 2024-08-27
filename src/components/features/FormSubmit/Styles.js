@@ -31,6 +31,7 @@ export const ErrorMessage = styled.p`
 `;
 export const InputKeep = styled.div`
   width: 100%;
+  color: black;
 `;
 export const Selects = styled.div`
   display: flex;

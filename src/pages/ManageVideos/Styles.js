@@ -60,6 +60,7 @@ export const Form = styled.form`
 
 export const Section = styled.section`
   display: flex;
+  align-items: center;
   flex-direction: column;
   width: 100%;
   justify-content: space-between;
@@ -67,7 +68,7 @@ export const Section = styled.section`
   gap: 2rem;
   margin-bottom: 30px;
   ::placeholder {
-    color: ${colors.font.primary};
+    color: black;
     font-weight: 400;
   }
 
@@ -119,7 +120,7 @@ export const MultipleSelect = styled(MultiSelect)`
 `;
 export const Selects = styled.div`
   display: flex;
-  color: #808080;
+  color: blue;
   flex-direction: row;
   width: 100%;
   gap: 3rem;

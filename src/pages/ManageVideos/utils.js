@@ -25,5 +25,7 @@ export const newValidationSchema = z
     link: z
       .string({ required_error: "O link é obrigatório" })
       .min(1, { message: "O link não pode estár vazio" }),
+
+    select: z.string().nonempty("Não deixe essa opção vazia"),
   })
   .nonstrict();

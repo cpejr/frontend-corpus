@@ -1,44 +1,41 @@
 import { useState } from "react";
-//import { LoadingOutlined } from "@ant-design/icons";
-//import Button from "../../components/common/Button/Button";
 import { FormSubmit } from "../../components";
 import { Container, Title, Section, BackgroundTitle } from "./Styles";
 import { newValidationSchema } from "./utils";
 
-import { TranslateText as translation } from "./translations"; // Mantendo o alias `translation` para consistência
+import { TranslateText as translation } from "./translations";
 
 export default function FormPage() {
-  // Define os campos do formulário
   const [inputs] = useState([
     {
       type: "text",
-      key: "nome",
+      key: "name",
       placeholder: "Digite seu nome",
-      label: "Nome",
+      label: "name",
     },
     {
       type: "text",
-      key: "descricaoCurta",
+      key: "shortDescription",
       placeholder: "Descreva brevemente aqui",
-      label: "Descrição curta",
+      label: "shortDescription",
     },
     {
       type: "text",
-      key: "descricaoLonga",
+      key: "longDescription",
       placeholder: "Descreva como quiser aqui",
-      label: "Descrição longa",
+      label: "longDescription",
     },
     {
       type: "text",
       key: "link",
       placeholder: "Cole aqui seu link",
-      label: "Link",
+      label: "link",
     },
     {
       type: "select",
-      key: "formacao",
+      key: "select",
       placeholder: "Selecione sua formação",
-      label: "Formação",
+      label: "select",
       options: [
         { value: "medico", name: "Médico" },
         { value: "estudante", name: "Estudante" },
@@ -46,9 +43,9 @@ export default function FormPage() {
     },
     {
       type: "select",
-      key: "area",
+      key: "select",
       placeholder: "Selecione sua área",
-      label: "Área de atuação",
+      label: "select",
       options: [
         { value: "nenhuma", name: "Nenhuma" },
         { value: "medicina", name: "Medicina" },
@@ -56,9 +53,9 @@ export default function FormPage() {
     },
     {
       type: "date",
-      key: "dataNascimento",
+      key: "date",
       placeholder: "Selecione sua data de nascimento",
-      label: "Data de nascimento",
+      label: "date",
     },
   ]);
 

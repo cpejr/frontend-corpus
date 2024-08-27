@@ -3,11 +3,12 @@ import PropTypes from "prop-types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form as FormContainer, ErrorMessage, InputKeep } from "./Styles";
 import { LoadingOutlined } from "@ant-design/icons";
-import FormInput from "../FormInput/FormInput";
-import Button from "../Button/Button";
-import FormSelect from "../FormSelect/FormSelect";
-import FormDatePicker from "../FormDatePicker/FormDatePicker";
+import FormInput from "../../common/FormInput/FormInput";
+import Button from "../../common/Button/Button";
+import FormSelect from "../../common/FormSelect/FormSelect";
+import { newValidationSchema } from "../../../pages/ManageVideos/utils";
 
+import CalendarFunction from "../../common/Calendar/Calendar";
 export default function FormSubmit({
   inputs,
   onSubmit,
@@ -43,10 +44,12 @@ export default function FormSubmit({
           return (
             <InputKeep key={input.key}>
               <FormInput
+                schema={newValidationSchema}
                 inputKey={input.key}
                 type={input.type}
                 label={input.label}
                 placeholder={input.placeholder}
+                placeholdercolor="black"
                 icon={input.icon}
                 error={errors[input.key] ? true : false || requestError}
                 defaultValue={input.value}
@@ -63,6 +66,7 @@ export default function FormSubmit({
           return (
             <InputKeep key={input.key}>
               <FormSelect
+                schema={newValidationSchema}
                 inputKey={input.key}
                 type={input.type}
                 label={input.label}
@@ -84,7 +88,8 @@ export default function FormSubmit({
         } else if (input.type === "date") {
           return (
             <InputKeep key={input.key}>
-              <FormDatePicker
+              <CalendarFunction
+                schema={newValidationSchema}
                 inputKey={input.key}
                 label={input.label}
                 placeholder={input.placeholder}
@@ -94,6 +99,10 @@ export default function FormSubmit({
                 setValue={setValue}
                 defaultValue={input?.defaultValue}
                 isSubmitSuccessful={isSubmitSuccessful}
+                onChange={(date) =>
+                  setValue(input.key, date, { shouldValidate: true })
+                }
+                color={color}
               />
               {errors[input.key]?.message && (
                 <ErrorMessage>{errors[input.key]?.message}</ErrorMessage>
