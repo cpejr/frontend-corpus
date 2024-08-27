@@ -1,9 +1,11 @@
 import { useState } from "react";
 import FormSubmit from "../../components/common/FormSubmit/FormSubmit";
-import { Checkbox, Container, CheckSection, Title, CheckText, DivContainer } from "./Styles";
+import { Checkbox, Container, CheckSection, Title, CheckText, DivContainer, TextClick, Text, ErrorText } from "./Styles";
+import { validationSchema } from "./utils";
 
 export default function RegisterPage() {
 
+  // Array com inputs dos formulários de login e cadastro
   const [inputsRegister] = useState([
     {
       type: "text",
@@ -52,17 +54,33 @@ export default function RegisterPage() {
     },
   ]);
 
+  // Variáveis de controle de cadastro
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [errorNotCheck, setErrorNotCheck] = useState(false);
+
+  const registerSubmit = (data) => {
+    if(acceptTerms){
+      console.log(data);
+      setAcceptTerms(false);
+      setErrorNotCheck(false);
+    }else{
+      setErrorNotCheck(true);
+    }
+  };
+
   return (
     <Container>
       <DivContainer>
         <Title>Já possui cadastro? Se sim, faça seu login:</Title>
-        <FormSubmit inputs={inputsLogin} buttonText="Fazer Login"></FormSubmit>
+        <FormSubmit resetForm={true} inputs={inputsLogin} buttonText="Fazer Login"></FormSubmit>
+        <Text>Esqueceu a senha? Recupere <TextClick>aqui</TextClick></Text>
         <Title>Se não, faça ele agora:</Title>
-        <FormSubmit inputs={inputsRegister} buttonText="Fazer Cadastro"></FormSubmit>
+        <FormSubmit onSubmit={registerSubmit} schema={validationSchema} loading={false} resetForm={acceptTerms} inputs={inputsRegister} buttonText="Fazer Cadastro"></FormSubmit>
         <CheckSection>
-          <Checkbox type="checkbox"></Checkbox>
+          <Checkbox type="checkbox" checked={acceptTerms} onChange={() => setAcceptTerms(!acceptTerms)}></Checkbox>
           <CheckText>Concordo com as politícas de privacidade</CheckText>
         </CheckSection>
+        {!!errorNotCheck && <ErrorText>Aceite as politícas de privacidade antes de prosseguir!</ErrorText>}
       </DivContainer>
     </Container>
   );
