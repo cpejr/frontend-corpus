@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
-import { Container, IconContainer, StyledInput } from "./Styles";
+import { Container, IconContainer, StyledSelect } from "./Styles";
+import { useEffect, useState } from "react";
 
-export default function FormInput({
+export default function FormSelect({
   inputKey,
   placeholder,
   error,
@@ -9,39 +10,63 @@ export default function FormInput({
   defaultValue,
   type,
   icon: Icon,
+  isSubmitSuccessful,
+  setSelectType,
+  options,
   color,
   width,
   placeholdercolor,
   ...props
 }) {
+  const [selectedValue, setSelectedValue] = useState(defaultValue || "");
+
+  useEffect(() => {
+    if (isSubmitSuccessful) setSelectedValue("");
+  }, [isSubmitSuccessful]);
+
   return (
     <Container>
       <IconContainer>
         {Icon && (
           <Icon style={{ width: "2rem", height: "3.5rem", color: color }} />
         )}
-        <StyledInput
+        <StyledSelect
           id={inputKey}
           inputKey={inputKey}
           type={type}
           autoComplete="off"
           {...(register && { ...register(inputKey) })}
+          onChange={(e) => {
+            setSelectedValue(e.target.value);
+            setSelectType &&
+              inputKey === "tipo" &&
+              setSelectType(e.target.value);
+          }}
           placeholder={placeholder}
           defaultValue={defaultValue}
           error={error}
           color={color}
           placeholdercolor={placeholdercolor}
           width={width}
+          value={selectedValue}
           {...props}
-        />
+        >
+          {" "}
+          <option value="" disabled defaultValue={""}>
+            {placeholder}
+          </option>
+          {options?.map((option) => (
+            <option key={option.name}>{option.name}</option>
+          ))}
+        </StyledSelect>
       </IconContainer>
     </Container>
   );
 }
-FormInput.defaultProps = {
+FormSelect.defaultProps = {
   width: "70%",
 };
-FormInput.propTypes = {
+FormSelect.propTypes = {
   inputKey: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   register: PropTypes.func.isRequired,
@@ -50,6 +75,9 @@ FormInput.propTypes = {
   width: PropTypes.string,
   type: PropTypes.string,
   color: PropTypes.string,
+  options: PropTypes.array,
   icon: PropTypes.elementType,
   placeholdercolor: PropTypes.string,
+  setSelectType: PropTypes.func,
+  isSubmitSuccessful: PropTypes.bool,
 };

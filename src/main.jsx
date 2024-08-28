@@ -6,6 +6,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { PrimeReactProvider } from "primereact/api";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { LanguageProvider } from "./stores/globalLanguage";
+import { PrimereactStyles } from "./styles/PrimereactStyles.js";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,6 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <QueryClientProvider client={queryClient}>
       <PrimeReactProvider></PrimeReactProvider>
       <GlobalStyles />
+      <PrimereactStyles />
       <LanguageProvider>
         <AppProvider />
       </LanguageProvider>
