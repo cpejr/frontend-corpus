@@ -1,10 +1,16 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Hamburguer, MenuHamburguer } from "../Header/Styles";
+import { Hamburguer } from "../Header/Styles";
 import useAuthStore from "../../../../stores/auth";
 import { TranslateText } from "./translations";
 import { useGlobalLanguage } from "../../../../stores/globalLanguage";
+import { MenuOutlined } from "@ant-design/icons";
+import { breakpoints } from "../../../../styles/stylesVariables"; // Certifique-se de importar corretamente
 
 export default function HamburguerMenu() {
+  const [isMobile, setIsMobile] = useState(
+    window.innerWidth < parseInt(breakpoints.tablet)
+  );
   const isAdmin = useAuthStore((state) => state?.auth?.user?.type);
   const navigate = useNavigate();
   function getItem(label, key, icon, children, type, style) {
@@ -20,17 +26,17 @@ export default function HamburguerMenu() {
   const { globalLanguage } = useGlobalLanguage();
   const translations = TranslateText({ globalLanguage });
 
-  const menuItems = [
+  const items = [
     getItem(
       "",
       "hamburger",
-      <MenuHamburguer style={{ color: "orange", fontSize: "25px" }} />,
+      <MenuOutlined style={{ fontSize: "25px", color: "white" }} />,
       [
+        getItem(translations.home, "/"),
         getItem(translations.headerText1, "/sobre-nos"),
+        getItem(translations.headerText4, "/politica-de-privacidade"),
+        getItem(translations.headerText3, "/video"),
         getItem(translations.headerText2, "/manage-videos"),
-        getItem(translations.headerText3, "/"),
-        getItem(translations.headerText4, "/"),
-        getItem(translations.headerText5, "/"),
         ...(isAdmin
           ? [
               getItem(translations.headerAdmText1, "/"),
@@ -47,12 +53,27 @@ export default function HamburguerMenu() {
       navigate(key);
     }
   }
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < parseInt(breakpoints.tablet));
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  if (!isMobile) return null;
   return (
     <Hamburguer
       onClick={(e) => onClick(e.key)}
       mode="horizontal"
-      items={menuItems}
+      items={items}
       triggerSubMenuAction="click"
-    ></Hamburguer>
+    />
   );
 }

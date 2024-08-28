@@ -1,4 +1,3 @@
-//Esse código foi copiado do acervo
 import { useMediaQuery } from "react-responsive";
 import {
   Title,

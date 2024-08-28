@@ -1,13 +1,13 @@
 import {
   Container,
-  City,
+  LogoHeader,
   Header,
   Select,
   Selected,
   LanguageSelector,
 } from "./Styles";
-import { image } from "../../../../assets";
-import { useNavigate } from "react-router-dom";
+import { logo } from "../../../../assets";
+import { useLocation, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthStore from "../../../../stores/auth";
 import HamburguerMenu from "./HambuguerMenu";
@@ -17,9 +17,16 @@ import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { flagEN, flagES, flagPT } from "../../../../assets";
 import { TranslateText } from "./translations";
+import LoginButton from "../../../common/LoginButton/Loginbutton";
 
 export default function Head() {
   const [collapse, setCollapse] = useState(false);
+  const [logged, setLogged] = useState(false);
+
+  //Alterar aqui quando for fazer o sistema de login
+  const handleLogin = () => {
+    setLogged((e) => !e);
+  };
 
   const { globalLanguage, setGlobalLanguage } = useGlobalLanguage();
   const availableLanguages = [
@@ -30,6 +37,7 @@ export default function Head() {
 
   const isAdmin = useAuthStore((state) => state?.auth?.user?.type);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const translations = TranslateText({ globalLanguage });
 
@@ -39,21 +47,18 @@ export default function Head() {
       url: "/sobre-nos",
     },
     {
-      label: translations.headerText2,
-      url: "/manage-videos",
-    },
-    {
       label: translations.headerText3,
       url: "/video",
     },
     {
       label: translations.headerText4,
-      url: "/",
+      url: "/politica-de-privacidade",
     },
     {
-      label: translations.headerText5,
-      url: "/",
+      label: translations.headerText2,
+      url: "/manage-videos",
     },
+
     ...(isAdmin
       ? [
           {
@@ -79,9 +84,10 @@ export default function Head() {
 
   return (
     <Container>
-      <City src={image} onClick={() => navigate("/")}></City>
+      {location.pathname !== "/" ? (
+        <LogoHeader src={logo} onClick={() => navigate("/")}></LogoHeader>
+      ) : null}
       <Header model={items} />
-      <HamburguerMenu />
       <Select>
         <Selected onClick={() => setCollapse((prev) => !prev)}>
           <img
@@ -114,6 +120,8 @@ export default function Head() {
           ))}
         </LanguageSelector>
       </Select>
+      <LoginButton logged={logged} onClick={handleLogin} />
+      <HamburguerMenu />
     </Container>
   );
 }

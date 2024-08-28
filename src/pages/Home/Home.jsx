@@ -1,8 +1,27 @@
-import { Container, Overlay, Section, Title, Column } from "./Styles";
+import {
+  Container,
+  Overlay,
+  Section,
+  Title,
+  Column,
+  ContainerLogo,
+  TitleLogo,
+  SubTitleLogo,
+  ContainerText,
+  Image,
+  ImageMobile,
+  ImageLogo,
+} from "./Styles";
+
+import {
+  logo,
+  aboutUsHome,
+  videosHome,
+  privacyPoliciesHome,
+} from "../../assets/index";
 
 import { Button1 } from "./Styles";
 
-import Sponsors from "./Sponsors";
 import { useNavigate } from "react-router-dom";
 
 import { useGlobalLanguage } from "../../stores/globalLanguage";
@@ -17,24 +36,35 @@ export default function Home() {
 
   return (
     <Container>
-      <Overlay></Overlay>
-      <Sponsors />
+      <Overlay>
+        <ContainerLogo>
+          <ImageLogo src={logo} />
+          <ContainerText>
+            <TitleLogo>{translation.titleLogo}</TitleLogo>
+            <SubTitleLogo>{translation.subtitleLogo}</SubTitleLogo>
+          </ContainerText>
+        </ContainerLogo>
+      </Overlay>
       <Section>
-        <Column>
-          <Title>{translation.title1}</Title>
-          <p>{translation.paragraph1}</p>
-
-          <Button1 onClick={() => navigate("/")}>
-            {translation.textButton1}
-          </Button1>
-        </Column>
+        <>
+          <Column>
+            <Title>{translation.title1}</Title>
+            <p>{translation.paragraph1}</p>
+            <ImageMobile src={aboutUsHome} />
+            <Button1 onClick={() => navigate("/")}>
+              {translation.textButton1}
+            </Button1>
+          </Column>
+        </>
+        <Image src={aboutUsHome} />
       </Section>
 
       <Section>
+        <Image src={videosHome} />
         <Column>
           <Title>{translation.title2}</Title>
           <p>{translation.paragraph2}</p>
-
+          <ImageMobile src={videosHome} />
           <Button1 onClick={() => navigate("/")}>
             {translation.textButton2}
           </Button1>
@@ -45,11 +75,12 @@ export default function Home() {
         <Column>
           <Title>{translation.title3}</Title>
           <p>{translation.paragraph3}</p>
-
+          <ImageMobile src={privacyPoliciesHome} />
           <Button1 onClick={() => navigate("/")}>
             {translation.textButton3}
           </Button1>
         </Column>
+        <Image src={privacyPoliciesHome} />
       </Section>
     </Container>
   );
