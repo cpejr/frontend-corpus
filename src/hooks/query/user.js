@@ -3,7 +3,7 @@ import {
   getUsers,
   deleteUser,
   updateUser,
-  createUsers,
+  createUser,
   login,
 } from "../../services/endpoints";
 
@@ -44,7 +44,7 @@ export function useCreateUsers({
   onError = (err) => console.log(err),
 } = {}) {
   return useMutation({
-    mutationFn: createUsers,
+    mutationFn: createUser,
     onSuccess,
     onError,
   });

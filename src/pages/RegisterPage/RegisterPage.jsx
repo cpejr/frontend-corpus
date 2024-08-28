@@ -2,6 +2,9 @@ import { useState } from "react";
 import FormSubmit from "../../components/features/FormSubmit/FormSubmit";
 import { Container, Title, DivContainer, TextClick, Text } from "./Styles";
 import { validationSchema } from "./utils";
+import { useCreateUsers } from "../../hooks/query/user";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function RegisterPage() {
 
@@ -60,9 +63,17 @@ export default function RegisterPage() {
     },
   ]);
 
+  const { mutate: createUser, isLoading: registerLoading } = useCreateUsers({
+    onSuccess: () => {
+      toast.success("Usuário cadastrado com sucesso!");
+    },
+    onError: (err) => {
+      toast.error(err.response.data.message);
+    },
+  });
 
   const registerSubmit = (data) => {
-    console.log(data);
+    createUser(data);
   };
 
   return (
@@ -72,7 +83,7 @@ export default function RegisterPage() {
         <FormSubmit resetForm={true} inputs={inputsLogin} buttonText="Fazer Login"></FormSubmit>
         <Text>Esqueceu a senha? Recupere <TextClick>aqui</TextClick></Text>
         <Title>Se não, faça ele agora:</Title>
-        <FormSubmit onSubmit={registerSubmit} schema={validationSchema} loading={false} inputs={inputsRegister} buttonText="Fazer Cadastro"></FormSubmit>
+        <FormSubmit onSubmit={registerSubmit} schema={validationSchema} loading={registerLoading} inputs={inputsRegister} buttonText="Fazer Cadastro"></FormSubmit>
       </DivContainer>
     </Container>
   );

@@ -1,11 +1,34 @@
 import { z } from "zod";
 
+// Regex para validar o formato DD/MM/YYYY
+const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+
+// Função para verificar se a data é válida
+const isValidDate = (dateString) => {
+  const [day, month, year] = dateString.split("/").map(Number);
+  const date = new Date(year, month - 1, day);
+  return (
+    date.getFullYear() === year &&
+    date.getMonth() === month - 1 &&
+    date.getDate() === day
+  );
+};
+
 export const validationSchema = z
   .object({
     name: z
       .string({ required_error: "O nome é obrigatório" })
       .min(2, { message: "O nome deve ter pelo menos 2 caracteres" })
       .max(60, { message: "O nome não pode exceder 60 caracteres" }),
+    
+    birthday: z
+      .string({ required_error: "A data de nascimento é obrigatória" })
+      .refine((value) => dateRegex.test(value), {
+        message: "Selecione uma data de nascimento",
+      })
+      .refine(isValidDate, {
+        message: "Data de nascimento inválida",
+      }),
 
     email: z
       .string({ required_error: "A email é obrigatório" })

@@ -47,7 +47,11 @@ export async function updateUser({ _id, newUserData }) {
 }
 
 export async function createUser(newUser) {
-  const { data } = await api.post(`/user`, newUser);
+  delete newUser.acceptTerms;
+  const newEdittedUser = { ...newUser, "type" : false }
+
+  const { data } = await api.post(`/user`, newEdittedUser);
+  
   return data;
 }
 
