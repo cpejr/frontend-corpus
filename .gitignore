@@ -1,8 +1,5 @@
 .env
-<<<<<<< HEAD
-=======
 
->>>>>>> e48edc5596a80c656bb077c98bb8b878fb228abe
 # Logs
 logs
 *.log
