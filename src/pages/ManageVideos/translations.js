@@ -18,7 +18,7 @@ export function TranslateText({ globalLanguage }) {
     table1 = "coluna";
     table2 = "coluna";
     table3 = "coluna";
-    title1 = "TITULO";
+    title1 = "TÍTULO";
     placeholder1 = "texto";
     placeholder2 = "texto";
     placeholder3 = "texto";
@@ -28,7 +28,7 @@ export function TranslateText({ globalLanguage }) {
     placeholder7 = "texto";
     placeholder8 = "texto";
     button1 = "botão";
-    title2 = "TITULO";
+    title2 = "TÍTULO";
   }
   if (globalLanguage === "EN") {
     table1 = "column";
@@ -50,7 +50,7 @@ export function TranslateText({ globalLanguage }) {
     table1 = "columna";
     table2 = "columna";
     table3 = "columna";
-    title1 = "TITULO";
+    title1 = "TÍTULO";
     placeholder1 = "mensaje de texto";
     placeholder2 = "mensaje de texto";
     placeholder3 = "mensaje de texto";
@@ -60,7 +60,7 @@ export function TranslateText({ globalLanguage }) {
     placeholder7 = "mensaje de texto";
     placeholder8 = "mensaje de texto";
     button1 = "button";
-    title2 = "TITULO";
+    title2 = "TÍTULO";
   }
   return {
     title1,

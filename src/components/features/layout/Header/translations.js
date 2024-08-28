@@ -7,36 +7,40 @@ export function TranslateText({ globalLanguage }) {
   let headerAdmText1;
   let headerAdmText2;
   let headerAdmText3;
+  let home;
 
   if (globalLanguage === "PT") {
     headerText1 = "Sobre nós";
     headerText2 = "Gerenciar Vídeos";
-    headerText3 = "vídeos";
-    headerText4 = "texto";
+    headerText3 = "Vídeos";
+    headerText4 = "Políticas de privacidade";
     headerText5 = "texto";
     headerAdmText1 = "texto";
     headerAdmText2 = "texto";
     headerAdmText3 = "texto";
+    home = "Home";
   }
   if (globalLanguage === "EN") {
     headerText1 = "About Us";
     headerText2 = "Manage videos";
-    headerText3 = "videos";
-    headerText4 = "text";
+    headerText3 = "Videos";
+    headerText4 = "Privacy policies";
     headerText5 = "text";
     headerAdmText1 = "text";
     headerAdmText2 = "text";
     headerAdmText3 = "text";
+    home = "Home";
   }
   if (globalLanguage === "ES") {
     headerText1 = "Sobre nosotros";
-    headerText2 = "Administrar Videos";
-    headerText3 = "videos";
-    headerText4 = "texto";
+    headerText2 = "Administrar Vídeos";
+    headerText3 = "Vídeos";
+    headerText4 = "Políticas de privacidad";
     headerText5 = "texto";
     headerAdmText1 = "texto";
     headerAdmText2 = "texto";
     headerAdmText3 = "texto";
+    home = "Hogar";
   }
   return {
     headerText1,
@@ -47,5 +51,6 @@ export function TranslateText({ globalLanguage }) {
     headerAdmText1,
     headerAdmText2,
     headerAdmText3,
+    home,
   };
 }
