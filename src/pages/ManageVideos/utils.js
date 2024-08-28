@@ -1,7 +1,7 @@
 //Esse código foi copiado do acervo
 import { z } from "zod";
 // Form Validation
-export const newVideosValidationSchema = z
+export const newValidationSchema = z
   .object({
     name: z
       .string({ required_error: "O nome é obrigatório" })
@@ -25,5 +25,7 @@ export const newVideosValidationSchema = z
     link: z
       .string({ required_error: "O link é obrigatório" })
       .min(1, { message: "O link não pode estár vazio" }),
+
+    select: z.string().nonempty("Não deixe essa opção vazia"),
   })
   .nonstrict();
