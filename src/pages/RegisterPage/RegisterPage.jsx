@@ -70,7 +70,7 @@ export default function RegisterPage() {
     },
   ]);
 
-  const { mutate: createUser, isLoading: registerLoading } = useCreateUsers({
+  const { mutate: createUser, isPending: registerLoading } = useCreateUsers({
     onSuccess: () => {
       toast.success("Usuário cadastrado com sucesso!");
     },
@@ -83,7 +83,7 @@ export default function RegisterPage() {
     createUser(data);
   };
 
-  const { mutate: login, isLoading: loginLoading } = useLogin({
+  const { mutate: login, isPending: loginLoading } = useLogin({
     onSuccess: () => {
       toast.success("Login realizado com sucesso!");
 

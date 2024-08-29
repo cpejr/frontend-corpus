@@ -26,7 +26,7 @@ export default function RedefinePassword() {
         },
     ]);
 
-    const { mutate: redefinePassword, isLoading } = useRedefinePassword({
+    const { mutate: redefinePassword, isPending } = useRedefinePassword({
       onSuccess: () => {
         toast.success("Senha alterada com sucesso!");
         navigate('/register');
@@ -48,7 +48,7 @@ export default function RedefinePassword() {
             <DivContainer>
                 <Title>Recuperação de Senha</Title>
                 <Text>Escolha uma nova senha</Text>
-                <FormSubmit onSubmit={onSubmit} loading={isLoading} schema={validationSchema} inputs={inputs} buttonText="Salvar"></FormSubmit>
+                <FormSubmit onSubmit={onSubmit} loading={isPending} schema={validationSchema} inputs={inputs} buttonText="Salvar"></FormSubmit>
             </DivContainer>
         </Container>
     );

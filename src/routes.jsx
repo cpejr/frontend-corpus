@@ -33,7 +33,7 @@ const router = createBrowserRouter(
           <Route path="sobre-nos" element={<AboutUs />} />
         </Route>
         <Route path="register" element={<RegisterPage/>}/>
-        <Route path="redefine-password" element={<RedefinePassword/>}/>
+        <Route path="redefine-password/:token" element={<RedefinePassword/>}/>
       </Route>
     </Route>
   )

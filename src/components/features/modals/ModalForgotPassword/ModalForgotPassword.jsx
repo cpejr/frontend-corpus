@@ -7,6 +7,7 @@ import { useState } from "react";
 import { validationSchema } from "./utils";
 import { useForgotPassword } from "../../../../hooks/query/user";
 import { toast } from "react-toastify";
+import { TailSpin } from 'react-loader-spinner';
 
 export default function ModalForgotPassword({ openModal, closeModal }) {
   
@@ -19,14 +20,14 @@ export default function ModalForgotPassword({ openModal, closeModal }) {
     },
   ]);
 
-  const { mutate: forgotPassword, isLoading } = useForgotPassword({
+  const { mutate: forgotPassword, isPending } = useForgotPassword({
     onSuccess: () => {
       toast.success("E-mail de recuperação enviado com sucesso!");
-      //closeModal();
+      closeModal();
     },
     onError: (err) => {
       toast.error(err.response.data.message);
-      //closeModal();
+      closeModal();
     },
   });
 
@@ -47,7 +48,12 @@ export default function ModalForgotPassword({ openModal, closeModal }) {
       <Container>
         <Title>Confirmação do Email</Title>
         <Text>Digite o e-mail o qual quer recuperar a senha:</Text>
-        <FormSubmit onSubmit={onSubmit} inputs={inputs} schema={validationSchema} loading={isLoading} buttonText="Enviar"/>
+        <FormSubmit onSubmit={onSubmit} inputs={inputs} schema={validationSchema} loading={isPending} buttonText="Enviar"/>
+        {isPending && 
+          (<>
+            <Text>Enviando email...</Text>
+            <TailSpin></TailSpin>
+          </>)}
       </Container>
     </Modal>
   );
