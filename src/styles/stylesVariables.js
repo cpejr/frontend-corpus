@@ -2,23 +2,24 @@
 export const colors = {
   blue: {
     background: "#080B10",
-    accent: "#013C9D",
+    accent: "#6B9080",
     light: "#639dff",
     accentShadow: "rgba(1, 60, 157, 0.25)",
     dark: "#232A36",
     hover: "#1655BC",
   },
   font: {
-    primary: "#FFF",
-    secondary: "#000",
-    title: "#EEDAC5",
+    primary: "#F6FFF8",
+    secondary: "#FFF",
+    title: "#F6FFF8",
     line: "#FFD599",
   },
   background: {
     primary: "#A4C3B2",
     secondary: "#6B9080",
-    hover: "#6B9080",
-    menu: "#1C1C1C",
+    header: "#6B9080",
+    hover: "#53190a",
+    menu: "cyan",
     white: "#FFF",
   },
   modals: {
@@ -37,10 +38,7 @@ export const colors = {
     cardBackground: "#111720",
     veryLight: "#d9d9d9",
   },
-  white: "#FFF",
-  black: "#000",
-  transparent: "rgba(0, 0, 0, 0)",
-  shadow: "rgba(0, 0, 0, 0.25)",
+  white: "#6B9080",
 };
 
 export const fonts = {
