@@ -4,7 +4,8 @@ import {
   deleteUser,
   updateUser,
   createUser,
-  login,
+  forgotPassword,
+  redefinePassword,
 } from "../../services/endpoints";
 
 export function useGetUsers({
@@ -50,13 +51,24 @@ export function useCreateUsers({
   });
 }
 
-export function useLogin({
+export function useForgotPassword({
   onSuccess = () => {},
   onError = (err) => console.error(err),
 } = {}) {
   return useMutation({
-    mutationFn: login,
+    mutationFn: forgotPassword,
     onError,
     onSuccess,
+  });
+}
+
+export function useRedefinePassword({
+  onSuccess = () => {},
+  onError = (err) => console.log(err),
+} = {}) {
+  return useMutation({
+    mutationFn: redefinePassword,
+    onSuccess,
+    onError,
   });
 }

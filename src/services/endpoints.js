@@ -55,10 +55,40 @@ export async function createUser(newUser) {
   return data;
 }
 
+export async function forgotPassword(email) {
+  const { data } = await api.post(`/user/forgot-password`, email );
+
+  return data;
+}
+
+export const redefinePassword = async ({ token, newPassword }) => {
+  const { data } = await api.put(`/user/forgot-password/${token}`, { newPassword });
+
+  return data;
+};
+
+// User sessions
 export const login = async (credentials) => {
-  const { setAuth, setUser } = useAuthStore.getState();
-  const { data } = await api.post("/user", credentials);
-  setAuth(data.token);
-  setUser(data.user);
+  const { setAuth } = useAuthStore.getState();
+  //const { setAuth, setUser } = useAuthStore.getState();
+  const { data } = await api.post('/login', credentials);
+
+  setAuth(data.accessToken);
+  //setUser(data.user);
+  return data;
+};
+
+export const logout = async () => {
+  const { clearAuth } = useAuthStore.getState();
+  await api.post('/logout');
+
+  clearAuth();
+};
+
+export async function refresh() {
+  const { setAuth } = useAuthStore.getState();
+  const { data } = await api.get('/refresh');
+
+  setAuth(data.accessToken);
   return data;
 }
