@@ -8,6 +8,7 @@ import { AppLayout } from "./components";
 import { AboutUs, PrivacyPolicy, Videos, RegisterPage } from "./pages";
 import ManageVideos from "./pages/ManageVideos/ManageVideos";
 import Home from "./pages/Home/Home";
+import RedefinePassword from "./pages/RedefinePassword/RedefinePassword";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
         <Route path="politica-de-privacidade" element={<PrivacyPolicy />} />
         <Route path="sobre-nos" element={<AboutUs />} />
         <Route path="register" element={<RegisterPage/>}/>
+        <Route path="redefine-password" element={<RedefinePassword/>}/>
       </Route>
     </Route>
   )
