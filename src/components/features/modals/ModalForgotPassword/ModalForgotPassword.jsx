@@ -22,10 +22,11 @@ export default function ModalForgotPassword({ openModal, closeModal }) {
   const { mutate: forgotPassword, isLoading } = useForgotPassword({
     onSuccess: () => {
       toast.success("E-mail de recuperação enviado com sucesso!");
-      closeModal();
+      //closeModal();
     },
     onError: (err) => {
       toast.error(err.response.data.message);
+      //closeModal();
     },
   });
 

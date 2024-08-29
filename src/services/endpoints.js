@@ -70,25 +70,27 @@ export const redefinePassword = async ({ token, newPassword }) => {
 // User sessions
 export const login = async (credentials) => {
   const { setAuth } = useAuthStore.getState();
-  //const { setAuth, setUser } = useAuthStore.getState();
   const { data } = await api.post('/login', credentials);
 
   setAuth(data.accessToken);
-  //setUser(data.user);
+  
   return data;
 };
 
 export const logout = async () => {
   const { clearAuth } = useAuthStore.getState();
-  await api.post('/logout');
+  const { data } = await api.post('/logout');
 
   clearAuth();
+
+  return data;
 };
 
 export async function refresh() {
   const { setAuth } = useAuthStore.getState();
   const { data } = await api.get('/refresh');
-
+  
   setAuth(data.accessToken);
+ 
   return data;
 }

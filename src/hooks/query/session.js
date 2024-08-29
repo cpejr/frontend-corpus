@@ -28,8 +28,7 @@ export function useLogin({
     const expireIn = useAuthStore((state) => state.auth?.expireIn);
     const clearAuth = useAuthStore((state) => state.clearAuth);
   
-    const onError = (err) => {
-      console.error(err);
+    const onError = () => {
       clearAuth();
     };
   
