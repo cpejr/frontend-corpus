@@ -14,7 +14,7 @@ const isValidDate = (dateString) => {
   );
 };
 
-export const validationSchema = z
+  export const validationSchemaRegister = z
   .object({
     name: z
       .string({ required_error: "O nome é obrigatório" })
@@ -32,6 +32,7 @@ export const validationSchema = z
 
     email: z
       .string({ required_error: "A email é obrigatório" })
+      .min(1, "Insira um e-mail!")
       .email("O email deve ser válido!"),
 
     password: z
@@ -49,4 +50,16 @@ export const validationSchema = z
       .max(13, { message: "Coloque um número de telefone válido" }),
 
     acceptTerms: z.boolean().refine((val) => val === true, { message: "Você deve aceitar os termos e condições" }),
+  });
+
+  export const validationSchemaLogin = z
+  .object({
+    email: z
+      .string({ required_error: "Insira um e-mail!" })
+      .min(1, {message: "Preencha o campo e-mail!"})
+      .email("Insira um email válido!"),
+
+    password: z
+      .string({ required_error: "Insira uma senha!" })
+      .min(1, {message: "Preencha o campo senha!"}),
   });

@@ -1,12 +1,19 @@
 import { useState } from "react";
 import FormSubmit from "../../components/features/FormSubmit/FormSubmit";
 import { Container, Title, DivContainer, TextClick, Text } from "./Styles";
-import { validationSchema } from "./utils";
+import { validationSchemaLogin, validationSchemaRegister } from "./utils";
 import { useCreateUsers } from "../../hooks/query/user";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ModalForgotPassword from "../../components/features/modals/ModalForgotPassword/ModalForgotPassword";
+import { useNavigate } from 'react-router-dom';
+import { useLogin } from "../../hooks/query/session";
 
 export default function RegisterPage() {
+
+  const [showModal, setShowModal] = useState(false);
+
+  const navigate = useNavigate();
 
   // Array com inputs dos formulários de login e cadastro
   const [inputsRegister] = useState([
@@ -76,15 +83,32 @@ export default function RegisterPage() {
     createUser(data);
   };
 
+  const { mutate: login, isLoading: loginLoading } = useLogin({
+    onSuccess: () => {
+      toast.success("Login realizado com sucesso!");
+
+      navigate("/");
+    },
+    onError: (err) => {
+      console.log(err)
+      toast.error(err.response.data.message);
+    },
+  });
+
+  const loginSubmit = (data) => {
+    login(data);
+  };
+
   return (
     <Container>
       <DivContainer>
         <Title>Já possui cadastro? Se sim, faça seu login:</Title>
-        <FormSubmit resetForm={true} inputs={inputsLogin} buttonText="Fazer Login"></FormSubmit>
-        <Text>Esqueceu a senha? Recupere <TextClick>aqui</TextClick></Text>
+        <FormSubmit onSubmit={loginSubmit} schema={validationSchemaLogin} loading={loginLoading} inputs={inputsLogin} buttonText="Fazer Login"></FormSubmit>
+        <Text>Esqueceu a senha? Recupere <TextClick onClick={() => setShowModal(true)}>aqui</TextClick></Text>
         <Title>Se não, faça ele agora:</Title>
-        <FormSubmit onSubmit={registerSubmit} schema={validationSchema} loading={registerLoading} inputs={inputsRegister} buttonText="Fazer Cadastro"></FormSubmit>
+        <FormSubmit onSubmit={registerSubmit} schema={validationSchemaRegister} loading={registerLoading} inputs={inputsRegister} buttonText="Fazer Cadastro"></FormSubmit>
       </DivContainer>
+      <ModalForgotPassword openModal={showModal} closeModal={() => setShowModal(false)}/>
     </Container>
   );
 }
