@@ -16,13 +16,13 @@ const isValidDate = (dateString) => {
   );
 };
 
-// Translations
-// eslint-disable-next-line react-hooks/rules-of-hooks
-const { globalLanguage } = useGlobalLanguage();
-const translation = TranslateText(globalLanguage);
-
-export const validationSchemaRegister = z
-  .object({
+export const validationSchemaRegister = () => {
+  // Translations
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { globalLanguage } = useGlobalLanguage();
+  const translation = TranslateText(globalLanguage);
+  
+  return z.object({
     name: z
       .string({ required_error: translation.nameStringError })
       .min(2, { message: translation.nameMinError })
@@ -58,9 +58,15 @@ export const validationSchemaRegister = z
 
     acceptTerms: z.boolean().refine((val) => val === true, { message: translation.acceptTermsError }),
   });
+}
 
-export const validationSchemaLogin = z
-  .object({
+export const validationSchemaLogin  = () => {
+  // Translations
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { globalLanguage } = useGlobalLanguage();
+  const translation = TranslateText(globalLanguage);
+  
+  return z.object({
     email: z
       .string({ required_error: translation.emailStringLoginError })
       .min(1, {message: translation.emailMinLoginError})
@@ -70,3 +76,4 @@ export const validationSchemaLogin = z
       .string({ required_error: translation.passwordStringLoginError })
       .min(1, {message: translation.passwordMinLoginError}),
   });
+}
