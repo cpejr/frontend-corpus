@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { useGlobalLanguage } from "../../stores/globalLanguage";
+import { TranslateText } from "./translations";
 
 // Regex para validar o formato DD/MM/YYYY
 const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
@@ -14,52 +16,57 @@ const isValidDate = (dateString) => {
   );
 };
 
-  export const validationSchemaRegister = z
+// Translations
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const { globalLanguage } = useGlobalLanguage();
+const translation = TranslateText(globalLanguage);
+
+export const validationSchemaRegister = z
   .object({
     name: z
-      .string({ required_error: "O nome é obrigatório" })
-      .min(2, { message: "O nome deve ter pelo menos 2 caracteres" })
-      .max(60, { message: "O nome não pode exceder 60 caracteres" }),
+      .string({ required_error: translation.nameStringError })
+      .min(2, { message: translation.nameMinError })
+      .max(60, { message: translation.nameMaxError }),
     
     birthday: z
-      .string({ required_error: "A data de nascimento é obrigatória" })
+      .string({ required_error: translation.birthdayStringError })
       .refine((value) => dateRegex.test(value), {
-        message: "Selecione uma data de nascimento",
+        message: translation.birthdayCorrectDateError,
       })
       .refine(isValidDate, {
-        message: "Data de nascimento inválida",
+        message: translation.birthdayValidDateError,
       }),
 
     email: z
-      .string({ required_error: "A email é obrigatório" })
-      .min(1, "Insira um e-mail!")
-      .email("O email deve ser válido!"),
+      .string({ required_error: translation.emailStringError })
+      .min(1, translation.emailMinError)
+      .email(translation.emailError),
 
     password: z
-      .string({ required_error: "A senha é obrigatória" })
+      .string({ required_error: translation.passwordStringError })
       .min(4, {
-        message: "Senha do usuário precisa ter pelo menos 4 caracteres!",
+        message: translation.passwordMinError,
       })
       .max(16, {
-        message: "Senha do usuário não pode ultrapassar 16 caracteres",
+        message: translation.passwordMaxError,
       }),
 
     phone: z
-      .string({ required_error: "O telefone é obrigatório" })
-      .min(13, { message: "Coloque um número de telefone válido" })
-      .max(13, { message: "Coloque um número de telefone válido" }),
+      .string({ required_error: translation.phoneStringError })
+      .min(13, { message: translation.phoneError })
+      .max(13, { message: translation.phoneError }),
 
-    acceptTerms: z.boolean().refine((val) => val === true, { message: "Você deve aceitar os termos e condições" }),
+    acceptTerms: z.boolean().refine((val) => val === true, { message: translation.acceptTermsError }),
   });
 
-  export const validationSchemaLogin = z
+export const validationSchemaLogin = z
   .object({
     email: z
-      .string({ required_error: "Insira um e-mail!" })
-      .min(1, {message: "Preencha o campo e-mail!"})
-      .email("Insira um email válido!"),
+      .string({ required_error: translation.emailStringLoginError })
+      .min(1, {message: translation.emailMinLoginError})
+      .email(translation.emailLoginError),
 
     password: z
-      .string({ required_error: "Insira uma senha!" })
-      .min(1, {message: "Preencha o campo senha!"}),
+      .string({ required_error: translation.passwordStringLoginError })
+      .min(1, {message: translation.passwordMinLoginError}),
   });
