@@ -8,8 +8,13 @@ import { validationSchema } from "./utils";
 import { useForgotPassword } from "../../../../hooks/query/user";
 import { toast } from "react-toastify";
 import { TailSpin } from 'react-loader-spinner';
+import { useGlobalLanguage } from "../../../../stores/globalLanguage";
+import { TranslateText, TranslateToastError } from "./translations";
 
 export default function ModalForgotPassword({ openModal, closeModal }) {
+  
+  const { globalLanguage } = useGlobalLanguage();
+  const translation = TranslateText(globalLanguage);
   
   const [inputs] = useState([
     {
@@ -22,11 +27,11 @@ export default function ModalForgotPassword({ openModal, closeModal }) {
 
   const { mutate: forgotPassword, isPending } = useForgotPassword({
     onSuccess: () => {
-      toast.success("E-mail de recuperação enviado com sucesso!");
+      toast.success(translation.successToast);
       closeModal();
     },
     onError: (err) => {
-      toast.error(err.response.data.message);
+      toast.error(TranslateToastError(globalLanguage, err.response.status));
       closeModal();
     },
   });
@@ -46,12 +51,12 @@ export default function ModalForgotPassword({ openModal, closeModal }) {
             centered
           >
       <Container>
-        <Title>Confirmação do Email</Title>
-        <Text>Digite o e-mail o qual quer recuperar a senha:</Text>
-        <FormSubmit onSubmit={onSubmit} inputs={inputs} schema={validationSchema} loading={isPending} buttonText="Enviar"/>
+        <Title>{translation.title}</Title>
+        <Text>{translation.text}</Text>
+        <FormSubmit onSubmit={onSubmit} inputs={inputs} schema={validationSchema} loading={isPending} buttonText={translation.button}/>
         {isPending && 
           (<>
-            <Text>Enviando email...</Text>
+            <Text>{translation.loading}</Text>
             <TailSpin></TailSpin>
           </>)}
       </Container>

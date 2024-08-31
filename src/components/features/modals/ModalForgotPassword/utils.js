@@ -1,8 +1,15 @@
 import { z } from 'zod';
+import { useGlobalLanguage } from '../../../../stores/globalLanguage';
+import { TranslateText } from './translations';
+
+// Translations
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const { globalLanguage } = useGlobalLanguage();
+const translation = TranslateText(globalLanguage);
 
 export const validationSchema = z.object({
   email: z
-    .string({ required_error: "A email é obrigatório" })
-    .min(1, 'Favor digitar o email')
-    .email('Insira um email no formato email@email.com'),
+    .string({ required_error: translation.emailStringError })
+    .min(1, translation.emailMinError)
+    .email(translation.emailError),
 });
