@@ -1,38 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormSubmit from "../../components/features/FormSubmit/FormSubmit";
 import { Container, DivContainer, Text, Title } from "./Styles";
 import { validationSchema } from "./utils";
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRedefinePassword } from "../../hooks/query/user";
 import { toast } from "react-toastify";
+import { useGlobalLanguage } from "../../stores/globalLanguage";
+import { TranslateText, TranslateToastError } from "./translations";
 
 export default function RedefinePassword() {
 
     const { token } = useParams();
     const navigate = useNavigate();
 
-    const [inputs] = useState([
+    // Translations
+    const { globalLanguage } = useGlobalLanguage();
+    const translation = TranslateText(globalLanguage);
+
+    const [inputs, setInputs] = useState([]);
+
+    useEffect(() => {
+      setInputs([
         {
           type: "password",
           key: "newPassword",
-          placeholder: "Nova Senha",
+          placeholder: translation.newPassword,
           label: "newPassword",
         },
         {
           type: "password",
           key: "confirmation",
-          placeholder: "Confirmação da Nova Senha",
+          placeholder: translation.confirmationPassword,
           label: "confirmation",
         },
-    ]);
+      ]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [globalLanguage]);
 
     const { mutate: redefinePassword, isPending } = useRedefinePassword({
       onSuccess: () => {
-        toast.success("Senha alterada com sucesso!");
+        toast.success(translation.successToast);
         navigate('/register');
       },
       onError: (err) => {
-        toast.error(err.response.data.message);
+        toast.error(TranslateToastError(globalLanguage, err.response.status));
       },
     });
   
@@ -46,9 +57,9 @@ export default function RedefinePassword() {
     return (
         <Container>
             <DivContainer>
-                <Title>Recuperação de Senha</Title>
-                <Text>Escolha uma nova senha</Text>
-                <FormSubmit onSubmit={onSubmit} loading={isPending} schema={validationSchema} inputs={inputs} buttonText="Salvar"></FormSubmit>
+                <Title>{translation.title}</Title>
+                <Text>{translation.text}</Text>
+                <FormSubmit onSubmit={onSubmit} loading={isPending} schema={validationSchema} inputs={inputs} buttonText={translation.button}></FormSubmit>
             </DivContainer>
         </Container>
     );
