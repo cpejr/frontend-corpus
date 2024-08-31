@@ -39,6 +39,7 @@ export const colors = {
     veryLight: "#d9d9d9",
   },
   white: "#6B9080",
+  black: "#000000",
 };
 
 export const fonts = {

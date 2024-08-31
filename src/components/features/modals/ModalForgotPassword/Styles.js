@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { breakpoints } from '../../../../styles/stylesVariables';
+import { breakpoints, colors } from '../../../../styles/stylesVariables';
 
 export const Container = styled.div`
   display: flex;
@@ -19,11 +19,11 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: black;
+  color: ${colors.black};
   text-align: center;
 `;
 
 export const Text = styled.h3`
-  color: black;
+  color: ${colors.black};
   text-align: center;
 `;
