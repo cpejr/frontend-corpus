@@ -57,12 +57,6 @@ export default function FormPage() {
       placeholder: "Selecione sua data de nascimento",
       label: "date",
     },
-    {
-      type: "checkbox",
-      key: "acceptTerms",
-      placeholder: "Aceito as politícas de privacidade",
-      label: "acceptTerms",
-    },
   ]);
 
   function handleSubmit(data) {
