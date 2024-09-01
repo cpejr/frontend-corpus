@@ -45,9 +45,8 @@ export const StyledCalendar = styled(Calendar)`
 
   ::placeholder {
     font-size: 20px;
-    padding: 0.8rem 1.6rem;
     color: black;
-    @media (max-width: 700px) {
+    @media (max-width: ${breakpoints.mobile}) {
     font-size: 16px;
   }
   }
@@ -58,6 +57,11 @@ export const StyledCalendar = styled(Calendar)`
     border: solid 1px ${colors.font.primary};
     width: 100%;
     height: 100%;
+    font-size: 20px;
+    padding: 0.8rem 1.6rem;
+    @media (max-width: ${breakpoints.mobile}) {
+      font-size: 16px;
+    }
 
     &:hover {
       border-color: ${colors.accent.hover};
