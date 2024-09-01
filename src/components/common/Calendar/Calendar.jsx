@@ -48,7 +48,7 @@ export default function CalendarFunction({
   );
 }
 CalendarFunction.defaultProps = {
-  width: "100%",
+  width: "70%",
 };
 CalendarFunction.propTypes = {
   inputKey: PropTypes.string.isRequired,
