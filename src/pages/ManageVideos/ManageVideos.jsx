@@ -75,6 +75,7 @@ export default function FormPage() {
           onSubmit={handleSubmit}
           schema={newValidationSchema}
           loading={false}
+          buttonText="Enviar"
         />
       </Section>
 

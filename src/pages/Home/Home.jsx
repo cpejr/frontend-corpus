@@ -26,6 +26,8 @@ import { useNavigate } from "react-router-dom";
 
 import { useGlobalLanguage } from "../../stores/globalLanguage";
 import { TranslateText } from "./translations";
+import { useLogout } from "../../hooks/query/session";
+import { toast } from "react-toastify";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -34,8 +36,22 @@ export default function Home() {
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
 
+  const { mutate: logout } = useLogout({
+    onSuccess: () => {
+      toast.success("Logout realizado com sucesso!");
+    },
+    onError: (err) => {
+      toast.error(err.response.data.message);
+    },
+  });
+
+  const execLogout = () => {
+    logout();
+  };
+
   return (
     <Container>
+      <button onClick={execLogout}>LOGOUT</button>
       <Overlay>
         <ContainerLogo>
           <ImageLogo src={logo} />

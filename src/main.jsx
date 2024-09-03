@@ -7,6 +7,7 @@ import { PrimeReactProvider } from "primereact/api";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { LanguageProvider } from "./stores/globalLanguage";
 import { PrimereactStyles } from "./styles/PrimereactStyles.js";
+import { ToastContainer } from "react-toastify";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,5 +29,18 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       </LanguageProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>
+    <ToastContainer
+      position="bottom-right"
+      autoClose={2000}
+      limit={1}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover={false}
+      theme="light"
+    />
   </React.StrictMode>
 );

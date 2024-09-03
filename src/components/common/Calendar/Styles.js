@@ -7,28 +7,62 @@ export const Container = styled.div`
   flex-direction: column;
   font-style: normal;
   font-weight: 500;
-  width: 100%;
+  width: 79%;
   height: auto;
+
+  @media (max-width: ${breakpoints.mobile}){
+    width: 81%;
+  }
+  @media (max-width: ${breakpoints.miniTablet}){
+    width: 83%;
+  }
+  @media (max-width: ${breakpoints.smallMobile}){
+    width: 86%;
+  }
+  @media (max-width: ${breakpoints.mediumMobile}){
+    width: 90%;
+  }
+  @media (max-width: ${breakpoints.smallDevice}){
+    width: 92%;
+  }
+  @media (max-width: ${breakpoints.miniDevice}){
+    width: 95%;
+  }
 `;
 
 export const StyledCalendar = styled(Calendar)`
   display: flex;
   justify-content: center;
-  background-color: aliceblue;
-  height: 30px;
-  border-radius: 0.4rem;
+  align-items: center;
+  background-color: white;
+  height: 50px;
+  border: ${(props) =>
+    props?.error ? "0.1rem red solid" : `0.1rem ${colors.black} solid`};
+
+  &:hover {
+      border-color: ${colors.accent.hover};
+    }
 
   ::placeholder {
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 20px;
     color: black;
+    @media (max-width: ${breakpoints.mobile}) {
+    font-size: 16px;
+  }
   }
   .p-inputtext {
     background-color: white;
-    border-radius: 0.4rem;
     color: black;
+    align-self: center;
     border: solid 1px ${colors.font.primary};
-    width: 225px;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    padding: 0.8rem 1.6rem;
+    @media (max-width: ${breakpoints.mobile}) {
+      font-size: 16px;
+    }
+
     &:hover {
       border-color: ${colors.accent.hover};
     }

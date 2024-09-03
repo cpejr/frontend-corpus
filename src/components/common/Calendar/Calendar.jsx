@@ -13,10 +13,10 @@ export default function CalendarFunction({
   isSubmitSuccessful,
   defaultValue,
 }) {
-  const [date, setDate] = useState(defaultValue || null);
+  const [date, setDate] = useState(defaultValue || '');
 
   const handleChange = (dateChange) => {
-    setValue("data_nascimento", dateChange.toLocaleDateString("pt-BR"), {
+    setValue("birthday", dateChange.toLocaleDateString("pt-BR"), {
       shouldDirty: true,
     });
 
@@ -48,7 +48,7 @@ export default function CalendarFunction({
   );
 }
 CalendarFunction.defaultProps = {
-  width: "100%",
+  width: "70%",
 };
 CalendarFunction.propTypes = {
   inputKey: PropTypes.string.isRequired,

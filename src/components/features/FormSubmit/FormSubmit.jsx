@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form as FormContainer, ErrorMessage, InputKeep } from "./Styles";
+import { Form as FormContainer, ErrorMessage, InputKeep, CheckSection, Checkbox, CheckText } from "./Styles";
 import { LoadingOutlined } from "@ant-design/icons";
 import FormInput from "../../common/FormInput/FormInput";
 import Button from "../../common/Button/Button";
@@ -16,6 +16,7 @@ export default function FormSubmit({
   color,
   loading,
   requestError,
+  buttonText,
   ...props
 }) {
   const {
@@ -106,11 +107,29 @@ export default function FormSubmit({
               {requestError && <ErrorMessage>Campos inválidos</ErrorMessage>}
             </InputKeep>
           );
+        } else if (input.type === "checkbox") {
+          return (
+            <InputKeep key={input.key}>
+              <CheckSection>
+                <Checkbox type="checkbox"
+                          schema={newValidationSchema}
+                          inputKey={input.key}
+                          label={input.label}
+                          error={errors[input.key] ? true : false || requestError}
+                          defaultChecked={input?.value}
+                          {...register(input.key)}/>
+                <CheckText>{input?.placeholder}</CheckText>
+              </CheckSection>
+              {errors[input.key]?.message && (
+                <ErrorMessage>{errors[input.key]?.message}</ErrorMessage>
+              )}
+            </InputKeep>
+          );
         }
         return null;
       })}
-      <Button type="submit" fontSize="1.2em" width="150px !important">
-        {loading ? <LoadingOutlined /> : "Enviar"}
+      <Button type="submit" fontSize="1.2em" width="40% !important">
+        {loading ? <LoadingOutlined /> : buttonText}
       </Button>
     </FormContainer>
   );
@@ -125,4 +144,5 @@ FormSubmit.propTypes = {
   selectedOptionsInitial: PropTypes.object,
   requestError: PropTypes.bool,
   setSelectType: PropTypes.string,
+  buttonText: PropTypes.string,
 };
