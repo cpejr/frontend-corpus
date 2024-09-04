@@ -7,9 +7,14 @@ import {
   Navigate,
 } from "react-router-dom";
 import { AppLayout } from "./components";
-import { AboutUs, PrivacyPolicy, Videos, RegisterPage } from "./pages";
-import ManageVideos from "./pages/ManageVideos/ManageVideos";
-import Home from "./pages/Home/Home";
+import {
+  AboutUs,
+  PrivacyPolicy,
+  Videos,
+  RegisterPage,
+  Home,
+  ManageVideos,
+} from "./pages";
 import RedefinePassword from "./pages/RedefinePassword/RedefinePassword";
 import useAuthStore from "./stores/auth";
 
@@ -18,7 +23,7 @@ function PrivateRoutes() {
 
   if (auth) return <Outlet />;
 
-  return <Navigate to="/register" replace/>
+  return <Navigate to="/register" replace />;
 }
 
 const router = createBrowserRouter(
@@ -32,11 +37,11 @@ const router = createBrowserRouter(
           <Route path="politica-de-privacidade" element={<PrivacyPolicy />} />
           <Route path="sobre-nos" element={<AboutUs />} />
         </Route>
-        <Route path="register" element={<RegisterPage/>}/>
-        <Route path="redefine-password/:token" element={<RedefinePassword/>}/>
+        <Route path="register" element={<RegisterPage />} />
+        <Route path="redefine-password/:token" element={<RedefinePassword />} />
       </Route>
-    </Route>
-  )
+    </Route>,
+  ),
 );
 export default function Routes() {
   return <RouterProvider router={router} />;

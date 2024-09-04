@@ -21,13 +21,13 @@ export const validationSchemaRegister = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText(globalLanguage);
-  
+
   return z.object({
     name: z
       .string({ required_error: translation.nameStringError })
       .min(2, { message: translation.nameMinError })
       .max(60, { message: translation.nameMaxError }),
-    
+
     birthday: z
       .string({ required_error: translation.birthdayStringError })
       .refine((value) => dateRegex.test(value), {
@@ -56,24 +56,26 @@ export const validationSchemaRegister = () => {
       .min(13, { message: translation.phoneError })
       .max(13, { message: translation.phoneError }),
 
-    acceptTerms: z.boolean().refine((val) => val === true, { message: translation.acceptTermsError }),
+    acceptTerms: z
+      .boolean()
+      .refine((val) => val === true, { message: translation.acceptTermsError }),
   });
-}
+};
 
-export const validationSchemaLogin  = () => {
+export const validationSchemaLogin = () => {
   // Translations
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText(globalLanguage);
-  
+
   return z.object({
     email: z
       .string({ required_error: translation.emailStringLoginError })
-      .min(1, {message: translation.emailMinLoginError})
+      .min(1, { message: translation.emailMinLoginError })
       .email(translation.emailLoginError),
 
     password: z
       .string({ required_error: translation.passwordStringLoginError })
-      .min(1, {message: translation.passwordMinLoginError}),
+      .min(1, { message: translation.passwordMinLoginError }),
   });
-}
+};

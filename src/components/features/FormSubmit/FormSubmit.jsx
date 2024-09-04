@@ -1,12 +1,18 @@
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form as FormContainer, ErrorMessage, InputKeep, CheckSection, Checkbox, CheckText } from "./Styles";
+import {
+  Form as FormContainer,
+  ErrorMessage,
+  InputKeep,
+  CheckSection,
+  Checkbox,
+  CheckText,
+} from "./Styles";
 import { LoadingOutlined } from "@ant-design/icons";
 import FormInput from "../../common/FormInput/FormInput";
 import Button from "../../common/Button/Button";
 import FormSelect from "../../common/FormSelect/FormSelect";
-import { newValidationSchema } from "../../../pages/ManageVideos/utils";
 
 import CalendarFunction from "../../common/Calendar/Calendar";
 export default function FormSubmit({
@@ -27,7 +33,7 @@ export default function FormSubmit({
     control,
     setValue,
   } = useForm({
-    resolver: zodResolver(schema),
+    //resolver: zodResolver(schema),
   });
   function submitHandler(data) {
     onSubmit(data);
@@ -41,7 +47,6 @@ export default function FormSubmit({
           return (
             <InputKeep key={input.key}>
               <FormInput
-                schema={newValidationSchema}
                 inputKey={input.key}
                 type={input.type}
                 label={input.label}
@@ -63,7 +68,6 @@ export default function FormSubmit({
           return (
             <InputKeep key={input.key}>
               <FormSelect
-                schema={newValidationSchema}
                 inputKey={input.key}
                 type={input.type}
                 label={input.label}
@@ -86,7 +90,6 @@ export default function FormSubmit({
           return (
             <InputKeep key={input.key}>
               <CalendarFunction
-                schema={newValidationSchema}
                 inputKey={input.key}
                 label={input.label}
                 placeholder={input.placeholder}
@@ -111,13 +114,14 @@ export default function FormSubmit({
           return (
             <InputKeep key={input.key}>
               <CheckSection>
-                <Checkbox type="checkbox"
-                          schema={newValidationSchema}
-                          inputKey={input.key}
-                          label={input.label}
-                          error={errors[input.key] ? true : false || requestError}
-                          defaultChecked={input?.value}
-                          {...register(input.key)}/>
+                <Checkbox
+                  type="checkbox"
+                  inputKey={input.key}
+                  label={input.label}
+                  error={errors[input.key] ? true : false || requestError}
+                  defaultChecked={input?.value}
+                  {...register(input.key)}
+                />
                 <CheckText>{input?.placeholder}</CheckText>
               </CheckSection>
               {errors[input.key]?.message && (
