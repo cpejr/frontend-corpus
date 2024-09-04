@@ -1,31 +1,21 @@
 export function TranslateText({ globalLanguage }) {
-  let textColumn1;
-  let textColumn2;
-  let textColumn3;
   let title1;
+  let placeholderSearch;
 
   if (globalLanguage === "PT") {
-    textColumn1 = "Nome";
-    textColumn2 = "Gerenciar";
-    textColumn3 = "Apagar";
     title1 = "gerenciar usuários";
+    placeholderSearch = "Pesquisar usuário";
   }
   if (globalLanguage === "EN") {
-    textColumn1 = "Name";
-    textColumn2 = "Manage";
-    textColumn3 = "Delete";
     title1 = "manage users";
+    placeholderSearch = "Search user";
   }
   if (globalLanguage === "ES") {
-    textColumn1 = "Nombre";
-    textColumn2 = "Administrar";
-    textColumn3 = "Apagar";
     title1 = "administrar usuarios";
+    placeholderSearch = "Buscar usuario";
   }
   return {
-    textColumn1,
-    textColumn2,
-    textColumn3,
     title1,
+    placeholderSearch,
   };
 }

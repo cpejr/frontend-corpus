@@ -53,7 +53,7 @@ export const Title = styled.div`
   font-family: ${fonts.Exo2};
   font-weight: 600;
   color: ${colors.font.title};
-  font-size: 32px;
+  font-size: 60px;
   margin-left: 3%;
   justify-self: left;
   text-align: left;
@@ -69,4 +69,10 @@ export const Title = styled.div`
     font-size: 4vw;
     margin: 0 auto;
   }
+`;
+
+export const ConteinerTS = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
 `;

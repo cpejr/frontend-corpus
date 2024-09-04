@@ -6,6 +6,7 @@ export const TableShape = styled(DataTable)`
   display: flex;
   flex-direction: column;
   align-self: center;
+  justify-content: center;
   width: 90%;
 
   min-height: 70%;
