@@ -58,6 +58,10 @@ export default function Head() {
       label: translations.headerText2,
       url: "/manage-videos",
     },
+    {
+      label: translations.headerText5,
+      url: "/manage-users",
+    },
 
     ...(isAdmin
       ? [

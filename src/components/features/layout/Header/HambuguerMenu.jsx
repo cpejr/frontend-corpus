@@ -9,7 +9,7 @@ import { breakpoints } from "../../../../styles/stylesVariables"; // Certifique-
 
 export default function HamburguerMenu() {
   const [isMobile, setIsMobile] = useState(
-    window.innerWidth < parseInt(breakpoints.tablet)
+    window.innerWidth < parseInt(breakpoints.tablet),
   );
   const isAdmin = useAuthStore((state) => state?.auth?.user?.type);
   const navigate = useNavigate();
@@ -37,6 +37,7 @@ export default function HamburguerMenu() {
         getItem(translations.headerText4, "/politica-de-privacidade"),
         getItem(translations.headerText3, "/video"),
         getItem(translations.headerText2, "/manage-videos"),
+        getItem(translations.headerText5, "/manage-users"),
         ...(isAdmin
           ? [
               getItem(translations.headerAdmText1, "/"),
@@ -44,7 +45,7 @@ export default function HamburguerMenu() {
               getItem(translations.headerAdmText3, "/"),
             ]
           : []),
-      ]
+      ],
     ),
   ];
 

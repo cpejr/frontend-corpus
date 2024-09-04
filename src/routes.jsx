@@ -14,6 +14,7 @@ import {
   RegisterPage,
   Home,
   ManageVideos,
+  ManageUser,
 } from "./pages";
 import RedefinePassword from "./pages/RedefinePassword/RedefinePassword";
 import useAuthStore from "./stores/auth";
@@ -36,6 +37,7 @@ const router = createBrowserRouter(
           <Route path="manage-videos" element={<ManageVideos />} />
           <Route path="politica-de-privacidade" element={<PrivacyPolicy />} />
           <Route path="sobre-nos" element={<AboutUs />} />
+          <Route path="manage-users" element={<ManageUser />} />
         </Route>
         <Route path="register" element={<RegisterPage />} />
         <Route path="redefine-password/:token" element={<RedefinePassword />} />
