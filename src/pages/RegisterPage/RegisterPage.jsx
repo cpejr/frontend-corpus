@@ -113,10 +113,10 @@ export default function RegisterPage() {
     <Container>
       <DivContainer>
         <Title>{translation.titleLogin}</Title>
-        <FormSubmit onSubmit={loginSubmit} schema={validationSchemaLogin} loading={loginLoading} inputs={inputsLogin} buttonText={translation.buttonLogin}></FormSubmit>
+        <FormSubmit onSubmit={loginSubmit} schema={validationSchemaLogin()} loading={loginLoading} inputs={inputsLogin} buttonText={translation.buttonLogin}></FormSubmit>
         <Text>{translation.forgotPassword} <TextClick onClick={() => setShowModal(true)}>{translation.here}</TextClick></Text>
         <Title>{translation.titleRegister}</Title>
-        <FormSubmit onSubmit={registerSubmit} schema={validationSchemaRegister} loading={registerLoading} inputs={inputsRegister} buttonText={translation.buttonRegister}></FormSubmit>
+        <FormSubmit onSubmit={registerSubmit} schema={validationSchemaRegister()} loading={registerLoading} inputs={inputsRegister} buttonText={translation.buttonRegister}></FormSubmit>
       </DivContainer>
       <ModalForgotPassword openModal={showModal} closeModal={() => setShowModal(false)}/>
     </Container>
