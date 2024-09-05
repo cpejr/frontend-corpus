@@ -1,11 +1,20 @@
-import { useState, useEffect, Component } from "react";
+//react functions
+import { useState, useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
+//styles and components
 import { Title, Container, BackgroundTitle, Line, ConteinerTS } from "./Styles";
 import { Table, SearchBar } from "../../components/index";
 
+//translations
 import { useGlobalLanguage } from "../../stores/globalLanguage";
 import { TranslateText } from "./translations";
+
+//icons
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { LoadingOutlined } from "@ant-design/icons";
+import { FaRegEdit } from "react-icons/fa";
 
 export default function ManageUser() {
   // Translations
@@ -14,9 +23,10 @@ export default function ManageUser() {
 
   // States and Variables
 
-  const [userID, setUserID] = useState("");
+  const [users, setUsers] = useState([]);
+  //const [userID, setUserID] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const queryClient = useQueryClient();
+  //const queryClient = useQueryClient();
 
   // Table Handling
 
@@ -28,28 +38,31 @@ export default function ManageUser() {
 
   //Table user
 
-  const users = [
+  const usersList = [
     {
       name: "otavio",
-      manage: "edt",
-      delete: "del",
+      manage: <FaRegEdit cursor={"pointer"} />,
+      delete: <RiDeleteBin5Line cursor={"pointer"} />,
     },
     {
       name: "lucas",
-      manage: "edt",
-      delete: "del",
+      manage: <FaRegEdit cursor={"pointer"} />,
+      delete: <RiDeleteBin5Line cursor={"pointer"} />,
     },
     {
       name: "pedro",
-      manage: "edt",
-      delete: "del",
+      manage: <FaRegEdit cursor={"pointer"} />,
+      delete: <RiDeleteBin5Line cursor={"pointer"} />,
     },
   ];
   //functions
 
-  function handleSearchChange(e) {
-    setSearchQuery(e.target.value);
-  }
+  const handleSearchChange = (e) => {
+    const value = e.target.value.toLowerCase();
+    setSearchQuery(value);
+  };
+
+  function searchValue() {}
 
   return (
     <Container>
@@ -65,7 +78,7 @@ export default function ManageUser() {
           width="90%"
         />
 
-        <Table columns={columns} data={users} />
+        <Table columns={columns} data={usersList} />
       </ConteinerTS>
     </Container>
   );
