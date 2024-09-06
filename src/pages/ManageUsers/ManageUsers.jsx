@@ -22,6 +22,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 //import { AiOutlineCloseCircle } from "react-icons/ai";
 //import { LoadingOutlined } from "@ant-design/icons";
 import { FaRegEdit } from "react-icons/fa";
+import { useGetUsers } from '../../hooks/query/user';
 
 export default function ManageUser() {
   // Translations
@@ -64,12 +65,37 @@ export default function ManageUser() {
   ];
   //functions
 
+  const { data: allUsers, isLoading } = useGetUsers({
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
+
   const handleSearchChange = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchQuery(value);
+    formatUsersList(allUsers);
+
+    setUsers(formatUsersList(allUsers
+    .filter(obj => obj.name.toLowerCase().includes(value.toLowerCase()))));
   };
 
-  function searchValue() {}
+  const formatUsersList = (users) => {
+    return users.map(user => ({
+      name: user.name,
+      manage: <FaRegEdit cursor={"pointer"} />,
+      delete: <RiDeleteBin5Line cursor={"pointer"} />
+    }));
+  };
+  
+  
+
+  useEffect(() => {
+    setUsers(formatUsersList(allUsers));
+  }, [isLoading]);
+
+ 
 
   return (
     <Container>
@@ -85,7 +111,7 @@ export default function ManageUser() {
           width="90%"
         />
         <ConteinerTable>
-          <Table columns={columns} data={usersList} />
+          <Table columns={columns} data={users} />
         </ConteinerTable>
       </ConteinerTS>
     </Container>
