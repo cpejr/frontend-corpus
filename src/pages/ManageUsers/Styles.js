@@ -76,3 +76,10 @@ export const ConteinerTS = styled.div`
   flex-direction: column;
   margin-top: 1rem;
 `;
+
+export const ConteinerTable = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  align-self: center;
+`;

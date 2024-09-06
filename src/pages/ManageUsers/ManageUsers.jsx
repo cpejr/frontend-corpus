@@ -1,9 +1,16 @@
 //react functions
 import { useState, useEffect } from "react";
-import { useQueryClient } from "@tanstack/react-query";
+//import { useQueryClient } from "@tanstack/react-query";
 
 //styles and components
-import { Title, Container, BackgroundTitle, Line, ConteinerTS } from "./Styles";
+import {
+  Title,
+  Container,
+  BackgroundTitle,
+  Line,
+  ConteinerTS,
+  ConteinerTable,
+} from "./Styles";
 import { Table, SearchBar } from "../../components/index";
 
 //translations
@@ -12,8 +19,8 @@ import { TranslateText } from "./translations";
 
 //icons
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import { LoadingOutlined } from "@ant-design/icons";
+//import { AiOutlineCloseCircle } from "react-icons/ai";
+//import { LoadingOutlined } from "@ant-design/icons";
 import { FaRegEdit } from "react-icons/fa";
 
 export default function ManageUser() {
@@ -77,8 +84,9 @@ export default function ManageUser() {
           search={handleSearchChange}
           width="90%"
         />
-
-        <Table columns={columns} data={usersList} />
+        <ConteinerTable>
+          <Table columns={columns} data={usersList} />
+        </ConteinerTable>
       </ConteinerTS>
     </Container>
   );
