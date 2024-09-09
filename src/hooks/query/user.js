@@ -19,7 +19,7 @@ export function useGetUsers({
     onError,
   });
 }
-export function useDeleteUsers({
+export function useDeleteUser({
   onSuccess = () => {},
   onError = (err) => console.error(err),
 } = {}) {

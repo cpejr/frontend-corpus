@@ -22,7 +22,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 //import { AiOutlineCloseCircle } from "react-icons/ai";
 //import { LoadingOutlined } from "@ant-design/icons";
 import { FaRegEdit } from "react-icons/fa";
-import { useGetUsers } from '../../hooks/query/user';
+import { useDeleteUser, useGetUsers } from '../../hooks/query/user';
 
 export default function ManageUser() {
   // Translations
@@ -65,11 +65,26 @@ export default function ManageUser() {
   ];
   //functions
 
-  const { data: allUsers, isLoading } = useGetUsers({
+  const { data: allUsers, isLoading, refetch } = useGetUsers({
     onError: (err) => {
       console.log(err);
     },
   });
+
+  const {mutate: deleteUser } = useDeleteUser({
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refetch();
+    }, 3000);
+  
+    return () => clearInterval(interval);
+  }, []);
+
 
 
   const handleSearchChange = (e) => {
@@ -85,15 +100,20 @@ export default function ManageUser() {
     return users.map(user => ({
       name: user.name,
       manage: <FaRegEdit cursor={"pointer"} />,
-      delete: <RiDeleteBin5Line cursor={"pointer"} />
+      delete: <RiDeleteBin5Line cursor={"pointer"} onClick={() => {
+          deleteUser(user._id);
+          refetch();
+      }}/>
     }));
   };
   
   
 
   useEffect(() => {
-    setUsers(formatUsersList(allUsers));
-  }, [isLoading]);
+    if(allUsers){
+      setUsers(formatUsersList(allUsers));
+    }
+  }, [isLoading, allUsers]);
 
  
 
