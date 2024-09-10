@@ -59,7 +59,7 @@ export default function RedefinePassword() {
             <DivContainer>
                 <Title>{translation.title}</Title>
                 <Text>{translation.text}</Text>
-                <FormSubmit onSubmit={onSubmit} loading={isPending} schema={validationSchema} inputs={inputs} buttonText={translation.button}></FormSubmit>
+                <FormSubmit onSubmit={onSubmit} loading={isPending} schema={validationSchema()} inputs={inputs} buttonText={translation.button}></FormSubmit>
             </DivContainer>
         </Container>
     );
