@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { breakpoints, colors, fonts } from "../../styles/stylesVariables";
+import { Select } from "antd";
 
 export const Container = styled.div`
   display: flex;
@@ -82,4 +83,32 @@ export const ConteinerTable = styled.div`
   flex-direction: column;
   width: 30%;
   align-self: center;
+`;
+
+export const TypeSelect = styled(Select)`
+  width: 114px;
+  .ant-select-selector {
+    background-color: ${colors.font.primary};
+    color: ${colors.font.primary} !important;
+    border-radius: 4px;
+    border: 2px solid ${colors.background.primary};
+    height: 4vh;
+    text-align: center;
+    justify-content: center;
+  }
+  .ant-select-selection-item {
+    color: ${colors.font.primary} !important;
+  }
+  .ant-select-arrow {
+    display: none;
+  }
+  .ant-select-dropdown {
+    background-color: ${colors.background.secondary};
+    color: ${colors.font.primary};
+    align-items: center;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    width: 65%;
+  }
 `;

@@ -12,6 +12,7 @@ import {
   Line,
   ConteinerTS,
   ConteinerTable,
+  TypeSelect,
 } from "./Styles";
 import { Table, SearchBar } from "../../components/index";
 import { AiOutlineCloseCircle } from "react-icons/ai";
@@ -22,8 +23,11 @@ import { TranslateText } from "./translations";
 
 //icons
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { FaRegEdit } from "react-icons/fa";
-import { useDeleteUser, useGetUsers } from "../../hooks/query/user";
+import {
+  useDeleteUser,
+  useGetUsers,
+  useUpdateUsers,
+} from "../../hooks/query/user";
 
 export default function ManageUser() {
   // Translations
@@ -62,6 +66,12 @@ export default function ManageUser() {
     },
   });
 
+  const { mutate: updateUser } = useUpdateUsers({
+    onError: (err) => {
+      console.log("erro", err);
+    },
+  });
+
   useEffect(() => {
     const interval = setInterval(() => {
       refetch();
@@ -84,10 +94,27 @@ export default function ManageUser() {
     );
   };
 
+  const selectOptions = [
+    { label: "admin", value: "admin" },
+    { label: "invited", value: "invited" },
+    { label: "external", external: "external" },
+  ];
+
+  function handleTypeChange(_id, data) {
+    const newUserData = { type: data };
+    updateUser({ _id, newUserData });
+  }
+
   const formatUsersList = (users) => {
     return users.map((user) => ({
       name: user.name,
-      manage: <FaRegEdit cursor={"pointer"} />,
+      manage: (
+        <TypeSelect
+          defaultValue={user?.type}
+          onChange={(value) => handleTypeChange(user?._id, value)}
+          options={selectOptions}
+        />
+      ),
       delete: (
         <RiDeleteBin5Line
           cursor={"pointer"}
