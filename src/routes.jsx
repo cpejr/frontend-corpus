@@ -5,6 +5,7 @@ import {
   Route,
   Outlet,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import { AppLayout } from "./components";
 import {
@@ -26,23 +27,34 @@ function PrivateRoutes() {
 
   return <Navigate to="/register" replace />;
 }
+function PrivateAdminRoutes() {
+  const auth = useAuthStore((state) => state?.auth?.user?.type);
+  const { pathname: from } = useLocation();
+
+  if (auth === "admin") {
+    return <Outlet />;
+  }
+
+  return <Navigate to="/" state={{ from }} replace />;
+}
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route>
-      <Route path="/" element={<AppLayout />}>
-        <Route element={<PrivateRoutes />}>
-          <Route index element={<Home />} />
-          <Route path="video" element={<Videos />} />
-          <Route path="manage-videos" element={<ManageVideos />} />
-          <Route path="politica-de-privacidade" element={<PrivacyPolicy />} />
-          <Route path="sobre-nos" element={<AboutUs />} />
-          <Route path="manage-users" element={<ManageUser />} />
-        </Route>
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="redefine-password/:token" element={<RedefinePassword />} />
-      </Route>
-    </Route>,
+    <Route path="/" element={<AppLayout />}>
+    <Route element={<PrivateRoutes />}>
+      <Route index element={<Home />} />
+      <Route path="video" element={<Videos />} />
+      
+      <Route path="politica-de-privacidade" element={<PrivacyPolicy />} />
+      <Route path="sobre-nos" element={<AboutUs />} />
+    </Route>
+    <Route path="register" element={<RegisterPage />} />
+    <Route path="redefine-password/:token" element={<RedefinePassword />} />
+    <Route element={<PrivateAdminRoutes />}>
+      <Route path="manage-users" element={<ManageUser />} />
+      <Route path="manage-videos" element={<ManageVideos />} />
+    </Route>
+  </Route>
   ),
 );
 export default function Routes() {
