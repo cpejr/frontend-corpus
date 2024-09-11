@@ -48,21 +48,23 @@ export async function updateUser({ _id, newUserData }) {
 
 export async function createUser(newUser) {
   delete newUser.acceptTerms;
-  const newEdittedUser = { ...newUser, "type" : false }
+  const newEdittedUser = { ...newUser };
 
   const { data } = await api.post(`/user`, newEdittedUser);
-  
+
   return data;
 }
 
 export async function forgotPassword(email) {
-  const { data } = await api.post(`/user/forgot-password`, email );
+  const { data } = await api.post(`/user/forgot-password`, email);
 
   return data;
 }
 
 export const redefinePassword = async ({ token, newPassword }) => {
-  const { data } = await api.put(`/user/forgot-password/${token}`, { newPassword });
+  const { data } = await api.put(`/user/forgot-password/${token}`, {
+    newPassword,
+  });
 
   return data;
 };
@@ -70,16 +72,16 @@ export const redefinePassword = async ({ token, newPassword }) => {
 // User sessions
 export const login = async (credentials) => {
   const { setAuth } = useAuthStore.getState();
-  const { data } = await api.post('/login', credentials);
+  const { data } = await api.post("/login", credentials);
 
   setAuth(data.accessToken);
-  
+
   return data;
 };
 
 export const logout = async () => {
   const { clearAuth } = useAuthStore.getState();
-  const { data } = await api.post('/logout');
+  const { data } = await api.post("/logout");
 
   clearAuth();
 
@@ -88,9 +90,9 @@ export const logout = async () => {
 
 export async function refresh() {
   const { setAuth } = useAuthStore.getState();
-  const { data } = await api.get('/refresh');
-  
+  const { data } = await api.get("/refresh");
+
   setAuth(data.accessToken);
- 
+
   return data;
 }

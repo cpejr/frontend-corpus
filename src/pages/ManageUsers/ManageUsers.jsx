@@ -1,6 +1,8 @@
 //react functions
 import { useState, useEffect } from "react";
-//import { useQueryClient } from "@tanstack/react-query";
+
+//Modal
+import { ModalDeleteUser } from "../../components/index";
 
 //styles and components
 import {
@@ -12,6 +14,7 @@ import {
   ConteinerTable,
 } from "./Styles";
 import { Table, SearchBar } from "../../components/index";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 //translations
 import { useGlobalLanguage } from "../../stores/globalLanguage";
@@ -19,10 +22,8 @@ import { TranslateText } from "./translations";
 
 //icons
 import { RiDeleteBin5Line } from "react-icons/ri";
-//import { AiOutlineCloseCircle } from "react-icons/ai";
-//import { LoadingOutlined } from "@ant-design/icons";
 import { FaRegEdit } from "react-icons/fa";
-import { useDeleteUser, useGetUsers } from '../../hooks/query/user';
+import { useDeleteUser, useGetUsers } from "../../hooks/query/user";
 
 export default function ManageUser() {
   // Translations
@@ -31,10 +32,9 @@ export default function ManageUser() {
 
   // States and Variables
 
+  const [userId, setUserId] = useState("");
   const [users, setUsers] = useState([]);
-  //const [userID, setUserID] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  //const queryClient = useQueryClient();
 
   // Table Handling
 
@@ -44,34 +44,19 @@ export default function ManageUser() {
     { field: "delete", header: "" },
   ];
 
-  //Table user
-
-  const usersList = [
-    {
-      name: "otavio",
-      manage: <FaRegEdit cursor={"pointer"} />,
-      delete: <RiDeleteBin5Line cursor={"pointer"} />,
-    },
-    {
-      name: "lucas",
-      manage: <FaRegEdit cursor={"pointer"} />,
-      delete: <RiDeleteBin5Line cursor={"pointer"} />,
-    },
-    {
-      name: "pedro",
-      manage: <FaRegEdit cursor={"pointer"} />,
-      delete: <RiDeleteBin5Line cursor={"pointer"} />,
-    },
-  ];
   //functions
 
-  const { data: allUsers, isLoading, refetch } = useGetUsers({
+  const {
+    data: allUsers,
+    isLoading,
+    refetch,
+  } = useGetUsers({
     onError: (err) => {
       console.log(err);
     },
   });
 
-  const {mutate: deleteUser } = useDeleteUser({
+  const { mutate: deleteUser } = useDeleteUser({
     onError: (err) => {
       console.log(err);
     },
@@ -81,41 +66,62 @@ export default function ManageUser() {
     const interval = setInterval(() => {
       refetch();
     }, 3000);
-  
+
     return () => clearInterval(interval);
   }, []);
-
-
 
   const handleSearchChange = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchQuery(value);
     formatUsersList(allUsers);
 
-    setUsers(formatUsersList(allUsers
-    .filter(obj => obj.name.toLowerCase().includes(value.toLowerCase()))));
+    setUsers(
+      formatUsersList(
+        allUsers.filter((obj) =>
+          obj.name.toLowerCase().includes(value.toLowerCase()),
+        ),
+      ),
+    );
   };
 
   const formatUsersList = (users) => {
-    return users.map(user => ({
+    return users.map((user) => ({
       name: user.name,
       manage: <FaRegEdit cursor={"pointer"} />,
-      delete: <RiDeleteBin5Line cursor={"pointer"} onClick={() => {
-          deleteUser(user._id);
-          refetch();
-      }}/>
+      delete: (
+        <RiDeleteBin5Line
+          cursor={"pointer"}
+          onClick={() => {
+            setUserId(user._id);
+            openModalDelete();
+            refetch();
+          }}
+        />
+      ),
     }));
   };
-  
-  
+
+  //Modal Functions
+
+  // Modal Handling
+
+  const [modalDelete, setModalDelete] = useState(false);
+  const openModalDelete = () => setModalDelete(true);
+  const closeModalDelete = () => setModalDelete(false);
+  const modalCloseButton = <AiOutlineCloseCircle />;
+
+  function handleUserDelete(_id) {
+    deleteUser(_id);
+    closeModalDelete();
+  }
+
+  //Update the user list by the filter
 
   useEffect(() => {
-    if(allUsers){
+    if (allUsers) {
       setUsers(formatUsersList(allUsers));
     }
   }, [isLoading, allUsers]);
-
- 
 
   return (
     <Container>
@@ -134,6 +140,14 @@ export default function ManageUser() {
           <Table columns={columns} data={users} />
         </ConteinerTable>
       </ConteinerTS>
+      <ModalDeleteUser
+        close={closeModalDelete}
+        handleDelete={handleUserDelete}
+        id={userId}
+        modal={modalDelete}
+        modalCloseIcon={modalCloseButton}
+        closeModal={closeModalDelete}
+      />
     </Container>
   );
 }

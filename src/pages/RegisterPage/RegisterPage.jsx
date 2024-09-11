@@ -122,7 +122,7 @@ export default function RegisterPage() {
         <Title>{translation.titleLogin}</Title>
         <FormSubmit
           onSubmit={loginSubmit}
-          schema={validationSchemaLogin}
+          schema={validationSchemaLogin()}
           loading={loginLoading}
           inputs={inputsLogin}
           buttonText={translation.buttonLogin}
@@ -136,7 +136,7 @@ export default function RegisterPage() {
         <Title>{translation.titleRegister}</Title>
         <FormSubmit
           onSubmit={registerSubmit}
-          schema={validationSchemaRegister}
+          schema={validationSchemaRegister()}
           loading={registerLoading}
           inputs={inputsRegister}
           buttonText={translation.buttonRegister}
