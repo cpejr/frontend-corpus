@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../../../styles/stylesVariables";
+import { colors, fonts } from "../../../../styles/stylesVariables";
 import { Modal } from "antd";
 
 export const Container = styled.div`
@@ -7,25 +7,32 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: ${colors.modals.background};
   width: 100%;
   height: 100%;
 `;
 
 export const Button = styled.button`
-  width: 20%;
-  height: 5%;
+  widht: 192px;
+  height: 57px;
+  background-color: #6b9080;
+  border: 1px solid #f6fff8;
+  border-radius: 5px;
+  color: #f6fff8;
+  text-transform: uppercase;
+  font-family: ${fonts.Exo2};
+  font-size: 40px;
 `;
 
 export const ModalStyles = styled(Modal)`
   .ant-modal-content {
-    background-color: ${colors.modals.background};
-    padding: 1rem;
+    background-color: #6b9080;
     align-items: center;
     justify-content: center;
     color: ${colors.font.primary};
-    padding: 6;
     margin: 0;
-    border-radius: none;
+    border-radius: 15px;
+  }
+  .ant-modal-footer {
+    display: none;
   }
 `;

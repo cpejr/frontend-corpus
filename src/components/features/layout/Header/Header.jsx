@@ -54,27 +54,19 @@ export default function Head() {
       label: translations.headerText4,
       url: "/politica-de-privacidade",
     },
-    {
-      label: translations.headerText2,
-      url: "/manage-videos",
-    },
-    {
-      label: translations.headerText5,
-      url: "/manage-users",
-    },
 
-    ...(isAdmin
+    ...(isAdmin === "admin"
       ? [
           {
             label: "Administrador",
             items: [
               {
-                label: translations.headerAdmText1,
-                url: "/",
+                label: translations.headerText2,
+                url: "/manage-videos",
               },
               {
-                label: translations.headerAdmText2,
-                url: "/",
+                label: translations.headerText5,
+                url: "/manage-users",
               },
               {
                 label: translations.headerAdmText3,

@@ -83,6 +83,12 @@ export const ConteinerTable = styled.div`
   flex-direction: column;
   width: 30%;
   align-self: center;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 60%;
+  }
+  @media (max-width: ${breakpoints.mobile}) {
+    width: 80%;
+  }
 `;
 
 export const TypeSelect = styled(Select)`

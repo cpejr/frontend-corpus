@@ -29,7 +29,7 @@ export default function ModalDeleteUser({
             close();
           }}
         >
-          Teste
+          Excluir
         </Button>
       </Container>
     </ModalStyles>
