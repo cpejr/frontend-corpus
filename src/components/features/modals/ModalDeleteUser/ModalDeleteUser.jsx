@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-//import { useGlobalLanguage } from "../../../../stores/globalLanguage";
-//import { TranslateText } from "./translations";
-import { Button, Container, ModalStyles } from "./Styles";
+import { useGlobalLanguage } from "../../../../stores/globalLanguage";
+import { TranslateText } from "./translations";
+import { Button, Container, ModalStyles, Title, Text } from "./Styles";
 
 export default function ModalDeleteUser({
   close,
@@ -11,8 +11,8 @@ export default function ModalDeleteUser({
   closeModal,
   modalCloseIcon,
 }) {
-  //const { globalLanguage } = useGlobalLanguage();
-  //const translation = TranslateText(globalLanguage);
+  const { globalLanguage } = useGlobalLanguage();
+  const translation = TranslateText(globalLanguage);
 
   return (
     <ModalStyles
@@ -23,13 +23,15 @@ export default function ModalDeleteUser({
       destroyOnClose
     >
       <Container>
+        <Title> {translation.title}</Title>
+        <Text>{translation.text}</Text>
         <Button
           onClick={() => {
             handleDelete(id);
             close();
           }}
         >
-          Excluir
+          {translation.button}
         </Button>
       </Container>
     </ModalStyles>

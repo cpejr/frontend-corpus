@@ -36,3 +36,15 @@ export const ModalStyles = styled(Modal)`
     display: none;
   }
 `;
+
+export const Title = styled.h1`
+  color: #f6fff8;
+  text-align: center;
+  font-family: ${fonts.Exo2};
+`;
+
+export const Text = styled.h3`
+  color: #f6fff8;
+  text-align: center;
+  font-family: ${fonts.Exo2};
+`;
