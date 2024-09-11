@@ -92,12 +92,12 @@ export const ConteinerTable = styled.div`
 `;
 
 export const TypeSelect = styled(Select)`
-  width: 114px;
+  width: 130px;
   .ant-select-selector {
-    background-color: ${colors.font.primary};
+    background-color: ${colors.background.primary} !important;
     color: ${colors.font.primary} !important;
     border-radius: 4px;
-    border: 2px solid ${colors.background.primary};
+    border: 2px solid #fff;
     height: 4vh;
     text-align: center;
     justify-content: center;

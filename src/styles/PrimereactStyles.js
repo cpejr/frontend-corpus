@@ -25,5 +25,15 @@ export const PrimereactStyles = createGlobalStyle`.p-datepicker {
   .p-datepicker-month{
     color: black;
   }
+
+  .ant-select-selector {
+    background-color: ${colors.background.primary};
+    color: ${colors.background.primary} !important;
+    border-radius: 4px;
+    border: 2px solid ${colors.background.primary};
+    height: 4vh;
+    text-align: center;
+    justify-content: center;
+  }
   
 `;

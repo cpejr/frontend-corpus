@@ -36,13 +36,11 @@ export default function HamburguerMenu() {
         getItem(translations.headerText1, "/sobre-nos"),
         getItem(translations.headerText4, "/politica-de-privacidade"),
         getItem(translations.headerText3, "/video"),
-        getItem(translations.headerText2, "/manage-videos"),
-        getItem(translations.headerText5, "/manage-users"),
-        ...(isAdmin
+
+        ...(isAdmin === "admin"
           ? [
-              getItem(translations.headerAdmText1, "/"),
-              getItem(translations.headerAdmText2, "/"),
-              getItem(translations.headerAdmText3, "/"),
+              getItem(translations.headerText2, "/manage-videos"),
+              getItem(translations.headerText5, "/manage-users"),
             ]
           : []),
       ],

@@ -95,9 +95,9 @@ export default function ManageUser() {
   };
 
   const selectOptions = [
-    { label: "admin", value: "admin" },
-    { label: "invited", value: "invited" },
-    { label: "external", external: "external" },
+    { label: translations.typeAdm, value: "admin" },
+    { label: translations.typeInvited, value: "invited" },
+    { label: translations.typeExt, value: "external" },
   ];
 
   function handleTypeChange(_id, data) {
@@ -105,12 +105,22 @@ export default function ManageUser() {
     updateUser({ _id, newUserData });
   }
 
+  function verifyUserType(userType) {
+    if (userType === "admin") {
+      return translations.typeAdm;
+    } else if (userType === "invited") {
+      return translations.typeInvited;
+    } else {
+      return translations.typeExt;
+    }
+  }
+
   const formatUsersList = (users) => {
     return users.map((user) => ({
       name: user.name,
       manage: (
         <TypeSelect
-          defaultValue={user?.type}
+          defaultValue={() => verifyUserType(user?.type)}
           onChange={(value) => handleTypeChange(user?._id, value)}
           options={selectOptions}
         />
