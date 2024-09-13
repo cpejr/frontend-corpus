@@ -8,21 +8,21 @@ export function TranslateText({ globalLanguage }) {
   if (globalLanguage === "PT") {
     title1 = "gerenciar usuários";
     placeholderSearch = "Pesquisar usuário";
-    typeAdm = "Adiministrador";
+    typeAdm = "Administrador";
     typeInvited = "Convidado";
     typeExt = "Externo";
   }
   if (globalLanguage === "EN") {
     title1 = "manage users";
     placeholderSearch = "Search user";
-    typeAdm = "Adimin";
+    typeAdm = "Admin";
     typeInvited = "Invited";
     typeExt = "External";
   }
   if (globalLanguage === "ES") {
     title1 = "administrar usuarios";
     placeholderSearch = "Buscar usuario";
-    typeAdm = "Adiministrador";
+    typeAdm = "Administrador";
     typeInvited = "Invitado";
     typeExt = "Externo";
   }

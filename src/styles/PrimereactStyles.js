@@ -34,6 +34,7 @@ export const PrimereactStyles = createGlobalStyle`.p-datepicker {
     height: 4vh;
     text-align: center;
     justify-content: center;
+    
   }
   
 `;

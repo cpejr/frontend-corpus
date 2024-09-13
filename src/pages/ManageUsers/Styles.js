@@ -83,6 +83,7 @@ export const ConteinerTable = styled.div`
   flex-direction: column;
   width: 30%;
   align-self: center;
+  font-size: 1.5em;
   @media (max-width: ${breakpoints.tablet}) {
     width: 60%;
   }
@@ -101,6 +102,10 @@ export const TypeSelect = styled(Select)`
     height: 4vh;
     text-align: center;
     justify-content: center;
+  }
+
+  &:hover{
+    border: 1px solid orange;
   }
   .ant-select-selection-item {
     color: ${colors.font.primary} !important;
