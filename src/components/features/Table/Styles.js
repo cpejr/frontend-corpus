@@ -19,10 +19,6 @@ export const TableShape = styled(DataTable)`
   .p-paginator-bottom .p-paginator-last .p-paginator-icon {
     color: ${colors.font.primary};
   }
-  margin-bottom: 2rem;
-  @media (max-width: ${breakpoints.tablet}) {
-    width: 95%;
-  }
 `;
 
 export const TableColumn = styled(Column)`

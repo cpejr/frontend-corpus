@@ -26,15 +26,24 @@ export const PrimereactStyles = createGlobalStyle`.p-datepicker {
     color: black;
   }
 
-  .ant-select-selector {
+  .p-datatable .p-datatable-tbody > tr > td {
+    background-color: ${colors.background.primary}; 
+    color: ${colors.font.primary};
+    border-bottom: 0.5px solid ${colors.font.title};
+    padding: 1rem 0;
+    font-size: 1rem;
+  }  
+  
+  .p-datatable .p-datatable-thead > tr > th {
+    border-bottom: 0.5px solid ${colors.font.title};
     background-color: ${colors.background.primary};
-    color: ${colors.background.primary} !important;
-    border-radius: 4px;
-    border: 2px solid ${colors.background.primary};
-    height: 4vh;
-    text-align: center;
-    justify-content: center;
-    
+    color: ${colors.font.primary}
   }
   
+  .p-datatable .p-datatable-tbody>tr>td{
+    padding: 15px;
+  }
+  .p-column-header-content{
+    padding: 15px;
+  }
 `;

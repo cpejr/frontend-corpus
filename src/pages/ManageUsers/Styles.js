@@ -81,15 +81,9 @@ export const ConteinerTS = styled.div`
 export const ConteinerTable = styled.div`
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 90%;
   align-self: center;
   font-size: 1.5em;
-  @media (max-width: ${breakpoints.tablet}) {
-    width: 60%;
-  }
-  @media (max-width: ${breakpoints.mobile}) {
-    width: 80%;
-  }
 `;
 
 export const TypeSelect = styled(Select)`
@@ -104,7 +98,7 @@ export const TypeSelect = styled(Select)`
     justify-content: center;
   }
 
-  &:hover{
+  &:hover {
     border: 1px solid orange;
   }
   .ant-select-selection-item {
@@ -122,4 +116,10 @@ export const TypeSelect = styled(Select)`
   @media (max-width: ${breakpoints.mobile}) {
     width: 65%;
   }
+`;
+
+export const LoadingStyles = styled.div`
+  display: "block";
+  font-size: 24px;
+  margin: 20px auto;
 `;

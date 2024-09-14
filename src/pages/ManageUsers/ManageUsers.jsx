@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 
 //Modal
 import { ModalDeleteUser } from "../../components/index";
+import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 
 //styles and components
 import {
@@ -13,6 +15,7 @@ import {
   ConteinerTS,
   ConteinerTable,
   TypeSelect,
+  LoadingStyles,
 } from "./Styles";
 import { Table, SearchBar } from "../../components/index";
 import { AiOutlineCloseCircle } from "react-icons/ai";
@@ -23,6 +26,9 @@ import { TranslateText } from "./translations";
 
 //icons
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { LoadingOutlined } from "@ant-design/icons";
+
+//Hooks
 import {
   useDeleteUser,
   useGetUsers,
@@ -39,46 +45,48 @@ export default function ManageUser() {
   const [userId, setUserId] = useState("");
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const queryClient = useQueryClient();
 
   // Table Handling
 
   const columns = [
-    { field: "name", header: "" },
-    { field: "manage", header: "" },
+    { field: "name", header: translations.tableHeaderName },
+    { field: "email", header: translations.tableHeaderEmail },
+    { field: "manage", header: translations.tableHeaderType },
     { field: "delete", header: "" },
   ];
 
   //functions
 
-  const {
-    data: allUsers,
-    isLoading,
-    refetch,
-  } = useGetUsers({
+  const { data: allUsers, isLoading } = useGetUsers({
     onError: (err) => {
       console.log(err);
     },
   });
 
   const { mutate: deleteUser } = useDeleteUser({
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["users"],
+      });
+      toast.success(translations.toastOnSuccessDelete);
+    },
     onError: (err) => {
-      console.log(err);
+      toast.error(translations.toastOnErroDelete, err);
     },
   });
 
   const { mutate: updateUser } = useUpdateUsers({
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["users"],
+      });
+      toast.success(translations.toastOnSuccessChange);
+    },
     onError: (err) => {
-      console.log("erro", err);
+      toast.error(translations.toastOnErroChange, err);
     },
   });
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      refetch();
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   const handleSearchChange = (e) => {
     const value = e.target.value.toLowerCase();
@@ -118,6 +126,7 @@ export default function ManageUser() {
   const formatUsersList = (users) => {
     return users.map((user) => ({
       name: user.name,
+      email: user.email,
       manage: (
         <TypeSelect
           defaultValue={() => verifyUserType(user?.type)}
@@ -131,7 +140,6 @@ export default function ManageUser() {
           onClick={() => {
             setUserId(user._id);
             openModalDelete();
-            refetch();
           }}
         />
       ),
@@ -158,6 +166,7 @@ export default function ManageUser() {
     if (allUsers) {
       setUsers(formatUsersList(allUsers));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, allUsers]);
 
   return (
@@ -173,9 +182,15 @@ export default function ManageUser() {
           search={handleSearchChange}
           width="90%"
         />
-        <ConteinerTable>
-          <Table columns={columns} data={users} />
-        </ConteinerTable>
+        {isLoading ? (
+          <LoadingStyles>
+            <LoadingOutlined />
+          </LoadingStyles>
+        ) : (
+          <ConteinerTable>
+            <Table columns={columns} data={users} />
+          </ConteinerTable>
+        )}
       </ConteinerTS>
       <ModalDeleteUser
         close={closeModalDelete}
