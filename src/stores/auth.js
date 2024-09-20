@@ -4,10 +4,10 @@ import { jwtDecode } from "jwt-decode";
 
 const useAuthStore = create((set) => ({
     auth: null,
-    setAuth: (acessToken) => {
+    setAuth: (accessToken) => {
       const { user,
               iat: issuedAtTimestamp,
-              exp: expireAtTimestamp, } = jwtDecode(acessToken);
+              exp: expireAtTimestamp, } = jwtDecode(accessToken);
       
       const secureTime = 5 * 60;
       const expireIn = expireAtTimestamp - issuedAtTimestamp - secureTime;
@@ -15,7 +15,7 @@ const useAuthStore = create((set) => ({
       set((state) => ({
         auth: {
           ...state.auth,
-          acessToken,
+          accessToken,
           user,
           expireIn,
         },

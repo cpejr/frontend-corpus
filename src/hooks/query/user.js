@@ -1,4 +1,5 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   getUsers,
   deleteUser,
@@ -19,7 +20,7 @@ export function useGetUsers({
     onError,
   });
 }
-export function useDeleteUsers({
+export function useDeleteUser({
   onSuccess = () => {},
   onError = (err) => console.error(err),
 } = {}) {

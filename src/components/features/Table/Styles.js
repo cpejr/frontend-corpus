@@ -6,6 +6,7 @@ export const TableShape = styled(DataTable)`
   display: flex;
   flex-direction: column;
   align-self: center;
+  justify-content: center;
   width: 90%;
 
   min-height: 70%;
@@ -17,10 +18,6 @@ export const TableShape = styled(DataTable)`
   .p-paginator-bottom .p-paginator-first .p-paginator-icon,
   .p-paginator-bottom .p-paginator-last .p-paginator-icon {
     color: ${colors.font.primary};
-  }
-  margin-bottom: 2rem;
-  @media (max-width: ${breakpoints.tablet}) {
-    width: 95%;
   }
 `;
 

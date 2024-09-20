@@ -25,5 +25,25 @@ export const PrimereactStyles = createGlobalStyle`.p-datepicker {
   .p-datepicker-month{
     color: black;
   }
+
+  .p-datatable .p-datatable-tbody > tr > td {
+    background-color: ${colors.background.primary}; 
+    color: ${colors.font.primary};
+    border-bottom: 0.5px solid ${colors.font.title};
+    padding: 1rem 0;
+    font-size: 1rem;
+  }  
   
+  .p-datatable .p-datatable-thead > tr > th {
+    border-bottom: 0.5px solid ${colors.font.title};
+    background-color: ${colors.background.primary};
+    color: ${colors.font.primary}
+  }
+  
+  .p-datatable .p-datatable-tbody>tr>td{
+    padding: 15px;
+  }
+  .p-column-header-content{
+    padding: 15px;
+  }
 `;

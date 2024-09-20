@@ -3,16 +3,19 @@ import FormSubmit from "../../components/features/FormSubmit/FormSubmit";
 import { Container, Title, DivContainer, TextClick, Text } from "./Styles";
 import { validationSchemaLogin, validationSchemaRegister } from "./utils";
 import { useCreateUsers } from "../../hooks/query/user";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ModalForgotPassword from "../../components/features/modals/ModalForgotPassword/ModalForgotPassword";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useLogin } from "../../hooks/query/session";
 import { useGlobalLanguage } from "../../stores/globalLanguage";
-import { TranslateLoginToastError, TranslateRegisterToastError, TranslateText } from "./translations";
+import {
+  TranslateLoginToastError,
+  TranslateRegisterToastError,
+  TranslateText,
+} from "./translations";
 
 export default function RegisterPage() {
-
   const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
@@ -78,7 +81,7 @@ export default function RegisterPage() {
         label: "password",
       },
     ]);
-// eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalLanguage]);
 
   const { mutate: createUser, isPending: registerLoading } = useCreateUsers({
@@ -86,7 +89,9 @@ export default function RegisterPage() {
       toast.success(translation.toastCreate);
     },
     onError: (err) => {
-      toast.error(TranslateRegisterToastError(globalLanguage, err.response.status));
+      toast.error(
+        TranslateRegisterToastError(globalLanguage, err.response.status),
+      );
     },
   });
 
@@ -101,7 +106,9 @@ export default function RegisterPage() {
       navigate("/");
     },
     onError: (err) => {
-      toast.error(TranslateLoginToastError(globalLanguage, err.response.status));
+      toast.error(
+        TranslateLoginToastError(globalLanguage, err.response.status),
+      );
     },
   });
 
@@ -113,12 +120,32 @@ export default function RegisterPage() {
     <Container>
       <DivContainer>
         <Title>{translation.titleLogin}</Title>
-        <FormSubmit onSubmit={loginSubmit} schema={validationSchemaLogin()} loading={loginLoading} inputs={inputsLogin} buttonText={translation.buttonLogin}></FormSubmit>
-        <Text>{translation.forgotPassword} <TextClick onClick={() => setShowModal(true)}>{translation.here}</TextClick></Text>
+        <FormSubmit
+          onSubmit={loginSubmit}
+          schema={validationSchemaLogin()}
+          loading={loginLoading}
+          inputs={inputsLogin}
+          buttonText={translation.buttonLogin}
+        ></FormSubmit>
+        <Text>
+          {translation.forgotPassword}{" "}
+          <TextClick onClick={() => setShowModal(true)}>
+            {translation.here}
+          </TextClick>
+        </Text>
         <Title>{translation.titleRegister}</Title>
-        <FormSubmit onSubmit={registerSubmit} schema={validationSchemaRegister()} loading={registerLoading} inputs={inputsRegister} buttonText={translation.buttonRegister}></FormSubmit>
+        <FormSubmit
+          onSubmit={registerSubmit}
+          schema={validationSchemaRegister()}
+          loading={registerLoading}
+          inputs={inputsRegister}
+          buttonText={translation.buttonRegister}
+        ></FormSubmit>
       </DivContainer>
-      <ModalForgotPassword openModal={showModal} closeModal={() => setShowModal(false)}/>
+      <ModalForgotPassword
+        openModal={showModal}
+        closeModal={() => setShowModal(false)}
+      />
     </Container>
   );
 }

@@ -14,7 +14,7 @@ export function TranslateText({ globalLanguage }) {
     headerText2 = "Gerenciar Vídeos";
     headerText3 = "Vídeos";
     headerText4 = "Políticas de privacidade";
-    headerText5 = "texto";
+    headerText5 = "Gerenciar Usuarios";
     headerAdmText1 = "texto";
     headerAdmText2 = "texto";
     headerAdmText3 = "texto";
@@ -25,7 +25,7 @@ export function TranslateText({ globalLanguage }) {
     headerText2 = "Manage videos";
     headerText3 = "Videos";
     headerText4 = "Privacy policies";
-    headerText5 = "text";
+    headerText5 = "Manage users";
     headerAdmText1 = "text";
     headerAdmText2 = "text";
     headerAdmText3 = "text";
@@ -36,7 +36,7 @@ export function TranslateText({ globalLanguage }) {
     headerText2 = "Administrar Vídeos";
     headerText3 = "Vídeos";
     headerText4 = "Políticas de privacidad";
-    headerText5 = "texto";
+    headerText5 = "Administrar Usuarios";
     headerAdmText1 = "texto";
     headerAdmText2 = "texto";
     headerAdmText3 = "texto";

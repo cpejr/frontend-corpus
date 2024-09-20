@@ -9,6 +9,7 @@ export { default as Calendar } from "./common/Calendar/Calendar.jsx";
 export { default as Header } from "./features/layout/Header/Header.jsx";
 export { default as Footer } from "./features/layout/Footer/Footer.jsx";
 export { default as AppLayout } from "./features/layout/AppLayout/AppLayout.jsx";
+export { default as ModalDeleteUser } from "./features/modals/ModalDeleteUser/ModalDeleteUser.jsx";
 export { default as ModalDeleteVideos } from "./features/modals/ModalDeleteVideos/ModalDeleteVideos.jsx";
 export { default as ModalEditVideos } from "./features/modals/ModalEditVideos/ModalVideosVideos.jsx";
 export { default as Table } from "./features/Table/Table.jsx";
