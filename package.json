@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "env-cmd -f .env.development vite"
   },
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
@@ -16,6 +17,7 @@
     "@tanstack/react-query-devtools": "^5.51.11",
     "antd": "^5.20.3",
     "axios": "^1.7.2",
+    "env-cmd": "^10.1.0",
     "i18next": "^23.12.2",
     "install": "^0.13.0",
     "jwt-decode": "^4.0.0",
