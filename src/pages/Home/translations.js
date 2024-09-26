@@ -10,7 +10,6 @@ export function TranslateText({ globalLanguage }) {
   let textButton1;
   let textButton2;
   let textButton3;
-  let logoutButton;
 
   if (globalLanguage === "PT") {
     titleLogo = "NÚCLEO DE ESTUDOS DE COMUNICAÇÃO";
@@ -27,8 +26,6 @@ export function TranslateText({ globalLanguage }) {
     paragraph3 =
       "Lorem ipsum dolor sit amet. Ut dolorum consequatur ut fugiat ducimus et quia saepe et recusandae incidunt qui impedit sunt et molestiae veniam et obcaecati ipsam. Id fugit iusto est possimus asperiores qui repellat nesciunt.";
     textButton3 = "saiba mais!";
-
-    logoutButton = "Sair";
   }
   if (globalLanguage === "EN") {
     titleLogo = "CORE OF COMMUNICATION STUDIES";
@@ -45,8 +42,6 @@ export function TranslateText({ globalLanguage }) {
     paragraph3 =
       "Lorem ipsum dolor sit amet. Ut dolorum consequatur ut fugiat ducimus et quia saepe et recusandae incidunt qui impedit sunt et molestiae veniam et obcaecati ipsam. Id fugit iusto est possimus asperiores qui repellat nesciunt.";
     textButton3 = "learn more!";
-
-    logoutButton = "Logout";
   }
   if (globalLanguage === "ES") {
     titleLogo = "NÚCLEO DE ESTUDIOS DE COMUNICACIÓN";
@@ -63,8 +58,6 @@ export function TranslateText({ globalLanguage }) {
     paragraph3 =
       "Lorem ipsum dolor sit amet. Ut dolorum consequatur ut fugiat ducimus et quia saepe et recusandae incidunt qui impedit sunt et molestiae veniam et obcaecati ipsam. Id fugit iusto est possimus asperiores qui repellat nesciunt.";
     textButton3 = "aprende más!";
-
-    logoutButton = "Salir";
   }
   return {
     titleLogo,
@@ -78,6 +71,5 @@ export function TranslateText({ globalLanguage }) {
     textButton1,
     textButton2,
     textButton3,
-    logoutButton,
   };
 }

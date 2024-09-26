@@ -19,6 +19,7 @@ export const Button = styled.button`
   &:hover {
     background-color: ${colors.background.white};
     color: ${colors.background.header};
+    cursor: pointer;
   }
 `;
 export const Icon = styled(FiLogOut)`

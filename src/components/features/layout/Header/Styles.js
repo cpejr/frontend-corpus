@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Menu } from "antd";
 import { Menubar } from "primereact/menubar";
-import { breakpoints, colors, fonts } from "../../../../styles/stylesVariables";
+import { breakpoints, colors } from "../../../../styles/stylesVariables";
 
 export const Hamburguer = styled(Menu)`
   display: none;
@@ -32,37 +32,6 @@ export const LogoHeader = styled.img`
   cursor: pointer;
   @media (max-width: ${breakpoints.mobile}) {
     display: none;
-  }
-`;
-
-export const LogoutButton = styled.button`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0 1rem;
-  height: 45px;
-  border: 1px solid;
-  border-radius: 10px;
-  color: ${colors.accent.primary};
-  background-color: ${colors.background.secondary};
-  font-family: ${fonts.Cabin};
-  font-weight: 400;
-  word-wrap: break-word;
-  font-size: 1rem;
-  img {
-    width: 20%;
-    border-radius: 50%;
-  }
-
-  &:hover {
-    cursor: pointer;
-  }
-  @media (max-width: ${breakpoints.tablet}) {
-    width: 12rem;
-  }
-  @media (max-width: ${breakpoints.smallDevice}) {
-    width: 7rem;
-    font-size: 0.8rem;
   }
 `;
 
@@ -145,7 +114,7 @@ export const Selected = styled.div`
 export const LanguageSelector = styled.div`
   display: flex;
   flex-direction: column;
-  position: fixed;
+  position: absolute;
   z-index: 200;
   margin-top: 2rem;
   transition: height 1s ease-in-out;
