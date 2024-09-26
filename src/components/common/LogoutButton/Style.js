@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { colors } from "../../../styles/stylesVariables";
-import { RiAccountCircleLine } from "react-icons/ri";
+import { FiLogOut } from "react-icons/fi";
 
 export const Button = styled.button`
   background-color: transparent;
@@ -21,6 +21,8 @@ export const Button = styled.button`
     color: ${colors.background.header};
   }
 `;
-export const Icon = styled(RiAccountCircleLine)`
-  font-size: 25px;
+export const Icon = styled(FiLogOut)`
+  padding: 2px;
+  width: 20px;
+  height: 20px;
 `;

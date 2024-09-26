@@ -35,7 +35,7 @@ export const LogoHeader = styled.img`
   }
 `;
 
-export const LoginButton = styled.button`
+export const LogoutButton = styled.button`
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -65,6 +65,7 @@ export const LoginButton = styled.button`
     font-size: 0.8rem;
   }
 `;
+
 export const Header = styled(Menubar)`
   display: flex;
   flex-direction: row;
@@ -75,6 +76,7 @@ export const Header = styled(Menubar)`
   .p-menuitem {
     color: ${colors.font.primary};
     padding: 10px;
+    background-color: ${colors.background.header};
   }
 
   .p-menuitem-text {
@@ -84,7 +86,7 @@ export const Header = styled(Menubar)`
 
     &:hover {
       text-decoration: underline;
-      text-decoration-thickness: 3px;
+      text-decoration-thickness: 2px;
     }
   }
   @media (max-width: ${breakpoints.tablet}) {
@@ -139,6 +141,7 @@ export const Selected = styled.div`
     }
   }
 `;
+
 export const LanguageSelector = styled.div`
   display: flex;
   flex-direction: column;
