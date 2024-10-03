@@ -8,6 +8,7 @@ export function TranslateText({ globalLanguage }) {
   let headerAdmText2;
   let headerAdmText3;
   let home;
+  let logoutSuccess;
 
   if (globalLanguage === "PT") {
     headerText1 = "Sobre nós";
@@ -19,6 +20,7 @@ export function TranslateText({ globalLanguage }) {
     headerAdmText2 = "texto";
     headerAdmText3 = "texto";
     home = "Home";
+    logoutSuccess = "Logout realizado com sucesso!";
   }
   if (globalLanguage === "EN") {
     headerText1 = "About Us";
@@ -30,6 +32,7 @@ export function TranslateText({ globalLanguage }) {
     headerAdmText2 = "text";
     headerAdmText3 = "text";
     home = "Home";
+    logoutSuccess = "Logout successfully!";
   }
   if (globalLanguage === "ES") {
     headerText1 = "Sobre nosotros";
@@ -41,6 +44,7 @@ export function TranslateText({ globalLanguage }) {
     headerAdmText2 = "texto";
     headerAdmText3 = "texto";
     home = "Hogar";
+    logoutSuccess = "¡Cierre de sesión con éxito!";
   }
   return {
     headerText1,
@@ -52,5 +56,6 @@ export function TranslateText({ globalLanguage }) {
     headerAdmText2,
     headerAdmText3,
     home,
+    logoutSuccess,
   };
 }

@@ -17,16 +17,12 @@ import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { flagEN, flagES, flagPT } from "../../../../assets";
 import { TranslateText } from "./translations";
-import LoginButton from "../../../common/LoginButton/Loginbutton";
+import { useLogout } from "../../../../hooks/query/session";
+import { toast } from "react-toastify";
+import LogoutButton from "../../../common/LogoutButton/Logoutbutton";
 
 export default function Head() {
   const [collapse, setCollapse] = useState(false);
-  const [logged, setLogged] = useState(false);
-
-  //Alterar aqui quando for fazer o sistema de login
-  const handleLogin = () => {
-    setLogged((e) => !e);
-  };
 
   const { globalLanguage, setGlobalLanguage } = useGlobalLanguage();
   const availableLanguages = [
@@ -65,18 +61,30 @@ export default function Head() {
                 url: "/manage-videos",
               },
               {
-                label: translations.headerText5,
-                url: "/manage-users",
+                separator: true,
               },
               {
-                label: translations.headerAdmText3,
-                url: "/",
+                label: translations.headerText5,
+                url: "/manage-users",
               },
             ],
           },
         ]
       : []),
   ];
+
+  const { mutate: logout } = useLogout({
+    onSuccess: () => {
+      toast.success(translations.logoutSuccess);
+    },
+    onError: (err) => {
+      toast.error(err.response.data.message);
+    },
+  });
+
+  const execLogout = () => {
+    logout();
+  };
 
   return (
     <Container>
@@ -116,7 +124,7 @@ export default function Head() {
           ))}
         </LanguageSelector>
       </Select>
-      <LoginButton logged={logged} onClick={handleLogin} />
+      <LogoutButton onClick={execLogout} />
       <HamburguerMenu />
     </Container>
   );

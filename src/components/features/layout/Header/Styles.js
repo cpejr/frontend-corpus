@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Menu } from "antd";
 import { Menubar } from "primereact/menubar";
-import { breakpoints, colors, fonts } from "../../../../styles/stylesVariables";
+import { breakpoints, colors } from "../../../../styles/stylesVariables";
 
 export const Hamburguer = styled(Menu)`
   display: none;
@@ -35,36 +35,6 @@ export const LogoHeader = styled.img`
   }
 `;
 
-export const LoginButton = styled.button`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0 1rem;
-  height: 45px;
-  border: 1px solid;
-  border-radius: 10px;
-  color: ${colors.accent.primary};
-  background-color: ${colors.background.secondary};
-  font-family: ${fonts.Cabin};
-  font-weight: 400;
-  word-wrap: break-word;
-  font-size: 1rem;
-  img {
-    width: 20%;
-    border-radius: 50%;
-  }
-
-  &:hover {
-    cursor: pointer;
-  }
-  @media (max-width: ${breakpoints.tablet}) {
-    width: 12rem;
-  }
-  @media (max-width: ${breakpoints.smallDevice}) {
-    width: 7rem;
-    font-size: 0.8rem;
-  }
-`;
 export const Header = styled(Menubar)`
   display: flex;
   flex-direction: row;
@@ -75,6 +45,7 @@ export const Header = styled(Menubar)`
   .p-menuitem {
     color: ${colors.font.primary};
     padding: 10px;
+    background-color: ${colors.background.header};
   }
 
   .p-menuitem-text {
@@ -84,7 +55,7 @@ export const Header = styled(Menubar)`
 
     &:hover {
       text-decoration: underline;
-      text-decoration-thickness: 3px;
+      text-decoration-thickness: 2px;
     }
   }
   @media (max-width: ${breakpoints.tablet}) {
@@ -139,10 +110,11 @@ export const Selected = styled.div`
     }
   }
 `;
+
 export const LanguageSelector = styled.div`
   display: flex;
   flex-direction: column;
-  position: fixed;
+  position: absolute;
   z-index: 200;
   margin-top: 2rem;
   transition: height 1s ease-in-out;
