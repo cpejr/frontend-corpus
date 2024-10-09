@@ -19,6 +19,7 @@ import {
 } from "./pages";
 import RedefinePassword from "./pages/RedefinePassword/RedefinePassword";
 import useAuthStore from "./stores/auth";
+import VideoPage from "./pages/VideoPage/VideoPage";
 
 function PrivateRoutes() {
   const auth = useAuthStore((state) => state?.auth);
@@ -44,7 +45,7 @@ const router = createBrowserRouter(
     <Route element={<PrivateRoutes />}>
       <Route index element={<Home />} />
       <Route path="video" element={<Videos />} />
-      
+      <Route path="videos/:name" element={<VideoPage />} />
       <Route path="politica-de-privacidade" element={<PrivacyPolicy />} />
       <Route path="sobre-nos" element={<AboutUs />} />
     </Route>
