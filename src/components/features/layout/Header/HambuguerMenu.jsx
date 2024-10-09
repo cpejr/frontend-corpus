@@ -9,7 +9,7 @@ import { breakpoints } from "../../../../styles/stylesVariables"; // Certifique-
 
 export default function HamburguerMenu() {
   const [isMobile, setIsMobile] = useState(
-    window.innerWidth < parseInt(breakpoints.tablet),
+    window.innerWidth < parseInt(breakpoints.tablet)
   );
   const isAdmin = useAuthStore((state) => state?.auth?.user?.type);
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ export default function HamburguerMenu() {
               getItem(translations.headerText5, "/manage-users"),
             ]
           : []),
-      ],
+      ]
     ),
   ];
 
