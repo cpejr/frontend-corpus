@@ -1,45 +1,31 @@
 export function TranslateText({ globalLanguage }) {
-  let title1;
+  let title;
   let placeholder;
   let calendar;
-  let select;
-  let button1;
-  let button2;
-  let message;
+  let buttonCard;
 
   if (globalLanguage === "PT") {
-    title1 = "vídeos";
+    title = "Vídeos";
     placeholder = "Pesquisar";
-    calendar = "Escolha a data";
-    select = "Escolha uma categoria";
-    button1 = "Filtrar";
-    button2 = "Limpar Filtros";
-    message = "Nenhum vídeo foi encontrado";
+    calendar = "Filtrar por data";
+    buttonCard = "Assistir";
   }
   if (globalLanguage === "EN") {
-    title1 = "videos";
+    title = "Videos";
     placeholder = "Search";
-    calendar = "Choose the date";
-    select = "Choose a category";
-    button1 = "Filter";
-    button2 = "Clear Filters";
-    message = "no video found";
+    calendar = "Filter by date";
+    buttonCard = "Watch";
   }
   if (globalLanguage === "ES") {
-    title1 = "videos";
+    title = "Vídeos";
     placeholder = "Buscar";
-    calendar = "Escoge la fecha";
-    select = "Elige una categoría";
-    button1 = "Filtro";
-    button2 = "No se ha encontrado ningún vídeo";
+    calendar = "Filtrar por fecha";
+    buttonCard = "Asistir";
   }
   return {
-    title1,
+    title,
     placeholder,
     calendar,
-    select,
-    button1,
-    button2,
-    message,
+    buttonCard,
   };
 }
