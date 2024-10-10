@@ -12,7 +12,7 @@ export const Container = styled.div`
 
 export const DivTitle = styled.div`
   width: 450px;
-  border-bottom: 4px solid #6B9080;
+  border-bottom: 4px solid ${colors.background.secondary};
   @media (max-width: ${breakpoints.mobile}) {
     width: 350px;
   }
@@ -53,13 +53,9 @@ export const DivLine = styled.div`
 
 export const ContainerSearchFilter = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
   align-items: center;
-  gap: 0.5rem;
-  @media (max-width: ${breakpoints.smallMobile}) {
-    flex-direction: column;
-  }
 `;
 
 export const ContainerSearchBar = styled.div`
@@ -77,11 +73,9 @@ export const DivSelect = styled.div`
   align-items: center;
   border-radius: 5px;
   width: 200px;
-  margin-right: 5%;
 `;
 
 export const Calendar = styled(PrimeCalendar)`
-  margin-top: 30px;
   width: ${(props) => (props.width ? props.width : "95%")};
   align-self: center;
   display: flex;
@@ -111,7 +105,7 @@ export const Calendar = styled(PrimeCalendar)`
     }
 
     &:hover {
-      border-color: #f19709;
+      border-color: ${colors.accent.primary};
     }
 
   }
