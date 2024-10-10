@@ -5,8 +5,7 @@ import { breakpoints, colors, fonts } from "../../../styles/stylesVariables";
 export const StyledCard = styled(Card)`
   display: flex;
   flex-direction: column;
-  width: 80%;
-  max-width: 650px;
+  width: 650px;
   height: auto;
   align-items: center;
   border-radius: 24px;
@@ -14,6 +13,9 @@ export const StyledCard = styled(Card)`
   background-color: white;
   margin-bottom: 4rem;
   &:hover {
+  }
+  @media (max-width: ${breakpoints.smallTablet}) {
+    width: 80%;
   }
   @media (max-width: ${breakpoints.smallMobile}) {
     width: 90%;
