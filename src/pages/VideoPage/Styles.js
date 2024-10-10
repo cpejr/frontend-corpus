@@ -17,17 +17,25 @@ export const WhiteContainer = styled.div`
   align-self: center;
   justify-content: center;
   width: 85%;
-  height: 100vh;
+  height: 50vw;
   align-items: center;
   border-radius: 24px;
   gap: 2rem;
   background-color: white;
   margin-bottom: 4rem;
   padding: 40px 0px 40px 0px;
-  &:hover {
+  @media (max-width: ${breakpoints.smallTablet}) {
+    height: 60vw;
+  }
+  @media (max-width: ${breakpoints.mobile}) {
+    height: 70vw;
   }
   @media (max-width: ${breakpoints.smallMobile}) {
     width: 90%;
+    height: 75vw;
+  }
+  @media (max-width: ${breakpoints.mediumMobile}) {
+    height: 85vw;
   }
 
   > div {
@@ -37,7 +45,7 @@ export const WhiteContainer = styled.div`
   }
 `;
 
-export const Image = styled.div`
+export const VideoContainer = styled.div`
   display: flex;
   height: 90vh;
   width: 100%;
@@ -49,6 +57,11 @@ export const Image = styled.div`
     height: auto;
     border-radius: 0.5rem;
   }
+`;
+
+export const Video = styled.iframe`
+  width: 80%;
+  height: 90%;
 `;
 
 export const Line = styled.div`

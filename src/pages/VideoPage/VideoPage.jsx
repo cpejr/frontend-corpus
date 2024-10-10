@@ -1,10 +1,11 @@
 import { useLocation } from "react-router-dom";
 import {
     Line,
-    Image,
+    VideoContainer,
     Group,
     WhiteContainer,
     Container,
+    Video,
   } from "./Styles";
 
 export default function VideoPage() {
@@ -19,16 +20,14 @@ export default function VideoPage() {
           <Group>
             <Line>{data.name}</Line>
           </Group>
-          <Image>
-            <iframe
-              width="90%"
-              height="100%"
+          <VideoContainer>
+            <Video
               src={data.linkVideo}
               title={data.name}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
-              ></iframe>
-          </Image>
+              ></Video>
+          </VideoContainer>
         </WhiteContainer>
       </Container>
     );
