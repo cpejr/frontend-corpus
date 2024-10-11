@@ -38,7 +38,7 @@ export const colors = {
     cardBackground: "#111720",
     veryLight: "#d9d9d9",
   },
-  white: "#6B9080",
+  white: "#FFFFFF",
   black: "#000000",
 };
 

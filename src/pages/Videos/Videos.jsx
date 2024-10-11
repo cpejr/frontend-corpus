@@ -2,45 +2,97 @@ import { useState } from "react";
 import {
   Container,
   Title,
-  Filter,
   DivSelect,
   DivLine,
   Calendar,
-  Buttons,
-  ButtonsDiv,
-  MemorialNotFound,
-  MultipleSelect,
+  ContainerSearchFilter,
+  DivTitle,
+  ContainerSearchBar,
 } from "./Styles";
 import { SearchBar } from "../../components";
 import { useGlobalLanguage } from "../../stores/globalLanguage";
 import { TranslateText } from "./translations";
+import Card from "../../components/features/Card/Card";
+import { useNavigate } from "react-router-dom";
 export default function Videos() {
-  const [category, setCategory] = useState([]);
-  const [filteredMemorial, setFilteredMemorial] = useState([]);
   const [dates, setDates] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
 
   //translations
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
 
-  const handleResetFilter = () => {
-    setDates(null);
-    setCategory([]);
-    setFilteredMemorial({
-      //data
-    });
+  const videos = [
+    {
+      resume: "/videos/ContainerMultipleViewpointHeimat_English.mp4",
+      name: "ContainerMultipleViewpointHeimat English",
+    },
+    {
+      name: "OpenClosePeople 2",
+      resume: "/videos/OpenClosePeople_2.mp4",
+    },
+    {
+      resume: "/videos/GringoCulture.mp4",
+      name: "GringoCulture",
+    },
+    {
+      resume: "/videos/Homeland.mp4",
+      name: "Homeland",
+    },
+    {
+      resume: "/videos/RussianFoodCulture.mp4",
+      name: "RussianFoodCulture",
+    },
+    {
+      resume: "/videos/Intonation.mp4",
+      name: "Intonation",
+    },
+    {
+      resume: "/videos/Jeitinho_Fraco_English.mp4",
+      name: "Jeitinho Fraco English",
+    },
+    {
+      resume: "/videos/Jeitinho_BurlarNormas_English.mp4",
+      name: "Jeitinho BurlarNormas English",
+    },
+    {
+      resume: "/videos/Jeitinho_TrópicoFavorecimento_English.mp4",
+      name: "Jeitinho TrópicoFavorecimento English",
+    },
+    {
+      resume: "/videos/Sequence_ExpoCachaça_Eng.mp4",
+      name: "Sequence ExpoCachaça Eng",
+    },
+    {
+      resume: "/videos/Sequence_FaceTheWinter.mp4",
+      name: "Sequence FaceTheWinter",
+    },
+    {
+      resume: "/videos/Sequence_LostThePoint.mp4",
+      name: "Sequence LostThePoint",
+    },
+  ];
+
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value);
   };
+
+  const navigate = useNavigate();
 
   return (
     <Container>
-      <Title>{translation.title1}</Title>
-      <SearchBar
-        aria-label="Barra de pesquisa"
-        placeholder={translation.placeholder}
-        //value={searchValue}
-        // search={handleSearchChange}
-      />
-      <Filter>
+      <DivTitle>
+        <Title>{translation.title}</Title>
+      </DivTitle>
+      <ContainerSearchFilter>
+        <ContainerSearchBar>
+          <SearchBar
+            aria-label="Barra de pesquisa"
+            placeholder={translation.placeholder}
+            value={searchValue}
+            search={handleSearch}
+          />
+        </ContainerSearchBar>
         <DivSelect>
           <Calendar
             value={dates}
@@ -53,24 +105,23 @@ export default function Videos() {
             dateFormat="yy"
             view="year"
           />
-
-          <MultipleSelect
-            //options={options}
-            placeholder={translation.select}
-            value={category || ""}
-            onChange={(e) => setCategory(e.value)}
-          />
         </DivSelect>
-      </Filter>
-      <ButtonsDiv>
-        <Buttons>{translation.button1}</Buttons>
-        <Buttons onClick={handleResetFilter}>{translation.button2}</Buttons>
-      </ButtonsDiv>
-      <DivLine>
-        {filteredMemorial && filteredMemorial.length === 0 && (
-          <MemorialNotFound>{translation.message}</MemorialNotFound>
-        )}
-      </DivLine>
+      </ContainerSearchFilter>
+      {videos
+        .filter((obj) =>
+          obj.name.toLowerCase().includes(searchValue.toLowerCase())
+        )
+        .map((card, index) => (
+          <DivLine key={index}>
+            <Card
+              data={card}
+              textButton={translation.buttonCard}
+              event={() => {
+                navigate(`/videos/${card.name}`, { state: card });
+              }}
+            />
+          </DivLine>
+        ))}
     </Container>
   );
 }
