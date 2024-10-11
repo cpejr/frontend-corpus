@@ -14,7 +14,6 @@ import { useGlobalLanguage } from "../../stores/globalLanguage";
 import { TranslateText } from "./translations";
 import Card from "../../components/features/Card/Card";
 import { useNavigate } from "react-router-dom";
-
 export default function Videos() {
   const [dates, setDates] = useState(null);
   const [searchValue, setSearchValue] = useState("");
@@ -23,10 +22,55 @@ export default function Videos() {
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
 
-  const videos = [{thumbnail: "https://img.youtube.com/vi/_N8zSuvqHh4/hqdefault.jpg", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Foda"},
-                  {thumbnail: "https://s2-techtudo.glbimg.com/SSAPhiaAy_zLTOu3Tr3ZKu2H5vg=/0x0:1024x609/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2022/c/u/15eppqSmeTdHkoAKM0Uw/dall-e-2.jpg", name: "Foda"},
-                  {thumbnail: "https://s2-techtudo.glbimg.com/SSAPhiaAy_zLTOu3Tr3ZKu2H5vg=/0x0:1024x609/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2022/c/u/15eppqSmeTdHkoAKM0Uw/dall-e-2.jpg", name: "Foda"},
-                  {thumbnail: "https://s2-techtudo.glbimg.com/SSAPhiaAy_zLTOu3Tr3ZKu2H5vg=/0x0:1024x609/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2022/c/u/15eppqSmeTdHkoAKM0Uw/dall-e-2.jpg", name: "Foda"},
+  const videos = [
+    {
+      resume: "/videos/ContainerMultipleViewpointHeimat_English.mp4",
+      name: "ContainerMultipleViewpointHeimat English",
+    },
+    {
+      name: "OpenClosePeople 2",
+      resume: "/videos/OpenClosePeople_2.mp4",
+    },
+    {
+      resume: "/videos/GringoCulture.mp4",
+      name: "GringoCulture",
+    },
+    {
+      resume: "/videos/Homeland.mp4",
+      name: "Homeland",
+    },
+    {
+      resume: "/videos/RussianFoodCulture.mp4",
+      name: "RussianFoodCulture",
+    },
+    {
+      resume: "/videos/Intonation.mp4",
+      name: "Intonation",
+    },
+    {
+      resume: "/videos/Jeitinho_Fraco_English.mp4",
+      name: "Jeitinho Fraco English",
+    },
+    {
+      resume: "/videos/Jeitinho_BurlarNormas_English.mp4",
+      name: "Jeitinho BurlarNormas English",
+    },
+    {
+      resume: "/videos/Jeitinho_TrópicoFavorecimento_English.mp4",
+      name: "Jeitinho TrópicoFavorecimento English",
+    },
+    {
+      resume: "/videos/Sequence_ExpoCachaça_Eng.mp4",
+      name: "Sequence ExpoCachaça Eng",
+    },
+    {
+      resume: "/videos/Sequence_FaceTheWinter.mp4",
+      name: "Sequence FaceTheWinter",
+    },
+    {
+      resume: "/videos/Sequence_LostThePoint.mp4",
+      name: "Sequence LostThePoint",
+    },
   ];
 
   const handleSearch = (e) => {
@@ -37,7 +81,9 @@ export default function Videos() {
 
   return (
     <Container>
-      <DivTitle><Title>{translation.title}</Title></DivTitle>
+      <DivTitle>
+        <Title>{translation.title}</Title>
+      </DivTitle>
       <ContainerSearchFilter>
         <ContainerSearchBar>
           <SearchBar
@@ -48,26 +94,34 @@ export default function Videos() {
           />
         </ContainerSearchBar>
         <DivSelect>
-            <Calendar
-              value={dates}
-              onChange={(e) => setDates(e.value)}
-              selectionMode="range"
-              readOnlyInput
-              hideOnRangeSelection
-              placeholder={translation.calendar}
-              showButtonBar
-              dateFormat="yy"
-              view="year"
+          <Calendar
+            value={dates}
+            onChange={(e) => setDates(e.value)}
+            selectionMode="range"
+            readOnlyInput
+            hideOnRangeSelection
+            placeholder={translation.calendar}
+            showButtonBar
+            dateFormat="yy"
+            view="year"
+          />
+        </DivSelect>
+      </ContainerSearchFilter>
+      {videos
+        .filter((obj) =>
+          obj.name.toLowerCase().includes(searchValue.toLowerCase())
+        )
+        .map((card, index) => (
+          <DivLine key={index}>
+            <Card
+              data={card}
+              textButton={translation.buttonCard}
+              event={() => {
+                navigate(`/videos/${card.name}`, { state: card });
+              }}
             />
-          </DivSelect>
-        </ContainerSearchFilter>
-        {videos.filter((obj) =>
-          obj.name.toLowerCase().includes(searchValue.toLowerCase()),
-        ).map((card, index) => (
-              <DivLine key={index}>
-                <Card data={card} textButton={translation.buttonCard} event={() => { navigate(`/videos/${card.name}`, { state: card } )}}/>
-              </DivLine>
-            ))}
+          </DivLine>
+        ))}
     </Container>
   );
 }

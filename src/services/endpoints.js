@@ -72,6 +72,7 @@ export const redefinePassword = async ({ token, newPassword }) => {
 // User sessions
 export const login = async (credentials) => {
   const { setAuth } = useAuthStore.getState();
+
   const { data } = await api.post("/login", credentials);
 
   setAuth(data.accessToken);
