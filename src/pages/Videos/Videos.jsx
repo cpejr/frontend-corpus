@@ -2,9 +2,7 @@ import { useState } from "react";
 import {
   Container,
   Title,
-  DivSelect,
   DivLine,
-  Calendar,
   ContainerSearchFilter,
   DivTitle,
   ContainerSearchBar,
@@ -15,7 +13,6 @@ import { TranslateText } from "./translations";
 import Card from "../../components/features/Card/Card";
 import { useNavigate } from "react-router-dom";
 export default function Videos() {
-  const [dates, setDates] = useState(null);
   const [searchValue, setSearchValue] = useState("");
 
   //translations
@@ -93,19 +90,6 @@ export default function Videos() {
             search={handleSearch}
           />
         </ContainerSearchBar>
-        <DivSelect>
-          <Calendar
-            value={dates}
-            onChange={(e) => setDates(e.value)}
-            selectionMode="range"
-            readOnlyInput
-            hideOnRangeSelection
-            placeholder={translation.calendar}
-            showButtonBar
-            dateFormat="yy"
-            view="year"
-          />
-        </DivSelect>
       </ContainerSearchFilter>
       {videos
         .filter((obj) =>

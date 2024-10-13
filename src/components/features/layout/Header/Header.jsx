@@ -9,7 +9,7 @@ import {
 import { logo } from "../../../../assets";
 import { useLocation, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import useAuthStore from "../../../../stores/auth";
+
 import HamburguerMenu from "./HambuguerMenu";
 import "react-toastify/dist/ReactToastify.css";
 import { useGlobalLanguage } from "../../../../stores/globalLanguage";
@@ -17,9 +17,6 @@ import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { flagEN, flagES, flagPT } from "../../../../assets";
 import { TranslateText } from "./translations";
-import { useLogout } from "../../../../hooks/query/session";
-import { toast } from "react-toastify";
-import LogoutButton from "../../../common/LogoutButton/Logoutbutton";
 
 export default function Head() {
   const [collapse, setCollapse] = useState(false);
@@ -31,7 +28,6 @@ export default function Head() {
     { code: "ES", flag: flagES },
   ];
 
-  const isAdmin = useAuthStore((state) => state?.auth?.user?.type);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -39,58 +35,13 @@ export default function Head() {
 
   const items = [
     {
-      label: translations.headerText1,
-      url: "/sobre-nos",
-    },
-    {
       label: translations.headerText3,
-      url: "/video",
+      url: "/",
     },
-    {
-      label: translations.headerText4,
-      url: "/politica-de-privacidade",
-    },
-
-    ...(isAdmin === "admin"
-      ? [
-          {
-            label: "Administrador",
-            items: [
-              {
-                label: translations.headerText2,
-                url: "/manage-videos",
-              },
-              {
-                separator: true,
-              },
-              {
-                label: translations.headerText5,
-                url: "/manage-users",
-              },
-            ],
-          },
-        ]
-      : []),
   ];
-
-  const { mutate: logout } = useLogout({
-    onSuccess: () => {
-      toast.success(translations.logoutSuccess);
-    },
-    onError: (err) => {
-      toast.error(err.response.data.message);
-    },
-  });
-
-  const execLogout = () => {
-    logout();
-  };
 
   return (
     <Container>
-      {location.pathname !== "/" ? (
-        <LogoHeader src={logo} onClick={() => navigate("/")}></LogoHeader>
-      ) : null}
       <Header model={items} />
       <Select>
         <Selected onClick={() => setCollapse((prev) => !prev)}>
@@ -124,7 +75,6 @@ export default function Head() {
           ))}
         </LanguageSelector>
       </Select>
-      <LogoutButton onClick={execLogout} />
       <HamburguerMenu />
     </Container>
   );

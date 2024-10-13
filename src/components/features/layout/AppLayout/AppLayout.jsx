@@ -1,20 +1,14 @@
 import { Outlet } from "react-router-dom";
 import { Container } from "./Styles";
-import { Header, Footer } from "../../../../components";
-import { useRefreshToken } from "../../../../hooks/query/session";
+import { Header } from "../../../../components";
 
 export default function AppLayout() {
-  const { isLoading } = useRefreshToken();
-
-  return isLoading ? (
-    <div />
-  ) : (
+  return (
     <Container>
       <Header />
       <main>
         <Outlet />
       </main>
-      <Footer />
     </Container>
   );
 }

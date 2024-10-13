@@ -1,19 +1,8 @@
-import {
-  StyledCard,
-  OrangeButton,
-  Line,
-  Image,
-  Group,
-  ButtonDiv,
-} from "./Styles";
+import { StyledCard, OrangeButton, Line, Group, ButtonDiv } from "./Styles";
 import PropTypes from "prop-types";
-import logo from "../../../assets/logoFooter.svg";
 export default function Card({ data, textButton, event }) {
   return (
     <StyledCard>
-      <Image>
-        <img src={logo} />
-      </Image>
       <Group>
         <Line>{data.name}</Line>
       </Group>
