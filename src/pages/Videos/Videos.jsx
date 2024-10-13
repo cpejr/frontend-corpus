@@ -22,51 +22,51 @@ export default function Videos() {
   const videos = [
     {
       resume: "/videos/ContainerMultipleViewpointHeimat_English.mp4",
-      name: "ContainerMultipleViewpointHeimat English",
+      name: '"Not belonging to the group"',
     },
     {
-      name: "OpenClosePeople 2",
+      name: '"Warm and open"',
       resume: "/videos/OpenClosePeople_2.mp4",
     },
     {
       resume: "/videos/GringoCulture.mp4",
-      name: "GringoCulture",
+      name: '"Gringo culture"',
     },
     {
       resume: "/videos/Homeland.mp4",
-      name: "Homeland",
+      name: '"Everyone hugs everyone"',
     },
     {
       resume: "/videos/RussianFoodCulture.mp4",
-      name: "RussianFoodCulture",
+      name: '"This is hospitality"',
     },
     {
       resume: "/videos/Intonation.mp4",
-      name: "Intonation",
+      name: '"Where do you live?"',
     },
     {
       resume: "/videos/Jeitinho_Fraco_English.mp4",
-      name: "Jeitinho Fraco English",
+      name: '"Get through life"',
     },
     {
       resume: "/videos/Jeitinho_BurlarNormas_English.mp4",
-      name: "Jeitinho BurlarNormas English",
+      name: '"Bypass these norms"',
     },
     {
       resume: "/videos/Jeitinho_TrópicoFavorecimento_English.mp4",
-      name: "Jeitinho TrópicoFavorecimento English",
+      name: '"The corruption starts at my condo"',
     },
     {
       resume: "/videos/Sequence_ExpoCachaça_Eng.mp4",
-      name: "Sequence ExpoCachaça Eng",
+      name: '"Expo Cachaça"',
     },
     {
       resume: "/videos/Sequence_FaceTheWinter.mp4",
-      name: "Sequence FaceTheWinter",
+      name: '"To face the Winter"',
     },
     {
       resume: "/videos/Sequence_LostThePoint.mp4",
-      name: "Sequence LostThePoint",
+      name: '"Lost the point"',
     },
   ];
 

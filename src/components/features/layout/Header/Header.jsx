@@ -1,13 +1,10 @@
 import {
   Container,
-  LogoHeader,
   Header,
   Select,
   Selected,
   LanguageSelector,
 } from "./Styles";
-import { logo } from "../../../../assets";
-import { useLocation, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 import HamburguerMenu from "./HambuguerMenu";
@@ -27,9 +24,6 @@ export default function Head() {
     { code: "EN", flag: flagEN },
     { code: "ES", flag: flagES },
   ];
-
-  const navigate = useNavigate();
-  const location = useLocation();
 
   const translations = TranslateText({ globalLanguage });
 
