@@ -1,11 +1,21 @@
 import { useState } from "react";
-import { FormSubmit } from "../../components";
-import { Container, Title, Section, BackgroundTitle } from "./Styles";
+import { FormSubmit, SearchBar } from "../../components";
+import { Container, Title, Section, DivTitle, ContainerSearchBar } from "./Styles";
 import { newValidationSchema } from "./utils";
+import { TranslateText } from "./translations";
+import { useGlobalLanguage } from "../../stores/globalLanguage";
 
-import { TranslateText as translation } from "./translations";
+export default function ManageVideosPage() {
 
-export default function FormPage() {
+  const { globalLanguage } = useGlobalLanguage();
+  const translation = TranslateText({ globalLanguage });
+  
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
+  
   const [inputs] = useState([
     {
       type: "text",
@@ -65,9 +75,7 @@ export default function FormPage() {
 
   return (
     <Container>
-      <BackgroundTitle>
-        <Title>{translation.title1}</Title>
-      </BackgroundTitle>
+      <DivTitle><Title>{translation.title1}</Title></DivTitle>
 
       <Section>
         <FormSubmit
@@ -79,7 +87,18 @@ export default function FormPage() {
         />
       </Section>
 
-      <Title>{translation.title2}</Title>
+      <DivTitle margin="20px"><Title>{translation.title2}</Title></DivTitle>
+
+      <ContainerSearchBar>
+        <SearchBar
+            aria-label="Barra de pesquisa"
+            placeholder={translation.placeholderSearch}
+            value={searchValue}
+            search={handleSearch}
+          />
+      </ContainerSearchBar>
+
+      <Section></Section>
     </Container>
   );
 }

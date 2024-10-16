@@ -2,6 +2,7 @@ export function TranslateText({ globalLanguage }) {
   let title1;
   let title2;
   let button1;
+  let placeholderSearch;
   let placeholder1;
   let placeholder2;
   let placeholder3;
@@ -15,10 +16,12 @@ export function TranslateText({ globalLanguage }) {
   let table3;
 
   if (globalLanguage === "PT") {
+    title1 = "ADICIONAR VÍDEOS";
+    title2 = "GERENCIAR VÍDEOS";
     table1 = "coluna";
     table2 = "coluna";
     table3 = "coluna";
-    title1 = "TÍTULO";
+    placeholderSearch = "Pesquisar";
     placeholder1 = "texto";
     placeholder2 = "texto";
     placeholder3 = "texto";
@@ -28,13 +31,14 @@ export function TranslateText({ globalLanguage }) {
     placeholder7 = "texto";
     placeholder8 = "texto";
     button1 = "botão";
-    title2 = "TÍTULO";
   }
   if (globalLanguage === "EN") {
+    title1 = "ADD VIDEOS";
+    title2 = "MANAGE VIDEOS";
     table1 = "column";
     table2 = "column";
     table3 = "column";
-    title1 = "TITLE";
+    placeholderSearch = "Search";
     placeholder1 = "text";
     placeholder2 = "text";
     placeholder3 = "text";
@@ -44,13 +48,14 @@ export function TranslateText({ globalLanguage }) {
     placeholder7 = "text";
     placeholder8 = "text";
     button1 = "button";
-    title2 = "TITLE";
   }
   if (globalLanguage === "ES") {
+    title1 = "AÑADIR VÍDEOS";
+    title2 = "GESTIONAR VÍDEOS";
     table1 = "columna";
     table2 = "columna";
     table3 = "columna";
-    title1 = "TÍTULO";
+    placeholderSearch = "Buscar";
     placeholder1 = "mensaje de texto";
     placeholder2 = "mensaje de texto";
     placeholder3 = "mensaje de texto";
@@ -60,11 +65,11 @@ export function TranslateText({ globalLanguage }) {
     placeholder7 = "mensaje de texto";
     placeholder8 = "mensaje de texto";
     button1 = "button";
-    title2 = "TÍTULO";
   }
   return {
     title1,
     title2,
+    placeholderSearch,
     placeholder1,
     placeholder2,
     placeholder3,

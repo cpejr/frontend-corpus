@@ -63,7 +63,6 @@ export const ContainerSearchBar = styled.div`
   flex-direction: row;
   width: 100%;
   align-items: center;
-  margin-left: 5%;
 `;
 
 export const DivSelect = styled.div`

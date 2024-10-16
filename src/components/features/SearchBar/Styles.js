@@ -4,6 +4,8 @@ import { colors } from "../../../styles/stylesVariables";
 
 export const Input = styled(AutoComplete)`
   margin-top: 30px;
+  margin-left: 3%;
+  margin-right: 3%;
   width: ${(props) => (props.width ? props.width : "95%")};
   align-self: center;
   .p-autocomplete-input {
