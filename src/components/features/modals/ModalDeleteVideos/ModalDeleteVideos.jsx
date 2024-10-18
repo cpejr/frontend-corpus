@@ -1,19 +1,19 @@
 import { Container, Text, Title } from "./Styles";
 import { CloseOutlined } from '@ant-design/icons';
 import PropTypes from "prop-types";
-import { useForgotPassword } from "../../../../hooks/query/user";
 import { toast } from "react-toastify";
 import { useGlobalLanguage } from "../../../../stores/globalLanguage";
 import { TranslateText, TranslateToastError } from "./translations";
 import Button from "../../../common/Button/Button";
 import { Modal } from 'antd';
+import { useDeleteVideos } from "../../../../hooks/query/videos";
 
 export default function ModalDeleteVideo({ openModal, closeModal, id }) {
   
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText(globalLanguage);
 
-  const { mutate: forgotPassword } = useForgotPassword({
+  const { mutate: deleteVideo } = useDeleteVideos({
     onSuccess: () => {
       toast.success(translation.successToast);
       closeModal();
@@ -25,7 +25,7 @@ export default function ModalDeleteVideo({ openModal, closeModal, id }) {
   });
 
   const onConfirm = () => {
-    forgotPassword(id);
+    deleteVideo(id);
   };
 
   return (

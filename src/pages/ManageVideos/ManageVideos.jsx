@@ -18,6 +18,11 @@ export default function ManageVideosPage() {
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
   };
+
+  const handleDelete = (id) => {
+    setVideoId(id);
+    setShowDeleteModal(true);
+  }
   
   const [inputs] = useState([
     {
@@ -78,7 +83,6 @@ export default function ManageVideosPage() {
 
   return (
     <Container>
-      <button onClick={() => setShowDeleteModal(true)}/>
       <DivTitle><Title>{translation.title1}</Title></DivTitle>
 
       <Section>
