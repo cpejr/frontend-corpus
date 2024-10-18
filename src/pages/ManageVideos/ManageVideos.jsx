@@ -5,6 +5,8 @@ import { newValidationSchema } from "./utils";
 import { TranslateText } from "./translations";
 import { useGlobalLanguage } from "../../stores/globalLanguage";
 import ModalDeleteVideo from "../../components/features/modals/ModalDeleteVideos/ModalDeleteVideos";
+import { useCreateVideos } from "../../hooks/query/videos";
+import { toast } from "react-toastify";
 
 export default function ManageVideosPage() {
 
@@ -76,6 +78,16 @@ export default function ManageVideosPage() {
       label: "date",
     },
   ]);
+
+  const { mutate: createVideo, isPending } = useCreateVideos({
+    onSuccess: () => {
+      // toast.success(translation.successToast);
+    },
+    onError: (err) => {
+      console.log(err);
+      // toast.error(TranslateToastError(globalLanguage, err.response.status));
+    },
+  });
 
   function handleSubmit(data) {
     console.log("esse comentário é um teste", data);
