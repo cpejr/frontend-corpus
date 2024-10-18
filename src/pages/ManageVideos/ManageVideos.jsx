@@ -4,6 +4,7 @@ import { Container, Title, Section, DivTitle, ContainerSearchBar } from "./Style
 import { newValidationSchema } from "./utils";
 import { TranslateText } from "./translations";
 import { useGlobalLanguage } from "../../stores/globalLanguage";
+import ModalDeleteVideo from "../../components/features/modals/ModalDeleteVideos/ModalDeleteVideos";
 
 export default function ManageVideosPage() {
 
@@ -11,6 +12,8 @@ export default function ManageVideosPage() {
   const translation = TranslateText({ globalLanguage });
   
   const [searchValue, setSearchValue] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState("");
+  const [videoId, setVideoId] = useState("");
 
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
@@ -75,6 +78,7 @@ export default function ManageVideosPage() {
 
   return (
     <Container>
+      <button onClick={() => setShowDeleteModal(true)}/>
       <DivTitle><Title>{translation.title1}</Title></DivTitle>
 
       <Section>
@@ -99,6 +103,11 @@ export default function ManageVideosPage() {
       </ContainerSearchBar>
 
       <Section></Section>
+      <ModalDeleteVideo
+        openModal={showDeleteModal}
+        closeModal={() => setShowDeleteModal(false)}
+        id={videoId}
+      />
     </Container>
   );
 }
