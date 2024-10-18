@@ -8,11 +8,13 @@ import {
   CheckSection,
   Checkbox,
   CheckText,
+  UploadSection,
 } from "./Styles";
 import { LoadingOutlined } from "@ant-design/icons";
 import FormInput from "../../common/FormInput/FormInput";
 import Button from "../../common/Button/Button";
 import FormSelect from "../../common/FormSelect/FormSelect";
+import UploadButton from "../../common/UploadButton/UploadButton";
 
 import CalendarFunction from "../../common/Calendar/Calendar";
 export default function FormSubmit({
@@ -35,7 +37,14 @@ export default function FormSubmit({
   } = useForm({
     //resolver: zodResolver(schema),
   });
+  console.log(1);
   function submitHandler(data) {
+    onSubmit(data);
+    reset();
+  }
+  console.log(2);
+
+  function handleFileUpload(data) {
     onSubmit(data);
     reset();
   }
@@ -127,6 +136,26 @@ export default function FormSubmit({
               {errors[input.key]?.message && (
                 <ErrorMessage>{errors[input.key]?.message}</ErrorMessage>
               )}
+            </InputKeep>
+          );
+        } else if (input.type == "file") {
+          return (
+            <InputKeep key={input.key}>
+              <UploadSection>
+                <UploadButton
+                  inputKey={input.key}
+                  label={input.label}
+                  placeholder={input.placeholder}
+                  icon={input.icon}
+                  color={input.color}
+                  error={errors[input.key] ? true : false || requestError}
+                  appendFn={(file) => handleFileUpload(file)}
+                  allowedMimeTypes=".jpg, .png, .pdf, video/mp4,video/x-msvideo,video/quicktime,video/webm"
+                  sizeLimitInMB={300}
+                  onChange={(e) => console.log(e.target.files[0])}
+                  multiple={false}
+                />
+              </UploadSection>
             </InputKeep>
           );
         }

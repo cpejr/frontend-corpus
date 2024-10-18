@@ -5,6 +5,7 @@ export { default as FormInput } from "./common/FormInput/FormInput.jsx";
 export { default as FormDatePicker } from "./common/FormDatePicker/FormDatePicker.jsx";
 export { default as FormSubmit } from "./features/FormSubmit/FormSubmit.jsx";
 export { default as Calendar } from "./common/Calendar/Calendar.jsx";
+export { default as UploadButton } from "./common/UploadButton/UploadButton.jsx";
 //Features
 export { default as Header } from "./features/layout/Header/Header.jsx";
 export { default as Footer } from "./features/layout/Footer/Footer.jsx";

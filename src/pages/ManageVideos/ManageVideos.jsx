@@ -1,21 +1,26 @@
 import { useState } from "react";
 import { FormSubmit, SearchBar } from "../../components";
-import { Container, Title, Section, DivTitle, ContainerSearchBar } from "./Styles";
+import {
+  Container,
+  Title,
+  Section,
+  DivTitle,
+  ContainerSearchBar,
+} from "./Styles";
 import { newValidationSchema } from "./utils";
 import { TranslateText } from "./translations";
 import { useGlobalLanguage } from "../../stores/globalLanguage";
 
 export default function ManageVideosPage() {
-
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
-  
+
   const [searchValue, setSearchValue] = useState("");
 
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
   };
-  
+
   const [inputs] = useState([
     {
       type: "text",
@@ -67,15 +72,23 @@ export default function ManageVideosPage() {
       placeholder: "Selecione sua data de nascimento",
       label: "date",
     },
+    {
+      type: "file",
+      key: "video",
+      placeholder: "Escolha um arquivo de mídia",
+      label: "video",
+    },
   ]);
 
   function handleSubmit(data) {
-    console.log("esse comentário é um teste", data);
+    console.log("esse comentário é um teste que imprime data", data);
   }
 
   return (
     <Container>
-      <DivTitle><Title>{translation.title1}</Title></DivTitle>
+      <DivTitle>
+        <Title>{translation.title1}</Title>
+      </DivTitle>
 
       <Section>
         <FormSubmit
@@ -87,15 +100,17 @@ export default function ManageVideosPage() {
         />
       </Section>
 
-      <DivTitle margin="20px"><Title>{translation.title2}</Title></DivTitle>
+      <DivTitle margin="20px">
+        <Title>{translation.title2}</Title>
+      </DivTitle>
 
       <ContainerSearchBar>
         <SearchBar
-            aria-label="Barra de pesquisa"
-            placeholder={translation.placeholderSearch}
-            value={searchValue}
-            search={handleSearch}
-          />
+          aria-label="Barra de pesquisa"
+          placeholder={translation.placeholderSearch}
+          value={searchValue}
+          search={handleSearch}
+        />
       </ContainerSearchBar>
 
       <Section></Section>
