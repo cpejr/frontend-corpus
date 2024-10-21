@@ -13,7 +13,7 @@ import { useGlobalLanguage } from "../../stores/globalLanguage";
 import ModalDeleteVideo from "../../components/features/modals/ModalDeleteVideos/ModalDeleteVideos";
 import { useCreateVideos } from "../../hooks/query/videos";
 import { toast } from "react-toastify";
-
+import VideoList from "../../components/features/VideoList/VideoList";
 export default function ManageVideosPage() {
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
@@ -29,8 +29,8 @@ export default function ManageVideosPage() {
   const handleDelete = (id) => {
     setVideoId(id);
     setShowDeleteModal(true);
-  }
-  
+  };
+
   const [inputs] = useState([
     {
       type: "text",
@@ -133,7 +133,9 @@ export default function ManageVideosPage() {
         />
       </ContainerSearchBar>
 
-      <Section></Section>
+      <Section>
+        <VideoList />
+      </Section>
       <ModalDeleteVideo
         openModal={showDeleteModal}
         closeModal={() => setShowDeleteModal(false)}
