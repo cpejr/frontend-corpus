@@ -33,60 +33,20 @@ export default function ManageVideosPage() {
   
   const [inputs] = useState([
     {
-      type: "text",
-      key: "name",
-      placeholder: "Digite seu nome",
-      label: "name",
-    },
-    {
-      type: "text",
-      key: "shortDescription",
-      placeholder: "Descreva brevemente aqui",
-      label: "shortDescription",
-    },
-    {
-      type: "text",
-      key: "longDescription",
-      placeholder: "Descreva como quiser aqui",
-      label: "longDescription",
-    },
-    {
-      type: "text",
-      key: "link",
-      placeholder: "Cole aqui seu link",
-      label: "link",
-    },
-    {
       type: "select",
-      key: "select",
+      key: "code",
       placeholder: "Selecione sua formação",
-      label: "select",
-      options: [
-        { value: "medico", name: "Médico" },
-        { value: "estudante", name: "Estudante" },
-      ],
-    },
-    {
-      type: "select",
-      key: "select",
-      placeholder: "Selecione sua área",
-      label: "select",
-      options: [
-        { value: "nenhuma", name: "Nenhuma" },
-        { value: "medicina", name: "Medicina" },
-      ],
-    },
-    {
-      type: "date",
-      key: "date",
-      placeholder: "Selecione sua data de nascimento",
-      label: "date",
+      label: "code",
+      options: Array.from({length: 100}, (_, i) => ({
+        value: (i + 1),
+        name: (i + 1).toString()
+      })),
     },
     {
       type: "file",
-      key: "video",
+      key: "videoFile",
       placeholder: "Escolha um arquivo de mídia",
-      label: "video",
+      label: "videoFile",
     },
   ]);
 
@@ -102,6 +62,7 @@ export default function ManageVideosPage() {
 
   function handleSubmit(data) {
     console.log("esse comentário é um teste que imprime data", data);
+    createVideo(data);
   }
 
   return (
