@@ -10,8 +10,9 @@ import {
 import { newValidationSchema } from "./utils";
 import { TranslateText } from "./translations";
 import { useGlobalLanguage } from "../../stores/globalLanguage";
+import ModalEditVideos from "../../components/features/modals/ModalEditVideos/ModalEditVideos";
 import ModalDeleteVideo from "../../components/features/modals/ModalDeleteVideos/ModalDeleteVideos";
-import { useCreateVideos } from "../../hooks/query/videos";
+import { useCreateVideos, useUpdateVideos } from "../../hooks/query/videos";
 import { toast } from "react-toastify";
 import VideoList from "../../components/features/VideoList/VideoList";
 export default function ManageVideosPage() {
@@ -19,7 +20,9 @@ export default function ManageVideosPage() {
   const translation = TranslateText({ globalLanguage });
 
   const [searchValue, setSearchValue] = useState("");
+  const [showEditModal, setShowEditModal] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState("");
+
   const [videoId, setVideoId] = useState("");
 
   const handleSearch = (e) => {
@@ -30,6 +33,10 @@ export default function ManageVideosPage() {
     setVideoId(id);
     setShowDeleteModal(true);
   };
+  function handleEditVideo(id) {
+    setVideoId(id);
+    setShowEditModal(true);
+  }
 
   const [inputs] = useState([
     {
@@ -37,9 +44,9 @@ export default function ManageVideosPage() {
       key: "code",
       placeholder: "Selecione sua formação",
       label: "code",
-      options: Array.from({length: 100}, (_, i) => ({
-        value: (i + 1),
-        name: (i + 1).toString()
+      options: Array.from({ length: 100 }, (_, i) => ({
+        value: i + 1,
+        name: (i + 1).toString(),
       })),
     },
     {
@@ -96,12 +103,19 @@ export default function ManageVideosPage() {
 
       <Section>
         <VideoList />
+        openModalEdit();
+        <ModalDeleteVideo
+          openModal={showDeleteModal}
+          closeModal={() => setShowDeleteModal(false)}
+          id={videoId}
+        />
+        <ModalEditVideos
+          openModal={showEditModal}
+          handleEditVideo={setVideoId}
+          closeModal={() => setShowEditModal(false)}
+          id={videoId}
+        />
       </Section>
-      <ModalDeleteVideo
-        openModal={showDeleteModal}
-        closeModal={() => setShowDeleteModal(false)}
-        id={videoId}
-      />
     </Container>
   );
 }

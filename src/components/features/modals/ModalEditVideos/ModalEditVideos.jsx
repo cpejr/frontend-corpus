@@ -6,22 +6,17 @@ import {
   Message,
   ModalStyle,
   MultipleSelect,
-  Calendar,
+  //Calendar,
 } from "./Styles";
 
-import { useState, useEffect } from "react";
+//import { useState, useEffect } from "react";
 
-import formatDate from "../../../../utils/formatDate";
+//import formatDate from "../../../../utils/formatDate";
 
-export default function ModalEditVideos({
-  videos,
-  close,
+export default function ModalEditVideos({ videos, close, open, modal }) {
+  //const [date, setDate] = useState();
 
-  modal,
-}) {
-  const [date, setDate] = useState();
-
-  useEffect(() => {}, [modal]);
+  //useEffect(() => {}, [modal]);
   // On Submit
 
   return (
@@ -49,7 +44,7 @@ export default function ModalEditVideos({
           filter
           color="black"
         />
-        <Calendar
+        {/* <Calendar
           value={date}
           onChange={(e) => setDate(e.value)}
           readOnlyInput
@@ -57,7 +52,7 @@ export default function ModalEditVideos({
           placeholder={formatDate({ value: videos?.date })}
           showButtonBar
           dateFormat="dd/mm/yy"
-        />
+        /> */}
         <Button
           type="submit"
           backgroundcolor="transparent"
@@ -83,6 +78,7 @@ ModalEditVideos.propTypes = {
   _id: PropTypes.string.isRequired,
   videos: PropTypes.object.isRequired,
   close: PropTypes.func.isRequired,
+  open: PropTypes.func.isRequired,
   modal: PropTypes.bool.isRequired,
   transformArrayItems: PropTypes.func.isRequired,
   updateVideos: PropTypes.func.isRequired,
