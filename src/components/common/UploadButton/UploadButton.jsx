@@ -4,19 +4,29 @@ import { UploadOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
 export default function UploadButton({
-  sendBack,
+  label,
+  setValue,
+  sendForms,
+  acceptString,
 }) {
-  const [file, setFile] = useState(null); // Armazena apenas um arquivo
+  const [file, setFile] = useState(null); 
+
+  if (sendForms) {
+    setFile(null);
+    setValue(null);
+  }
 
   const props = {
     onRemove: () => {
-      setFile(null); // Remove o arquivo quando o usuário clica em remover
+      setFile(null); 
     },
     beforeUpload: (file) => {
-      setFile(file); // Armazena o arquivo
-      return false; // Evita o upload automático
+      setFile(file); 
+      return false; 
     },
-    fileList: file ? [file] : [], // Mantém apenas o arquivo no formato esperado
+    fileList: file ? [file] : [], 
+    multiple: false, 
+    accept: acceptString,
   };
 
   const handleUpload = async () => {
@@ -26,9 +36,12 @@ export default function UploadButton({
     }
 
     try {
-      await sendBack(file); // Envia o FormData
-      message.success('Upload realizado com sucesso!');
-      setFile(null); // Limpa o arquivo após o sucesso
+      const reader = new FileReader();
+
+      reader.onloadend = function() {
+        setValue(label, reader.result.split(',')[1]);
+      } 
+
     } catch (error) {
       message.error('Erro ao fazer upload.');
     }
@@ -42,7 +55,7 @@ export default function UploadButton({
       <Button
         type="primary"
         onClick={handleUpload}
-        disabled={!file} // Desabilita se não houver arquivo
+        disabled={!file}
         style={{ marginTop: 16 }}
       >
         Enviar
@@ -56,5 +69,8 @@ UploadButton.defaultProps = {
 };
 
 UploadButton.propTypes = {
-  sendBack: PropTypes.func.isRequired,
+  setValue: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  acceptString: PropTypes.string.isRequired,
+  sendForms: PropTypes.bool.isRequired,
 };
