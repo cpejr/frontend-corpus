@@ -55,6 +55,13 @@ export default function ManageVideosPage() {
       placeholder: "Escolha um arquivo de mídia",
       label: "videoFile",
     },
+    {
+      type: "time",
+      key: "duration",
+      placeholder: "Tempo de duração",
+      label: "Duração",
+
+    }
   ]);
 
   const { mutate: createVideo, isPending } = useCreateVideos({
