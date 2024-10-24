@@ -1,50 +1,66 @@
-import { useRef } from "react";
-
-import PropTypes from "prop-types";
-import { HiPlusSm } from "react-icons/hi";
-// import { toast } from 'react-toastify';
-
-// import numToMegaBytes from '../../../utils/numToMegaBytes';
-import { AddButton } from "./Styles";
+import React, { useState } from 'react';
+import { Upload, Button, message } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import PropTypes from 'prop-types';
 
 export default function UploadButton({
   label,
-  appendFn,
-  allowedMimeTypes,
-  //sizeLimitInMB,
-  color = "white",
-  ...props
+  setValue,
+  sendForms,
+  acceptString,
 }) {
-  const fileInputRef = useRef(null);
+  const [file, setFile] = useState(null); 
+
+  if (sendForms) {
+    setFile(null);
+    setValue(null);
+  }
+
+  const props = {
+    onRemove: () => {
+      setFile(null); 
+    },
+    beforeUpload: (file) => {
+      setFile(file); 
+      return false; 
+    },
+    fileList: file ? [file] : [], 
+    multiple: false, 
+    accept: acceptString,
+  };
+
+  const handleUpload = async () => {
+    if (!file) {
+      message.error('Nenhum arquivo selecionado.');
+      return;
+    }
+
+    try {
+      const reader = new FileReader();
+
+      reader.onloadend = function() {
+        setValue(label, reader.result.split(',')[1]);
+      } 
+
+    } catch (error) {
+      message.error('Erro ao fazer upload.');
+    }
+  };
 
   return (
-    <AddButton
-      type="button"
-      onClick={() => fileInputRef.current.click()}
-      color={color}
-      {...props}
-    >
-      <input
-        type="file"
-        accept={allowedMimeTypes}
-        ref={fileInputRef}
-        style={{ display: "none" }}
-        onChange={(e) => {
-          const file = e.target.files[0];
-          appendFn({ file });
-
-          //   const sizeLimit = numToMegaBytes(sizeLimitInMB);
-
-          //   if (file.size > sizeLimit) {
-          //     toast.error(`Limite de ${sizeLimitInMB} MB excedido`);
-          //   } else {
-          //     appendFn({ file });
-          //   }
-        }}
-      />
-      <HiPlusSm size={25} />
-      {label}
-    </AddButton>
+    <div>
+      <Upload {...props}>
+        <Button icon={<UploadOutlined />}>Selecionar Arquivo</Button>
+      </Upload>
+      <Button
+        type="primary"
+        onClick={handleUpload}
+        disabled={!file}
+        style={{ marginTop: 16 }}
+      >
+        Enviar
+      </Button>
+    </div>
   );
 }
 
@@ -53,9 +69,8 @@ UploadButton.defaultProps = {
 };
 
 UploadButton.propTypes = {
-  color: PropTypes.string,
+  setValue: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
-  appendFn: PropTypes.func.isRequired,
-  allowedMimeTypes: PropTypes.string.isRequired,
-  //   sizeLimitInMB: PropTypes.number.isRequired,
+  acceptString: PropTypes.string.isRequired,
+  sendForms: PropTypes.bool.isRequired,
 };
