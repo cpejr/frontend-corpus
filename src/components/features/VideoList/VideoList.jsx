@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
+
 import { VideoListContainer } from "./Styles";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-//Os comentários abaixo são apenas para levar em conta um array de testes, já que o backend ainda não está funcional
+//Os comentários abaixo são apenas para levar em conta um array de testes,
 
 //import axios from "axios";
 
-export default function VideoList() {
+export default function VideoList({ onEdit }) {
   const [videos, SetVideos] = useState([]);
 
   //   useEffect(() => {
@@ -38,6 +40,7 @@ export default function VideoList() {
     ];
     SetVideos(TesteArray);
   }, []);
+
   return (
     <VideoListContainer>
       {videos.length === 0 ? (
@@ -64,6 +67,13 @@ export default function VideoList() {
               >
                 <h3>{video.title}</h3>
               </Link>
+              <button
+                onClick={() => onEdit(video.id)}
+                style={{ marginLeft: "10px" }}
+              >
+                Editar
+              </button>
+
               <hr
                 style={{
                   flex: 1,
@@ -79,3 +89,6 @@ export default function VideoList() {
     </VideoListContainer>
   );
 }
+VideoList.PropTypes = {
+  onEdit: PropTypes.func.isRequired,
+};

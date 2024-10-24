@@ -9,15 +9,35 @@ import {
   //Calendar,
 } from "./Styles";
 
-//import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 //import formatDate from "../../../../utils/formatDate";
 
-export default function ModalEditVideos({ videos, close, open, modal }) {
+export default function ModalEditVideos({
+  videos,
+  close,
+  open,
+  modal,
+  _id,
+  updateVideos,
+  transformArrayItems,
+}) {
   //const [date, setDate] = useState();
+  const [selectedCharacteristics, setSelectedCharacteristics] = useState([]);
+
+  const handleCharacteristicsChange = (e) => {
+    setSelectedCharacteristics(e.value);
+  };
 
   //useEffect(() => {}, [modal]);
-  // On Submit
+  const handleSubmit = () => {
+    const updatedData = {
+      ...videos,
+      characteristics: selectedCharacteristics,
+    };
+    updateVideos(_id, updatedData);
+    close();
+  };
 
   return (
     <Container>
@@ -33,6 +53,8 @@ export default function ModalEditVideos({ videos, close, open, modal }) {
         <MultipleSelect
           optionLabel="label"
           placeholder="Escolha as características"
+          value={selectedCharacteristics}
+          onChange={handleCharacteristicsChange}
           className="w-full md:w-20rem"
           filter
           color="black"
@@ -55,6 +77,7 @@ export default function ModalEditVideos({ videos, close, open, modal }) {
         /> */}
         <Button
           type="submit"
+          onClick={handleSubmit}
           backgroundcolor="transparent"
           color={colors.font.primary}
           border="1px solid"

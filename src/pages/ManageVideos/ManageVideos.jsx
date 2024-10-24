@@ -102,20 +102,19 @@ export default function ManageVideosPage() {
       </ContainerSearchBar>
 
       <Section>
-        <VideoList />
-        openModalEdit();
-        <ModalDeleteVideo
-          openModal={showDeleteModal}
-          closeModal={() => setShowDeleteModal(false)}
-          id={videoId}
-        />
-        <ModalEditVideos
-          openModal={showEditModal}
-          handleEditVideo={setVideoId}
-          closeModal={() => setShowEditModal(false)}
-          id={videoId}
-        />
+        <VideoList onEdit={handleEditVideo} />
       </Section>
+      <ModalDeleteVideo
+        openModal={showDeleteModal}
+        closeModal={() => setShowDeleteModal(false)}
+        id={videoId}
+      />
+      <ModalEditVideos
+        openModal={showEditModal}
+        handleEditVideo={setVideoId}
+        closeModal={() => setShowEditModal(false)}
+        id={videoId}
+      />
     </Container>
   );
 }

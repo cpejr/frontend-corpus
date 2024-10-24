@@ -5,6 +5,7 @@ import {
   createVideos,
   deleteVideos,
   updateVideos,
+  getVideosByCategoryId,
 } from "../../services/endpoints";
 
 export function useGetVideos({
@@ -39,4 +40,18 @@ export function useUpdateVideos({
   onError = (err) => console.error(err),
 } = {}) {
   return useMutation({ mutationFn: updateVideos, onSuccess, onError });
+}
+export function useGetVideosByCategoryId({
+  id,
+  title,
+
+  onSuccess = () => {},
+  onError = (err) => console.error(err),
+} = {}) {
+  return useQuery({
+    queryKey: ["videos", { id, title }],
+    queryFn: () => getVideosByCategoryId({ id, title }),
+    onSuccess,
+    onError,
+  });
 }
