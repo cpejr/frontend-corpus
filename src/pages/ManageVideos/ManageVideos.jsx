@@ -14,7 +14,9 @@ import ModalEditVideos from "../../components/features/modals/ModalEditVideos/Mo
 import ModalDeleteVideo from "../../components/features/modals/ModalDeleteVideos/ModalDeleteVideos";
 import { useCreateVideos, useUpdateVideos } from "../../hooks/query/videos";
 import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 import VideoList from "../../components/features/VideoList/VideoList";
+import { updateVideos } from "../../services/endpoints";
 export default function ManageVideosPage() {
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
@@ -22,6 +24,7 @@ export default function ManageVideosPage() {
   const [searchValue, setSearchValue] = useState("");
   const [showEditModal, setShowEditModal] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState("");
+  const queryClient = useQueryClient();
 
   const [videoId, setVideoId] = useState("");
 
@@ -36,6 +39,7 @@ export default function ManageVideosPage() {
   function handleEditVideo(id) {
     setVideoId(id);
     setShowEditModal(true);
+    updateVideos();
   }
 
   const [inputs] = useState([
@@ -66,11 +70,30 @@ export default function ManageVideosPage() {
       // toast.error(TranslateToastError(globalLanguage, err.response.status));
     },
   });
+  const { mutate: updateVideos, isPending: loading } = useUpdateVideos({
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["videos"],
+      });
+      toast.success(translation.successToast);
+    },
+    onError: (err) => {
+      console.log(err);
+      toast.error(TranslateToastError(globalLanguage, err.response.status));
+    },
+  });
 
-  function handleSubmit(data) {
-    console.log("esse comentário é um teste que imprime data", data);
-    createVideo(data);
-  }
+  const handleSubmit = async (data) => {
+    try {
+      if (videoId) {
+        updateVideos(data);
+      } else {
+        createVideo(data);
+      }
+    } catch (error) {
+      console.error("Erro ao salvar o vídeo", error);
+    }
+  };
 
   return (
     <Container>
@@ -103,18 +126,19 @@ export default function ManageVideosPage() {
 
       <Section>
         <VideoList onEdit={handleEditVideo} />
+
+        <ModalDeleteVideo
+          openModal={showDeleteModal}
+          closeModal={() => setShowDeleteModal(false)}
+          id={videoId}
+        />
+        <ModalEditVideos
+          openModal={showEditModal}
+          handleEditVideo={setVideoId}
+          closeModal={() => setShowEditModal(false)}
+          id={videoId}
+        />
       </Section>
-      <ModalDeleteVideo
-        openModal={showDeleteModal}
-        closeModal={() => setShowDeleteModal(false)}
-        id={videoId}
-      />
-      <ModalEditVideos
-        openModal={showEditModal}
-        handleEditVideo={setVideoId}
-        closeModal={() => setShowEditModal(false)}
-        id={videoId}
-      />
     </Container>
   );
 }

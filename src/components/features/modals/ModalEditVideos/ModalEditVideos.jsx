@@ -16,11 +16,9 @@ import { useState, useEffect } from "react";
 export default function ModalEditVideos({
   videos,
   close,
-  open,
   modal,
   _id,
   updateVideos,
-  transformArrayItems,
 }) {
   //const [date, setDate] = useState();
   const [selectedCharacteristics, setSelectedCharacteristics] = useState([]);
@@ -29,9 +27,16 @@ export default function ModalEditVideos({
     setSelectedCharacteristics(e.value);
   };
 
-  //useEffect(() => {}, [modal]);
-  const handleSubmit = () => {
+  useEffect(() => {
+    if (modal) {
+      selectedCharacteristics();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modal]);
+
+  const handleSubmit = (data) => {
     const updatedData = {
+      ...data,
       ...videos,
       characteristics: selectedCharacteristics,
     };

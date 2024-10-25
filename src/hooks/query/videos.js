@@ -5,7 +5,6 @@ import {
   createVideos,
   deleteVideos,
   updateVideos,
-  getVideosByCategoryId,
 } from "../../services/endpoints";
 
 export function useGetVideos({
@@ -44,13 +43,14 @@ export function useUpdateVideos({
 export function useGetVideosByCategoryId({
   id,
   title,
+  transcription,
 
   onSuccess = () => {},
   onError = (err) => console.error(err),
 } = {}) {
   return useQuery({
-    queryKey: ["videos", { id, title }],
-    queryFn: () => getVideosByCategoryId({ id, title }),
+    queryKey: ["videos", { id, title, transcription }],
+    queryFn: () => getVideos({ id, title, transcription }),
     onSuccess,
     onError,
   });
