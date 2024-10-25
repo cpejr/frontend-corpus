@@ -15,7 +15,7 @@ import FormInput from "../../common/FormInput/FormInput";
 import Button from "../../common/Button/Button";
 import FormSelect from "../../common/FormSelect/FormSelect";
 import UploadButton from "../../common/UploadButton/UploadButton";
-
+import TimePicker from "../../common/FormTimePicker/TimePicker";
 import CalendarFunction from "../../common/Calendar/Calendar";
 export default function FormSubmit({
   inputs,
@@ -157,6 +157,14 @@ export default function FormSubmit({
                 />
               </UploadSection>
             </InputKeep>
+          );
+        } else if (input.type == "time") {
+          return (
+            <TimePicker
+              format="HH:mm"
+              placeholder={input.placeholder}
+            >
+            </TimePicker>
           );
         }
         return null;

@@ -1,30 +1,16 @@
 import { z } from "zod";
 // Form Validation
-export const newValidationSchema = z
+export const validationSchema = z
   .object({
-    name: z
-      .string({ required_error: "O nome é obrigatório" })
-      .min(2, { message: "O nome deve ter pelo menos 2 caracteres" })
-      .max(60, { message: "O nome não pode exceder 60 caracteres" }),
-
-    shortDescription: z
-      .string({ required_error: "A descrição curta é obrigatória" })
-      .min(2, { message: "A descrição curta deve ter pelo menos 2 caracteres" })
-      .max(60, { message: "A descrição curta não pode exceder 60 caracteres" }),
-
-    longDescription: z
-      .string({ required_error: "A descrição é obrigatória" })
-      .min(20, {
-        message: "A descrição longa deve ter pelo menos 20 caracteres",
-      })
-      .max(500, {
-        message: "A descrição longa não pode exceder 500 caracteres",
-      }),
-
-    link: z
-      .string({ required_error: "O link é obrigatório" })
-      .min(1, { message: "O link não pode estár vazio" }),
-
-    select: z.string().nonempty("Não deixe essa opção vazia"),
-  })
-  .nonstrict();
+    title: z.string({ required_error: "O titulo é obrigatório" }),
+    description: z.string({ required_error: "A descrição é obrigatória" }),
+    videoFile: z.string({ required_error: "O video é obrigatório" }),
+    code: z.string({ required_error: "O código é obrigatório" }),
+    context: z.string({ required_error: "O contexto é obrigatória" }),
+    responsible: z.string({ required_error: "Os responsáveis são obrigatórios" }),
+    totalParticipants: z.number({ required_error: "O número total de participantes é obrigatório" }),
+    country: z.string({ required_error: "O país de origem é obrigatório" }),
+    language: z.string({ required_error: "O idioma falado é obrigatório" }),
+    duration: z.number({ required_error: "A duração é obrigatória" }),
+    date: z.string({ required_error: "A data é obrigatória" }),
+});
