@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Upload, Button, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
@@ -20,9 +20,8 @@ export default function UploadButton({
     onRemove: () => {
       setFile(null); 
     },
-    beforeUpload: (file) => {
-      setFile(file); 
-      return false; 
+    onChange: (file) => {
+      handleUpload(file); 
     },
     fileList: file ? [file] : [], 
     multiple: false, 
@@ -52,14 +51,6 @@ export default function UploadButton({
       <Upload {...props}>
         <Button icon={<UploadOutlined />}>Selecionar Arquivo</Button>
       </Upload>
-      <Button
-        type="primary"
-        onClick={handleUpload}
-        disabled={!file}
-        style={{ marginTop: 16 }}
-      >
-        Enviar
-      </Button>
     </div>
   );
 }
