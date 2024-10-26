@@ -7,7 +7,7 @@ import {
   DivTitle,
   ContainerSearchBar,
 } from "./Styles";
-import { newValidationSchema } from "./utils";
+import { validationSchema } from "./utils";
 import { TranslateText } from "./translations";
 import { useGlobalLanguage } from "../../stores/globalLanguage";
 import ModalEditVideos from "../../components/features/modals/ModalEditVideos/ModalEditVideos";
@@ -86,7 +86,7 @@ export default function ManageVideosPage() {
     },
     onError: (err) => {
       console.log(err);
-      toast.error(TranslateToastError(globalLanguage, err.response.status));
+      //toast.error(TranslateToastError(globalLanguage, err.response.status));
     },
   });
 
@@ -95,7 +95,8 @@ export default function ManageVideosPage() {
       if (videoId) {
         updateVideos(data);
       } else {
-        createVideo(data);
+        console.log(data);
+        //createVideo(data);
       }
     } catch (error) {
       console.error("Erro ao salvar o vídeo", error);
@@ -112,7 +113,7 @@ export default function ManageVideosPage() {
         <FormSubmit
           inputs={inputs}
           onSubmit={handleSubmit}
-          schema={newValidationSchema}
+          schema={validationSchema}
           loading={false}
           buttonText="Enviar"
         />
