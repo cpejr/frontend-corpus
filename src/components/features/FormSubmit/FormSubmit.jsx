@@ -163,8 +163,7 @@ export default function FormSubmit({
             <TimePicker
               format="HH:mm"
               placeholder={input.placeholder}
-            >
-            </TimePicker>
+            ></TimePicker>
           );
         }
         return null;

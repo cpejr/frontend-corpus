@@ -15,8 +15,8 @@ import { useState } from "react";
 
 export default function ModalEditVideos({
   videos,
-
   modal,
+  close,
   _id,
   updateVideos,
 }) {
@@ -58,13 +58,13 @@ export default function ModalEditVideos({
     <Container>
       <ModalStyle
         open={modal}
-        close={modal}
         onCancel={close}
         centered
         destroyOnClose
         footer={null}
       >
         <Message>Editar Informações</Message>
+
         <Form>
           <FormSubmit
             inputs={inputs}

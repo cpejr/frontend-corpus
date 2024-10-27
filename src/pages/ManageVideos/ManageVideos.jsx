@@ -141,7 +141,7 @@ export default function ManageVideosPage() {
         <ModalEditVideos
           modal={showEditModal}
           handleEditVideo={setVideoId}
-          closeModal={() => setShowEditModal(false)}
+          close={() => setShowEditModal(false)}
           id={videoId}
         />
       </Section>

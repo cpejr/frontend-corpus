@@ -3,6 +3,19 @@ import { breakpoints, colors } from "../../../../styles/stylesVariables";
 import { Modal } from "antd";
 import { Calendar as PrimeCalendar } from "primereact/calendar";
 
+export const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  &:hover {
+    color: red;
+  }
+`;
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
