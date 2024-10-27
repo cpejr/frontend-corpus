@@ -1,44 +1,54 @@
 import PropTypes from "prop-types";
-import Button from "../../../common/Button/Button";
-import { colors } from "../../../../styles/stylesVariables";
+//import Button from "../../../common/Button/Button";
+//import { colors } from "../../../../styles/stylesVariables";
+import FormSubmit from "../../FormSubmit/FormSubmit";
 import {
   Container,
   Message,
   ModalStyle,
-  MultipleSelect,
+  Form,
+
   //Calendar,
 } from "./Styles";
-
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
 //import formatDate from "../../../../utils/formatDate";
 
 export default function ModalEditVideos({
   videos,
-  close,
+
   modal,
   _id,
   updateVideos,
 }) {
   //const [date, setDate] = useState();
-  const [selectedCharacteristics, setSelectedCharacteristics] = useState([]);
-
-  const handleCharacteristicsChange = (e) => {
-    setSelectedCharacteristics(e.value);
-  };
-
-  useEffect(() => {
-    if (modal) {
-      selectedCharacteristics();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modal]);
-
+  const [inputs] = useState([
+    {
+      type: "select",
+      key: "code",
+      placeholder: "Selecione sua formação",
+      label: "code",
+      options: Array.from({ length: 100 }, (_, i) => ({
+        value: i + 1,
+        name: (i + 1).toString(),
+      })),
+    },
+    {
+      type: "file",
+      key: "videoFile",
+      placeholder: "Escolha um arquivo de mídia",
+      label: "videoFile",
+    },
+    {
+      type: "time",
+      key: "duration",
+      placeholder: "Tempo de duração",
+      label: "Duração",
+    },
+  ]);
   const handleSubmit = (data) => {
     const updatedData = {
       ...data,
       ...videos,
-      characteristics: selectedCharacteristics,
     };
     updateVideos(_id, updatedData);
     close();
@@ -48,39 +58,22 @@ export default function ModalEditVideos({
     <Container>
       <ModalStyle
         open={modal}
+        close={modal}
         onCancel={close}
         centered
         destroyOnClose
         footer={null}
       >
         <Message>Editar Informações</Message>
-
-        <MultipleSelect
-          optionLabel="label"
-          placeholder="Escolha as características"
-          value={selectedCharacteristics}
-          onChange={handleCharacteristicsChange}
-          className="w-full md:w-20rem"
-          filter
-          color="black"
-        />
-        <MultipleSelect
-          optionLabel="label"
-          placeholder="Escolha as características"
-          className="w-full md:w-20rem"
-          filter
-          color="black"
-        />
-        {/* <Calendar
-          value={date}
-          onChange={(e) => setDate(e.value)}
-          readOnlyInput
-          name="data"
-          placeholder={formatDate({ value: videos?.date })}
-          showButtonBar
-          dateFormat="dd/mm/yy"
-        /> */}
-        <Button
+        <Form>
+          <FormSubmit
+            inputs={inputs}
+            onSubmit={handleSubmit}
+            loading={false}
+            buttonText="Enviar"
+          />
+        </Form>
+        {/* <Button
           type="submit"
           onClick={handleSubmit}
           backgroundcolor="transparent"
@@ -96,7 +89,7 @@ export default function ModalEditVideos({
           borderColor={colors.modals.modalButton}
         >
           Editar
-        </Button>
+        </Button> */}
       </ModalStyle>
     </Container>
   );

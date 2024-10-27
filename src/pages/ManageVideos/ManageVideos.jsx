@@ -7,7 +7,7 @@ import {
   DivTitle,
   ContainerSearchBar,
 } from "./Styles";
-import { newValidationSchema } from "./utils";
+import { validationSchema } from "./utils";
 import { TranslateText } from "./translations";
 import { useGlobalLanguage } from "../../stores/globalLanguage";
 import ModalEditVideos from "../../components/features/modals/ModalEditVideos/ModalEditVideos";
@@ -64,8 +64,7 @@ export default function ManageVideosPage() {
       key: "duration",
       placeholder: "Tempo de duração",
       label: "Duração",
-
-    }
+    },
   ]);
 
   const { mutate: createVideo, isPending } = useCreateVideos({
@@ -112,7 +111,7 @@ export default function ManageVideosPage() {
         <FormSubmit
           inputs={inputs}
           onSubmit={handleSubmit}
-          schema={newValidationSchema}
+          schema={validationSchema}
           loading={false}
           buttonText="Enviar"
         />
@@ -140,7 +139,7 @@ export default function ManageVideosPage() {
           id={videoId}
         />
         <ModalEditVideos
-          openModal={showEditModal}
+          modal={showEditModal}
           handleEditVideo={setVideoId}
           closeModal={() => setShowEditModal(false)}
           id={videoId}
