@@ -39,7 +39,9 @@ export default function UploadButton({
 
       reader.onloadend = function() {
         setValue(label, reader.result.split(',')[1]);
-      } 
+      }
+
+      reader.readAsDataURL(file);
 
     } catch (error) {
       message.error('Erro ao fazer upload.');

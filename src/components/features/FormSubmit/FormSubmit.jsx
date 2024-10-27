@@ -160,10 +160,15 @@ export default function FormSubmit({
           );
         } else if (input.type == "time") {
           return (
-            <TimePicker
-              format="HH:mm"
-              placeholder={input.placeholder}
-            ></TimePicker>
+            <InputKeep key={input.key}>
+              <TimePicker
+                inputKey={input.key}
+                format="HH:mm"
+                placeholder={input.placeholder}
+                setValue={setValue}
+                control={control}
+              />
+            </InputKeep>
           );
         }
         return null;

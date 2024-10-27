@@ -85,7 +85,7 @@ export default function ManageVideosPage() {
     },
     onError: (err) => {
       console.log(err);
-      toast.error(TranslateToastError(globalLanguage, err.response.status));
+      //toast.error(TranslateToastError(globalLanguage, err.response.status));
     },
   });
 
@@ -94,7 +94,8 @@ export default function ManageVideosPage() {
       if (videoId) {
         updateVideos(data);
       } else {
-        createVideo(data);
+        console.log(data);
+        //createVideo(data);
       }
     } catch (error) {
       console.error("Erro ao salvar o vídeo", error);
