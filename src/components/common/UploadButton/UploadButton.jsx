@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { Upload, Button, message } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
-import PropTypes from 'prop-types';
+import { useState, useEffect } from "react";
+import { Upload, message } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import PropTypes from "prop-types";
+import { AddButton } from "./Styles";
 
 export default function UploadButton({
   label,
@@ -9,49 +10,52 @@ export default function UploadButton({
   sendForms,
   acceptString,
 }) {
-  const [file, setFile] = useState(null); 
+  const [file, setFile] = useState(null);
 
-  if (sendForms) {
-    setFile(null);
-    setValue(null);
-  }
+  useEffect(() => {
+    if (sendForms) {
+      setFile(null);
+      setValue(null);
+    }
+  }, [sendForms, setValue]);
 
-  const props = {
-    onRemove: () => {
-      setFile(null); 
-    },
-    onChange: (file) => {
-      handleUpload(file); 
-    },
-    fileList: file ? [file] : [], 
-    multiple: false, 
-    accept: acceptString,
-  };
-
-  const handleUpload = async () => {
-    if (!file) {
-      message.error('Nenhum arquivo selecionado.');
+  const handleUpload = async (fileObj) => {
+    if (!fileObj) {
+      message.error("Nenhum arquivo selecionado.");
       return;
     }
 
     try {
       const reader = new FileReader();
 
-      reader.onloadend = function() {
-        setValue(label, reader.result.split(',')[1]);
-      }
+      reader.onloadend = function () {
+        setValue(label, reader.result.split(",")[1]);
+      };
 
-      reader.readAsDataURL(file);
-
+      reader.readAsDataURL(fileObj);
+      setFile(fileObj);
     } catch (error) {
-      message.error('Erro ao fazer upload.');
+      message.error("Erro ao fazer upload.");
     }
+  };
+
+  const props = {
+    onRemove: () => {
+      setFile(null);
+      setValue(label, null);
+    },
+    onChange: ({ file: newFile }) => {
+      handleUpload(newFile);
+    },
+    fileList: file ? [file] : [],
+    multiple: false,
+    accept: acceptString,
   };
 
   return (
     <div>
       <Upload {...props}>
-        <Button icon={<UploadOutlined />}>Selecionar Arquivo</Button>
+        <AddButton icon={<UploadOutlined />}>Selecionar Arquivo</AddButton>
       </Upload>
     </div>
   );
