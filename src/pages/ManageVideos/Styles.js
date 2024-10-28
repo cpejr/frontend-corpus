@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { breakpoints, colors, fonts } from "../../styles/stylesVariables";
-
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -30,13 +30,17 @@ export const Title = styled.h1`
   font-weight: bold;
   margin: 0% 0% 1% 10%;
   text-shadow: 2px 2px 4px black;
-  
+
   @media (max-width: ${breakpoints.mobile}) {
     font-size: 30px;
   }
   @media (max-width: ${breakpoints.smallMobile}) {
     font-size: 24px;
   }
+`;
+export const VideoTitle = styled.div`
+  cursor: pointer;
+  text-decoration: underline;
 `;
 
 export const ContainerSearchBar = styled.div`
@@ -63,4 +67,24 @@ export const Section = styled.section`
   @media (max-width: 700px) {
     width: 80%;
   }
+`;
+
+export const CardVideo = styled.div`
+  display: flex;
+  font-size: 25px;
+  align-items: center;
+  justify-content: space-between;
+  width: auto;
+`;
+export const Modals = styled.div`
+  width: 100%;
+`;
+
+export const StyledEditOutlined = styled(EditOutlined)`
+  width: 50px;
+  font-size: 24px;
+`;
+export const StyledDeleteOutlined = styled(DeleteOutlined)`
+  width: 50px;
+  font-size: 24px;
 `;
