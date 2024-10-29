@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormSubmit, SearchBar } from "../../components";
 import {
   Container,
@@ -20,12 +20,93 @@ import ModalDeleteVideo from "../../components/features/modals/ModalDeleteVideos
 import { useCreateVideos, useUpdateVideos } from "../../hooks/query/videos";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
-import { updateVideos } from "../../services/endpoints";
 import { useNavigate } from "react-router-dom";
+
 export default function ManageVideosPage() {
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
-  const navigate = useNavigate;
+
+  const [inputs, setInputs] = useState([]);
+
+  useEffect(() => {
+    setInputs([
+      {
+        type: "text",
+        key: "title",
+        placeholder: translation.placeholder1,
+        label: "title",
+      },
+      {
+        type: "text",
+        key: "description",
+        placeholder: translation.placeholder2,
+        label: "description",
+      },
+      {
+        type: "file",
+        key: "videoFile",
+        placeholder: translation.placeholder3,
+        label: "videoFile",
+        errors: [translation.error1, translation.error2],
+      },
+      {
+        type: "text",
+        key: "code",
+        placeholder: translation.placeholder4,
+        label: "code",
+      },
+      {
+        type: "text",
+        key: "context",
+        placeholder: translation.placeholder5,
+        label: "context",
+      },
+      {
+        type: "text",
+        key: "responsible",
+        placeholder: translation.placeholder6,
+        label: "responsible",
+      },
+      {
+        type: "select",
+        key: "totalParticipants",
+        placeholder: translation.placeholder7,
+        label: "totalParticipants",
+        options: Array.from({ length: 100 }, (_, i) => ({
+          value: i + 1,
+          name: (i + 1).toString(),
+        })),
+      },
+      {
+        type: "text",
+        key: "country",
+        placeholder: translation.placeholder8,
+        label: "country",
+      },
+      {
+        type: "text",
+        key: "language",
+        placeholder: translation.placeholder9,
+        label: "language",
+      },
+      {
+        type: "time",
+        key: "duration",
+        placeholder: translation.placeholder10,
+        label: "duration",
+      },
+      {
+        type: "date",
+        key: "date",
+        placeholder: translation.placeholder11,
+        label: "date",
+      },
+    ]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [globalLanguage]);
+
+  const navigate = useNavigate();
 
   const [searchValue, setSearchValue] = useState("");
   const [showEditModal, setShowEditModal] = useState("");
@@ -35,9 +116,9 @@ export default function ManageVideosPage() {
   const [videoId, setVideoId] = useState("");
 
   const videos = [
-    { id: "1", title: "Vídeo 1" },
-    { id: "2", title: "Vídeo 2" },
-    { id: "3", title: "Vídeo 3" },
+    { id: "1", title: "Vídeo 1", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Video 1" },
+    { id: "2", title: "Vídeo 2", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Video 2" },
+    { id: "3", title: "Foda", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Foda" },
   ];
 
   const handleSearch = (e) => {
@@ -48,49 +129,23 @@ export default function ManageVideosPage() {
     setVideoId(id);
     setShowDeleteModal(true);
   };
+
   function handleEditVideo(id) {
     setVideoId(id);
     setShowEditModal(true);
     updateVideos();
   }
-  const handleNavigateToVideo = () => {
-    navigate(`http://localhost:5173/video`);
-  };
-
-  const [inputs] = useState([
-    {
-      type: "select",
-      key: "code",
-      placeholder: "Selecione sua formação",
-      label: "code",
-      options: Array.from({ length: 100 }, (_, i) => ({
-        value: i + 1,
-        name: (i + 1).toString(),
-      })),
-    },
-    {
-      type: "file",
-      key: "videoFile",
-      placeholder: "Escolha um arquivo de mídia",
-      label: "videoFile",
-    },
-    {
-      type: "time",
-      key: "duration",
-      placeholder: "Tempo de duração",
-      label: "Duração",
-    },
-  ]);
 
   const { mutate: createVideo, isPending } = useCreateVideos({
     onSuccess: () => {
-      // toast.success(translation.successToast);
+      toast.success(translation.successToast);
     },
     onError: (err) => {
       console.log(err);
       // toast.error(TranslateToastError(globalLanguage, err.response.status));
     },
   });
+
   const { mutate: updateVideos, isPending: loading } = useUpdateVideos({
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -105,16 +160,8 @@ export default function ManageVideosPage() {
   });
 
   const handleSubmit = async (data) => {
-    try {
-      if (videoId) {
-        updateVideos(data);
-      } else {
-        console.log(data);
-        createVideo(data);
-      }
-    } catch (error) {
-      console.error("Erro ao salvar o vídeo", error);
-    }
+    console.log(data);
+    createVideo(data);
   };
 
   return (
@@ -127,9 +174,9 @@ export default function ManageVideosPage() {
         <FormSubmit
           inputs={inputs}
           onSubmit={handleSubmit}
-          schema={validationSchema}
-          loading={false}
-          buttonText="Enviar"
+          schema={validationSchema()}
+          loading={isPending}
+          buttonText={translation.button1}
         />
       </Section>
 
@@ -149,7 +196,7 @@ export default function ManageVideosPage() {
       <Section>
         {videos.map((video) => (
           <CardVideo key={video.id}>
-            <VideoTitle onClick={() => handleNavigateToVideo}>
+            <VideoTitle onClick={() => { navigate(`/videos/${video.title}`, { state: video } )}}> 
               {video.title}
             </VideoTitle>
             <div
