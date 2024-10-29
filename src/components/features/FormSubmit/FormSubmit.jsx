@@ -149,13 +149,17 @@ export default function FormSubmit({
                   icon={input.icon}
                   color={input.color}
                   error={errors[input.key] ? true : false || requestError}
-                  appendFn={(file) => handleFileUpload(file)}
                   allowedMimeTypes=".jpg, .png, .pdf, video/mp4,video/x-msvideo,video/quicktime,video/webm"
-                  sizeLimitInMB={300}
-                  onChange={(e) => console.log(e.target.files[0])}
+                  setValue={setValue}
+                  {...register(input.key)}
                   multiple={false}
+                  messageError1={input.errors[0]}
+                  messageError2={input.errors[1]}
                 />
               </UploadSection>
+              {errors[input.key]?.message && (
+                <ErrorMessage>{errors[input.key]?.message}</ErrorMessage>
+              )}
             </InputKeep>
           );
         } else if (input.type == "time") {
@@ -163,11 +167,14 @@ export default function FormSubmit({
             <InputKeep key={input.key}>
               <TimePicker
                 inputKey={input.key}
-                format="HH:mm"
+                format="HH:mm:ss"
                 placeholder={input.placeholder}
                 setValue={setValue}
                 control={control}
               />
+              {errors[input.key]?.message && (
+                <ErrorMessage>{errors[input.key]?.message}</ErrorMessage>
+              )}
             </InputKeep>
           );
         }

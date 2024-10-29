@@ -1,42 +1,45 @@
-import { useState, useEffect } from "react";
-import { Upload, message } from "antd";
+import { useState } from "react";
+import { Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import { AddButton } from "./Styles";
+import { toast } from "react-toastify";
 
 export default function UploadButton({
+  inputKey,
   label,
   setValue,
-  sendForms,
-  acceptString,
+  placeholder,
+  allowedMimeTypes,
+  messageError1, 
+  messageError2,
 }) {
   const [file, setFile] = useState(null);
 
-  useEffect(() => {
-    if (sendForms) {
+  const getBase64 = (file, callback) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => callback(reader.result));
+    reader.readAsDataURL(file);
+  };
+
+  const handleChange = (info) => {
+    
+    const { originFileObj } = info?.fileList[0] || {};
+
+    if (originFileObj) {
+      try {
+        setFile(originFileObj);
+        getBase64(originFileObj, (url) => {
+          setValue(label, url);
+        });
+      } catch (error) {
+        toast.error(messageError1)
+      }
+    } else{
       setFile(null);
-      setValue(null);
+      toast.error(messageError2)
     }
-  }, [sendForms, setValue]);
-
-  const handleUpload = async (fileObj) => {
-    if (!fileObj) {
-      message.error("Nenhum arquivo selecionado.");
-      return;
-    }
-
-    try {
-      const reader = new FileReader();
-
-      reader.onloadend = function () {
-        setValue(label, reader.result.split(",")[1]);
-      };
-
-      reader.readAsDataURL(fileObj);
-      setFile(fileObj);
-    } catch (error) {
-      message.error("Erro ao fazer upload.");
-    }
+  
   };
 
   const props = {
@@ -44,18 +47,15 @@ export default function UploadButton({
       setFile(null);
       setValue(label, null);
     },
-    onChange: ({ file: newFile }) => {
-      handleUpload(newFile);
-    },
     fileList: file ? [file] : [],
     multiple: false,
-    accept: acceptString,
+    accept: allowedMimeTypes,
   };
 
   return (
     <div>
-      <Upload {...props}>
-        <AddButton icon={<UploadOutlined />}>Selecionar Arquivo</AddButton>
+      <Upload name={inputKey} onChange={handleChange} beforeUpload={() => false} maxCount={1} {...props}>
+        <AddButton icon={<UploadOutlined />}>{placeholder}</AddButton>
       </Upload>
     </div>
   );
@@ -68,6 +68,9 @@ UploadButton.defaultProps = {
 UploadButton.propTypes = {
   setValue: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
-  acceptString: PropTypes.string.isRequired,
-  sendForms: PropTypes.bool.isRequired,
+  allowedMimeTypes: PropTypes.string.isRequired,
+  inputKey: PropTypes.string.isRequired,
+  messageError1: PropTypes.string.isRequired,
+  messageError2: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
 };
