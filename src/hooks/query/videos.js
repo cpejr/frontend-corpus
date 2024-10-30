@@ -55,3 +55,36 @@ export function useGetVideosByCategoryId({
     onError,
   });
 }
+export function useGetVideosByParameters({
+  title,
+  ShortDescription,
+  code,
+  context,
+  responsibles,
+
+  onSuccess = () => {},
+  onError = (err) => console.error(err),
+} = {}) {
+  return useQuery({
+    queryKey: [
+      "videos",
+      {
+        title,
+        ShortDescription,
+        code,
+        context,
+        responsibles,
+      },
+    ],
+    queryFn: () =>
+      getVideos({
+        title,
+        ShortDescription,
+        code,
+        context,
+        responsibles,
+      }),
+    onSuccess,
+    onError,
+  });
+}
