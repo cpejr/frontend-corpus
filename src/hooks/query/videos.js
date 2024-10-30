@@ -55,3 +55,36 @@ export function useGetVideosByCategoryId({
     onError,
   });
 }
+export function useGetVideosByParameters({
+  ProjectName,
+  ShortDescription,
+  InternCode,
+  InteractionContext,
+  ResponsiblesPerDataCollect,
+
+  onSuccess = () => {},
+  onError = (err) => console.error(err),
+} = {}) {
+  return useQuery({
+    queryKey: [
+      "videos",
+      {
+        ProjectName,
+        ShortDescription,
+        InternCode,
+        InteractionContext,
+        ResponsiblesPerDataCollect,
+      },
+    ],
+    queryFn: () =>
+      getVideos({
+        ProjectName,
+        ShortDescription,
+        InternCode,
+        InteractionContext,
+        ResponsiblesPerDataCollect,
+      }),
+    onSuccess,
+    onError,
+  });
+}
