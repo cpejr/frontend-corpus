@@ -9,7 +9,6 @@ import {
   Video,
 } from "./Styles";
 
-// Simula a lista de vídeos (ou você pode carregar isso via API)
 const videos = [
   {
     resume: "/videos/Intonation.mp4",
@@ -68,12 +67,13 @@ export default function VideoPage() {
 
   useEffect(() => {
     if (!videoData) {
-      console.log(`${name}`);
       const decodedName = decodeURIComponent(name);
-
-      const video = videos.find((v) => v.name == decodedName);
-      console.log(video);
-      setVideoData(video);
+      if (decodedName == '"Where do you live') {
+        setVideoData(videos[0]);
+      } else {
+        const video = videos.find((v) => v.name == decodedName);
+        setVideoData(video);
+      }
     }
   }, [name, videoData]);
 
