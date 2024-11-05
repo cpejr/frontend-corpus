@@ -17,16 +17,19 @@ import { TranslateText } from "./translations";
 import { useGlobalLanguage } from "../../stores/globalLanguage";
 import ModalEditVideos from "../../components/features/modals/ModalEditVideos/ModalEditVideos";
 import ModalDeleteVideo from "../../components/features/modals/ModalDeleteVideos/ModalDeleteVideos";
-import { useCreateVideos, useUpdateVideos } from "../../hooks/query/videos";
+import { useCreateVideos, useGetVideos, useUpdateVideos } from "../../hooks/query/videos";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import translateText from "../../services/others/translateAPI";
 
 export default function ManageVideosPage() {
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
+  const translateLanguage = globalLanguage.toLowerCase();
 
   const [inputs, setInputs] = useState([]);
+  const [allVideos, setAllVideos] = useState([]);
 
   useEffect(() => {
     setInputs([
@@ -103,8 +106,20 @@ export default function ManageVideosPage() {
       },
     ]);
 
+    translateTitles();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalLanguage]);
+
+  async function translateTitles() {
+    const translatedTitles = await Promise.all(
+      videos.map(async (video) => {
+        return { ...video, title: await translateText(video.title, translateLanguage)}; 
+      })
+    );
+
+    setAllVideos(translatedTitles);
+  }
 
   const navigate = useNavigate();
 
@@ -115,7 +130,7 @@ export default function ManageVideosPage() {
 
   const [videoId, setVideoId] = useState("");
 
-  const videos = [
+  const videosArray = [
     { id: "1", title: "Vídeo 1", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Video 1" },
     { id: "2", title: "Vídeo 2", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Video 2" },
     { id: "3", title: "Foda", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Foda" },
@@ -135,6 +150,11 @@ export default function ManageVideosPage() {
     setShowEditModal(true);
     updateVideos();
   }
+
+  const { data: videos, isLoading } = useGetVideos({
+    onError: () => {
+    },
+  });
 
   const { mutate: createVideo, isPending } = useCreateVideos({
     onSuccess: () => {
@@ -194,7 +214,9 @@ export default function ManageVideosPage() {
       </ContainerSearchBar>
 
       <Section>
-        {videos.map((video) => (
+        {allVideos
+        .filter((obj) => obj.title.toLowerCase().includes(searchValue.toLowerCase()),)
+        .map((video) => (
           <CardVideo key={video.id}>
             <VideoTitle onClick={() => { navigate(`/videos/${video.title}`, { state: video } )}}> 
               {video.title}
