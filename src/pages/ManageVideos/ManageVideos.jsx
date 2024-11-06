@@ -17,7 +17,7 @@ import { TranslateText } from "./translations";
 import { useGlobalLanguage } from "../../stores/globalLanguage";
 import ModalEditVideos from "../../components/features/modals/ModalEditVideos/ModalEditVideos";
 import ModalDeleteVideo from "../../components/features/modals/ModalDeleteVideos/ModalDeleteVideos";
-import { useCreateVideos, useGetVideos, useUpdateVideos } from "../../hooks/query/videos";
+import { useCreateVideos, useGetVideos } from "../../hooks/query/videos";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
@@ -124,16 +124,16 @@ export default function ManageVideosPage() {
   const navigate = useNavigate();
 
   const [searchValue, setSearchValue] = useState("");
-  const [showEditModal, setShowEditModal] = useState("");
-  const [showDeleteModal, setShowDeleteModal] = useState("");
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const queryClient = useQueryClient();
 
   const [videoId, setVideoId] = useState("");
 
   const videosArray = [
-    { id: "1", title: "Vídeo 1", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Video 1" },
-    { id: "2", title: "Vídeo 2", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Video 2" },
-    { id: "3", title: "Foda", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Foda" },
+    { _id: "1", title: "Vídeo 1", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Video 1" },
+    { _id: "2", title: "Vídeo 2", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Video 2" },
+    { _id: "3", title: "Foda", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Foda" },
   ];
 
   const handleSearch = (e) => {
@@ -145,10 +145,9 @@ export default function ManageVideosPage() {
     setShowDeleteModal(true);
   };
 
-  function handleEditVideo(id) {
+  function handleEdit(id) {
     setVideoId(id);
     setShowEditModal(true);
-    updateVideos();
   }
 
   const { data: videos, isLoading } = useGetVideos({
@@ -163,19 +162,6 @@ export default function ManageVideosPage() {
     onError: (err) => {
       console.log(err);
       // toast.error(TranslateToastError(globalLanguage, err.response.status));
-    },
-  });
-
-  const { mutate: updateVideos, isPending: loading } = useUpdateVideos({
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["videos"],
-      });
-      toast.success(translation.successToast);
-    },
-    onError: (err) => {
-      console.log(err);
-      //toast.error(TranslateToastError(globalLanguage, err.response.status));
     },
   });
 
@@ -214,7 +200,7 @@ export default function ManageVideosPage() {
       </ContainerSearchBar>
 
       <Section>
-        {allVideos
+        {videosArray // trocar para allVideos
         .filter((obj) => obj.title.toLowerCase().includes(searchValue.toLowerCase()),)
         .map((video) => (
           <CardVideo key={video.id}>
@@ -230,8 +216,8 @@ export default function ManageVideosPage() {
               }}
             ></div>
 
-            <StyledEditOutlined onClick={() => handleEditVideo(video.id)} />
-            <StyledDeleteOutlined onClick={() => handleDelete(video.id)} />
+            <StyledEditOutlined onClick={() => handleEdit(video?._id)} />
+            <StyledDeleteOutlined onClick={() => handleDelete(video?._id)} />
           </CardVideo>
         ))}
         <Modals>
@@ -241,9 +227,8 @@ export default function ManageVideosPage() {
             id={videoId}
           />
           <ModalEditVideos
-            modal={showEditModal}
-            handleEditVideo={setVideoId}
-            close={() => setShowEditModal(false)}
+            openModal={showEditModal}
+            closeModal={() => setShowEditModal(false)}
             id={videoId}
           />
         </Modals>
