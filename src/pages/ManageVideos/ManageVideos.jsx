@@ -60,7 +60,7 @@ export default function FormPage() {
   ]);
 
   function handleSubmit(data) {
-    console.log("esse comentário é um teste", data);
+   
   }
 
   return (
