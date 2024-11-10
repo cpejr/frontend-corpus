@@ -66,13 +66,13 @@ export function TranslateText({ globalLanguage }) {
     successToast = "Video added successfully!";
     placeholderSearch = "Search";
     placeholder1 = "Title";
-    placeholder2 = "Description";
+    placeholder2 = "ShortDescription";
     placeholder3 = "Select File";
     error1 = "Error uploading!";
     error2 = "No file selected.";
     placeholder4 = "Code";
     placeholder5 = "Context";
-    placeholder6 = "Collection Responsible";
+    placeholder6 = "Collection Responsibles";
     placeholder7 = "Number of Participants";
     placeholder8 = "Country of Origin";
     placeholder9 = "Language";
@@ -80,17 +80,16 @@ export function TranslateText({ globalLanguage }) {
     placeholder11 = "Collection Date";
     button1 = "Submit";
     error3 = "Title is required";
-    error4 = "Description is required";
+    error4 = "ShortDescription is required";
     error5 = "Video is required";
     error6 = "Code is required";
     error7 = "Context is required";
-    error8 = "Responsible parties are required";
+    error8 = "Responsibles parties are required";
     error9 = "Total number of participants is required";
     error10 = "Country of origin is required";
     error11 = "Spoken language is required";
     error12 = "Duration is required";
     error13 = "Date is required";
-
   }
   if (globalLanguage === "ES") {
     title1 = "AÑADIR VÍDEOS";
@@ -156,27 +155,27 @@ export function TranslateText({ globalLanguage }) {
   };
 }
 
-export function TranslateToastError ( globalLanguage, errorCode ){
-  if (errorCode === 500){
-      if (globalLanguage === "PT"){
-          return "Erro ao realizar o cadastro. Tente novamente!";
-      }
-      if (globalLanguage === "EN"){
-          return "Error when registering. Try again!";
-      }
-      if (globalLanguage === "ES"){
-          return "Error al registrarse. ¡Intentar otra vez!";
-      }
+export function TranslateToastError(globalLanguage, errorCode) {
+  if (errorCode === 500) {
+    if (globalLanguage === "PT") {
+      return "Erro ao realizar o cadastro. Tente novamente!";
+    }
+    if (globalLanguage === "EN") {
+      return "Error when registering. Try again!";
+    }
+    if (globalLanguage === "ES") {
+      return "Error al registrarse. ¡Intentar otra vez!";
+    }
   }
-  if (errorCode === 409){
-      if (globalLanguage === "PT"){
-          return "Usuário já cadastrado!";
-      }
-      if (globalLanguage === "EN"){
-          return "User already registered!";
-      }
-      if (globalLanguage === "ES"){
-          return "Usuario ya registrado!";
-      }
+  if (errorCode === 409) {
+    if (globalLanguage === "PT") {
+      return "Usuário já cadastrado!";
+    }
+    if (globalLanguage === "EN") {
+      return "User already registered!";
+    }
+    if (globalLanguage === "ES") {
+      return "Usuario ya registrado!";
+    }
   }
 }

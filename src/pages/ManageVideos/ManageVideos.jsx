@@ -19,14 +19,29 @@ import ModalEditVideos from "../../components/features/modals/ModalEditVideos/Mo
 import ModalDeleteVideo from "../../components/features/modals/ModalDeleteVideos/ModalDeleteVideos";
 import { useCreateVideos, useUpdateVideos } from "../../hooks/query/videos";
 import { toast } from "react-toastify";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { getVideos } from "../../services/endpoints";
 
 export default function ManageVideosPage() {
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
 
   const [inputs, setInputs] = useState([]);
+
+  const [searchValue, setSearchValue] = useState("");
+  const [showEditModal, setShowEditModal] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState("");
+
+  const [videoId, setVideoId] = useState("");
+
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const { data: videos = [] } = useQuery({
+    queryKey: ["videos"],
+    queryFn: getVideos,
+  });
 
   useEffect(() => {
     setInputs([
@@ -38,9 +53,9 @@ export default function ManageVideosPage() {
       },
       {
         type: "text",
-        key: "description",
+        key: "ShortDescription",
         placeholder: translation.placeholder2,
-        label: "description",
+        label: "ShortDescription",
       },
       {
         type: "file",
@@ -63,9 +78,9 @@ export default function ManageVideosPage() {
       },
       {
         type: "text",
-        key: "responsible",
+        key: "responsibles",
         placeholder: translation.placeholder6,
-        label: "responsible",
+        label: "responsibles",
       },
       {
         type: "select",
@@ -106,20 +121,26 @@ export default function ManageVideosPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalLanguage]);
 
-  const navigate = useNavigate();
-
-  const [searchValue, setSearchValue] = useState("");
-  const [showEditModal, setShowEditModal] = useState("");
-  const [showDeleteModal, setShowDeleteModal] = useState("");
-  const queryClient = useQueryClient();
-
-  const [videoId, setVideoId] = useState("");
-
-  const videos = [
-    { id: "1", title: "Vídeo 1", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Video 1" },
-    { id: "2", title: "Vídeo 2", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Video 2" },
-    { id: "3", title: "Foda", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Foda" },
-  ];
+  // const videos = [
+  //   {
+  //     id: "1",
+  //     title: "Vídeo 1",
+  //     linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4",
+  //     name: "Video 1",
+  //   },
+  //   {
+  //     id: "2",
+  //     title: "Vídeo 2",
+  //     linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4",
+  //     name: "Video 2",
+  //   },
+  //   {
+  //     id: "3",
+  //     title: "Foda",
+  //     linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4",
+  //     name: "Foda",
+  //   },
+  // ];
 
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
@@ -139,6 +160,9 @@ export default function ManageVideosPage() {
   const { mutate: createVideo, isPending } = useCreateVideos({
     onSuccess: () => {
       toast.success(translation.successToast);
+      queryClient.invalidateQueries({
+        queryKey: ["videos"],
+      });
     },
     onError: (err) => {
       console.log(err);
@@ -146,7 +170,7 @@ export default function ManageVideosPage() {
     },
   });
 
-  const { mutate: updateVideos, isPending: loading } = useUpdateVideos({
+  const { mutate: updateVideos } = useUpdateVideos({
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["videos"],
@@ -196,7 +220,11 @@ export default function ManageVideosPage() {
       <Section>
         {videos.map((video) => (
           <CardVideo key={video.id}>
-            <VideoTitle onClick={() => { navigate(`/videos/${video.title}`, { state: video } )}}> 
+            <VideoTitle
+              onClick={() => {
+                navigate(`/videos/${video.title}`, { state: video });
+              }}
+            >
               {video.title}
             </VideoTitle>
             <div
