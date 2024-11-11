@@ -32,7 +32,7 @@ export const Title = styled.h1`
   font-weight: bold;
   margin: 0% 0% 1% 10%;
   text-shadow: 2px 2px 4px black;
-  
+
   @media (max-width: ${breakpoints.mobile}) {
     font-size: 30px;
   }
@@ -40,7 +40,12 @@ export const Title = styled.h1`
     font-size: 24px;
   }
 `;
-
+export const ButtonDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
 export const DivLine = styled.div`
   display: flex;
   flex-direction: column;
@@ -107,7 +112,6 @@ export const Calendar = styled(PrimeCalendar)`
     &:hover {
       border-color: ${colors.accent.primary};
     }
-
   }
 
   .p-datepicker {
@@ -120,7 +124,6 @@ export const LoadingStyles = styled.div`
   font-size: 24px;
   margin: 20px auto;
 `;
-
 
 export const MemorialNotFound = styled.div`
   background-image: url(${image});
