@@ -11,6 +11,9 @@ import {
   StyledDeleteOutlined,
   StyledEditOutlined,
   VideoTitle,
+  ListLine,
+  Buttons,
+  SectionList,
 } from "./Styles";
 import { validationSchema } from "./utils";
 import { TranslateText } from "./translations";
@@ -199,7 +202,7 @@ export default function ManageVideosPage() {
         />
       </ContainerSearchBar>
 
-      <Section>
+      <SectionList>
         {videosArray // trocar para allVideos
         .filter((obj) => obj.title.toLowerCase().includes(searchValue.toLowerCase()),)
         .map((video) => (
@@ -207,20 +210,16 @@ export default function ManageVideosPage() {
             <VideoTitle onClick={() => { navigate(`/videos/${video.title}`, { state: video } )}}> 
               {video.title}
             </VideoTitle>
-            <div
-              style={{
-                flexGrow: 1,
-                height: "2px",
-                backgroundColor: "black",
-                margin: "0 500px",
-              }}
-            ></div>
-
-            <StyledEditOutlined onClick={() => handleEdit(video?._id)} />
-            <StyledDeleteOutlined onClick={() => handleDelete(video?._id)} />
+            <ListLine/>
+            <Buttons>
+              <StyledEditOutlined onClick={() => handleEdit(video?._id)} />
+              <StyledDeleteOutlined onClick={() => handleDelete(video?._id)} />
+            </Buttons>
           </CardVideo>
         ))}
-        <Modals>
+      </SectionList>
+
+      <Modals>
           <ModalDeleteVideo
             openModal={showDeleteModal}
             closeModal={() => setShowDeleteModal(false)}
@@ -231,8 +230,7 @@ export default function ManageVideosPage() {
             closeModal={() => setShowEditModal(false)}
             id={videoId}
           />
-        </Modals>
-      </Section>
+      </Modals>
     </Container>
   );
 }
