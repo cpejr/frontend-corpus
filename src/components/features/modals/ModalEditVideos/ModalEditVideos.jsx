@@ -1,6 +1,5 @@
 import FormSubmit from "../../FormSubmit/FormSubmit";
-import { Container, Text, Title } from "./Styles";
-import { Modal } from 'antd';
+import { Container, ModalStyles, Text, Title } from "./Styles";
 import { CloseOutlined } from '@ant-design/icons';
 import PropTypes from "prop-types";
 import { useState } from "react";
@@ -99,7 +98,7 @@ export default function ModalEditVideos({ openModal, closeModal, id }) {
   };
 
   return (
-    <Modal
+    <ModalStyles
             open={openModal}
             onCancel={closeModal}
             footer={null}
@@ -117,7 +116,7 @@ export default function ModalEditVideos({ openModal, closeModal, id }) {
             <TailSpin></TailSpin>
           </>)}
       </Container>
-    </Modal>
+    </ModalStyles>
   );
 }
 

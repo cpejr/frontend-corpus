@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { breakpoints, colors } from '../../../../styles/stylesVariables';
+import { Modal } from 'antd';
 
 export const Container = styled.div`
   display: flex;
@@ -26,4 +27,17 @@ export const Title = styled.h1`
 export const Text = styled.h3`
   color: ${colors.black};
   text-align: center;
+`;
+
+export const ModalStyles = styled(Modal)`
+  .ant-modal-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .ant-modal-content {
+    max-height: 100vh;
+    overflow-y: auto;
+  }
 `;
