@@ -49,13 +49,6 @@ export default function ManageVideosPage() {
         label: "description",
       },
       {
-        type: "file",
-        key: "videoFile",
-        placeholder: translation.placeholder3,
-        label: "videoFile",
-        errors: [translation.error1, translation.error2],
-      },
-      {
         type: "text",
         key: "code",
         placeholder: translation.placeholder4,
@@ -96,16 +89,23 @@ export default function ManageVideosPage() {
         label: "language",
       },
       {
+        type: "date",
+        key: "date",
+        placeholder: translation.placeholder11,
+        label: "date",
+      },
+      {
         type: "time",
         key: "duration",
         placeholder: translation.placeholder10,
         label: "duration",
       },
       {
-        type: "date",
-        key: "date",
-        placeholder: translation.placeholder11,
-        label: "date",
+        type: "file",
+        key: "videoFile",
+        placeholder: translation.placeholder3,
+        label: "videoFile",
+        errors: [translation.error1, translation.error2],
       },
     ]);
 
@@ -170,7 +170,7 @@ export default function ManageVideosPage() {
 
   const handleSubmit = async (data) => {
     console.log(data);
-    createVideo(data);
+    //createVideo(data);
   };
 
   return (
