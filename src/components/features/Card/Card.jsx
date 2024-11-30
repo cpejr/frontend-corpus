@@ -1,37 +1,52 @@
 import {
-    StyledCard,
-    OrangeButton,
-    Line,
-    Image,
-    Group,
-    ButtonDiv,
-  } from "./Styles";
-  import PropTypes from "prop-types";
-  export default function Card({ data, textButton, event }) {
-    
-    return (
-      <StyledCard>
-        <Image>
-          <img src={data.thumbnail} />
-        </Image>
-        <Group>
-          <Line>{data.name}</Line>
-        </Group>
-  
-        <ButtonDiv>
-          <OrangeButton
-            onClick={event}
-          >
-            {textButton}
-          </OrangeButton>
-        </ButtonDiv>
-      </StyledCard>
-    );
-  }
-  
-  Card.propTypes = {
-    data: PropTypes.object.isRequired,
-    textButton: PropTypes.string.isRequired,
-    event: PropTypes.func.isRequired,
-  };
-  
+  StyledCard,
+  OrangeButton,
+  Line,
+  Image,
+  Group,
+  ButtonDiv,
+  DescriptionLine,
+  CodeLine,
+} from "./Styles";
+import PropTypes from "prop-types";
+export default function Card({
+  textButton,
+  thumbnail,
+  event,
+  title,
+  ShortDescription,
+  code,
+}) {
+  return (
+    <StyledCard>
+      <Image>
+        <img src={thumbnail} />
+      </Image>
+      <Group>
+        <Line>{title}</Line>
+      </Group>
+      <Group>
+        <DescriptionLine>{ShortDescription}</DescriptionLine>
+      </Group>
+      <Group>
+        <CodeLine>{code}</CodeLine>
+      </Group>
+
+      <ButtonDiv>
+        <OrangeButton onClick={event}>{textButton}</OrangeButton>
+      </ButtonDiv>
+    </StyledCard>
+  );
+}
+
+Card.propTypes = {
+  data: PropTypes.object.isRequired,
+  textButton: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  code: PropTypes.string.isRequired,
+  event: PropTypes.func.isRequired,
+  thumbnail: PropTypes.string.isRequired,
+
+  name: PropTypes.string.isRequired,
+  ShortDescription: PropTypes.string.isRequired,
+};

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { FormSubmit, SearchBar } from "../../components";
 import {
   Container,
@@ -182,6 +182,11 @@ export default function ManageVideosPage() {
       //toast.error(TranslateToastError(globalLanguage, err.response.status));
     },
   });
+  const filteredVideos = useMemo(() => {
+    return videos.filter((video) =>
+      video.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  }, [videos, searchValue]);
 
   const handleSubmit = async (data) => {
     console.log(data);
@@ -213,13 +218,14 @@ export default function ManageVideosPage() {
           aria-label="Barra de pesquisa"
           placeholder={translation.placeholderSearch}
           value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
           search={handleSearch}
         />
       </ContainerSearchBar>
 
       <Section>
-        {videos.map((video) => (
-          <CardVideo key={video.id}>
+        {filteredVideos.map((video) => (
+          <CardVideo key={video._id}>
             <VideoTitle
               onClick={() => {
                 navigate(`/videos/${video.title}`, { state: video });
@@ -236,8 +242,8 @@ export default function ManageVideosPage() {
               }}
             ></div>
 
-            <StyledEditOutlined onClick={() => handleEditVideo(video.id)} />
-            <StyledDeleteOutlined onClick={() => handleDelete(video.id)} />
+            <StyledEditOutlined onClick={() => handleEditVideo(video._id)} />
+            <StyledDeleteOutlined onClick={() => handleDelete(video._id)} />
           </CardVideo>
         ))}
         <Modals>

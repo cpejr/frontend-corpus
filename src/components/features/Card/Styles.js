@@ -61,6 +61,32 @@ export const Line = styled.div`
     font-size: 24px;
   }
 `;
+export const DescriptionLine = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  height: auto;
+  font-size: 20px;
+  color: ${colors.black};
+  font-family: ${fonts.Cabin};
+  cursor: pointer;
+  @media (max-width: ${breakpoints.smallMobile}) {
+    font-size: 24px;
+  }
+`;
+export const CodeLine = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+  font-size: 10px;
+  color: ${colors.black};
+  font-family: ${fonts.Cabin};
+  cursor: pointer;
+  @media (max-width: ${breakpoints.smallMobile}) {
+    font-size: 24px;
+  }
+`;
 
 export const Group = styled.div`
   display: flex;

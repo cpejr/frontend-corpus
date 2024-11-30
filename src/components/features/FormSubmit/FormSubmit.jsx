@@ -37,12 +37,11 @@ export default function FormSubmit({
   } = useForm({
     //resolver: zodResolver(schema),
   });
-  console.log(1); //está chegando
+
   function submitHandler(data) {
     onSubmit(data);
     reset();
   }
-  console.log(2); // está chegando
 
   function handleFileUpload(data) {
     onSubmit(data);
