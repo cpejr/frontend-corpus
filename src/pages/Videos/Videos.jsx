@@ -8,6 +8,7 @@ import {
   ContainerSearchFilter,
   DivTitle,
   ContainerSearchBar,
+  ButtonDiv,
 } from "./Styles";
 import { SearchBar } from "../../components";
 import { useGlobalLanguage } from "../../stores/globalLanguage";
@@ -16,6 +17,7 @@ import Card from "../../components/features/Card/Card";
 import { useNavigate } from "react-router-dom";
 import { getVideos } from "../../services/endpoints";
 import { useQuery } from "@tanstack/react-query";
+import Pagination from "../../components/features/Pagination/Pagination";
 
 export default function Videos() {
   const [dates, setDates] = useState(null);
@@ -25,7 +27,8 @@ export default function Videos() {
     queryKey: ["videos"],
     queryFn: getVideos,
   });
-  const filteredVideos = useMemo(() => {
+
+  const SearchBarFilter = useMemo(() => {
     return videos.filter(
       (video) =>
         video.title.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
@@ -39,45 +42,43 @@ export default function Videos() {
           .includes(searchValue.toLocaleLowerCase())
     );
   }, [videos, searchValue]);
+  console.log(SearchBarFilter);
 
   //translations
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
 
-  // const videos = [
-  //   {
-  //     thumbnail: "https://img.youtube.com/vi/_N8zSuvqHh4/hqdefault.jpg",
-  //     linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4",
-  //     name: "Video1",
-  //   },
-  //   {
-  //     thumbnail:
-  //       "https://s2-techtudo.glbimg.com/SSAPhiaAy_zLTOu3Tr3ZKu2H5vg=/0x0:1024x609/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2022/c/u/15eppqSmeTdHkoAKM0Uw/dall-e-2.jpg",
-  //     name: "Legal",
-  //   },
-  //   {
-  //     thumbnail:
-  //       "https://s2-techtudo.glbimg.com/SSAPhiaAy_zLTOu3Tr3ZKu2H5vg=/0x0:1024x609/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2022/c/u/15eppqSmeTdHkoAKM0Uw/dall-e-2.jpg",
-  //     name: "Nome Diferente",
-  //   },
-  //   {
-  //     thumbnail:
-  //       "https://s2-techtudo.glbimg.com/SSAPhiaAy_zLTOu3Tr3ZKu2H5vg=/0x0:1024x609/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2022/c/u/15eppqSmeTdHkoAKM0Uw/dall-e-2.jpg",
-  //     name: "Youtube",
-  //   },
-  // ];
+  const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(
+    Math.ceil(videos.length / itemsPerPage)
+  );
 
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages - 1));
+  };
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
+    setCurrentPage(0);
+    setTotalPages(SearchBarFilter);
   };
 
   const navigate = useNavigate();
+  const paginatedVideos = SearchBarFilter.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
 
   return (
     <Container>
       <DivTitle>
         <Title>{translation.title}</Title>
       </DivTitle>
+
       <ContainerSearchFilter>
         <ContainerSearchBar>
           <SearchBar
@@ -86,7 +87,7 @@ export default function Videos() {
             value={searchValue}
             search={handleSearch}
           />
-        </ContainerSearchBar>
+        </ContainerSearchBar>{" "}
         <DivSelect>
           <Calendar
             value={dates}
@@ -101,7 +102,7 @@ export default function Videos() {
           />
         </DivSelect>
       </ContainerSearchFilter>
-      {filteredVideos.map((video) => (
+      {paginatedVideos.map((video) => (
         <DivLine key={video._id}>
           <Card
             thumbnail={video.thumbnail}
@@ -117,6 +118,15 @@ export default function Videos() {
           />
         </DivLine>
       ))}
+      <ButtonDiv>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          handlePrevPage={handlePrevPage}
+          handleNextPage={handleNextPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </ButtonDiv>
     </Container>
   );
 }
