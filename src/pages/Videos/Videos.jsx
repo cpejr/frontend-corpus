@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import {
   Container,
   Title,
@@ -64,8 +64,10 @@ export default function Videos() {
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
     setCurrentPage(0);
-    setTotalPages(SearchBarFilter);
   };
+  useEffect(() => {
+    setTotalPages(Math.ceil(videos.length / itemsPerPage));
+  }, [videos.length]);
 
   const navigate = useNavigate();
   const paginatedVideos = SearchBarFilter.slice(
