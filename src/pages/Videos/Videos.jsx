@@ -65,16 +65,15 @@ export default function Videos() {
     setSearchValue(e.target.value);
     setCurrentPage(0);
   };
-  useEffect(() => {
-    setTotalPages(Math.ceil(videos.length / itemsPerPage));
-  }, [videos.length]);
 
   const navigate = useNavigate();
   const paginatedVideos = SearchBarFilter.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   );
-
+  useEffect(() => {
+    setTotalPages(Math.ceil(SearchBarFilter.length / itemsPerPage));
+  }, [SearchBarFilter.length]);
   return (
     <Container>
       <DivTitle>
