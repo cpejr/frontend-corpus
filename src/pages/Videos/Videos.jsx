@@ -98,8 +98,8 @@ export default function Videos() {
             hideOnRangeSelection
             placeholder={translation.calendar}
             showButtonBar
-            dateFormat="yy"
-            view="year"
+            dateFormat="dd/mm/yy"
+            // view="year"
           />
         </DivSelect>
       </ContainerSearchFilter>
