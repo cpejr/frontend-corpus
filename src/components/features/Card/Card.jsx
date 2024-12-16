@@ -40,13 +40,11 @@ export default function Card({
 }
 
 Card.propTypes = {
-  data: PropTypes.object.isRequired,
   textButton: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   code: PropTypes.string.isRequired,
   event: PropTypes.func.isRequired,
   thumbnail: PropTypes.string.isRequired,
 
-  name: PropTypes.string.isRequired,
   ShortDescription: PropTypes.string.isRequired,
 };

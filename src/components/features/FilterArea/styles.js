@@ -1,12 +1,6 @@
 import styled from "styled-components";
 import { color, breakpoints } from "../../../styles/stylesVariables";
 
-export const RectangleDiv = styled.div`
-  justify-content: space-between;
-  width: 100%;
-  color: white;
-  background-color: ${color.background};
-`;
 export const FormContainer = styled.form`
   align-items: center;
   display: flex;
@@ -28,14 +22,6 @@ export const FormContainer = styled.form`
   }
 `;
 
-export const ErrorMessage = styled.p`
-  font-size: 0.9rem;
-  margin: 0px;
-  color: #ff0000;
-  font-weight: 400;
-  text-align: center;
-  margin-top: 10px;
-`;
 export const InputKeep = styled.div`
   align-items: center;
   display: flex;
@@ -57,31 +43,8 @@ export const Selects = styled.div`
   }
 `;
 
-export const CheckSection = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
 export const UploadSection = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-`;
-
-export const Checkbox = styled.input`
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-  @media (max-width: ${breakpoints.smallMobile}) {
-    width: 15px;
-    height: 15px;
-  }
-`;
-
-export const CheckText = styled.p`
-  font-size: 20px;
-  @media (max-width: ${breakpoints.smallMobile}) {
-    font-size: 15px;
-  }
 `;
