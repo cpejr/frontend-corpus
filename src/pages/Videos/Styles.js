@@ -70,6 +70,7 @@ export const ContainerSearchBar = styled.div`
 
 export const DivSelect = styled.div`
   display: flex;
+  gap: 20px;
   justify-content: center;
   flex-direction: row;
   align-items: center;

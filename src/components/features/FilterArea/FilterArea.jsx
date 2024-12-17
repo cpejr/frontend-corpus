@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import DatePicker from "react-datepicker";
 import PropTypes from "prop-types";
+
 import { LoadingOutlined } from "@ant-design/icons";
 import {
   FlagSelector,
@@ -12,8 +12,8 @@ import {
   SelectLanguageSection,
   TotalParticipantsSelectSection,
   Calendar,
+  StyledSelect,
 } from "./styles";
-import ReactLanguageSelect from "react-languages-select";
 
 export default function FilterArea({ onSubmit, loading, buttonText }) {
   const { handleSubmit, reset } = useForm({
@@ -23,7 +23,7 @@ export default function FilterArea({ onSubmit, loading, buttonText }) {
   const [selectTotalParticipants, setSelectTotalParticipants] = useState("");
   const [selectCountry, setSelectCountry] = useState("");
   const [selectLanguage, setSelectLanguage] = useState("");
-  const [pickTime, setPickTime] = useState(null);
+  //const [pickTime, setPickTime] = useState("10:00");
   const [dates, setDates] = useState(null);
 
   function submitHandler(data) {
@@ -31,24 +31,28 @@ export default function FilterArea({ onSubmit, loading, buttonText }) {
     reset;
     console.log(data);
   }
+  //Array de opções para o select de Total de Participantes
+  const options = [
+    { value: { min: 1, max: 5 }, label: "1 a 5" },
+    { value: { min: 6, max: 10 }, label: "6 a 10" },
+    { value: { min: 10, max: null }, label: "10+" },
+  ];
 
   return (
     <StyledForm onSubmit={handleSubmit(submitHandler)}>
       <TotalParticipantsSelectSection>
-        <label>Número de participantes:</label>
-        <select
-          value={selectTotalParticipants}
-          onChange={(e) => setSelectTotalParticipants(e.target.value)}
-        >
-          <option value="">Selecione</option>
-          <option value="categoria1">Categoria 1</option>
-          <option value="categoria2">Categoria 2</option>
-        </select>
+        <StyledSelect
+          defaultValue={selectTotalParticipants}
+          onChange={setSelectTotalParticipants}
+          placeholder="Total de Participantes"
+          options={options}
+        />
       </TotalParticipantsSelectSection>
       <FlagSelectorSection>
         <FlagSelector
-          selectCountry={selectCountry}
-          onSelect={(code) => setSelectCountry(code)}
+          value={selectCountry}
+          onChange={setSelectCountry}
+          onSelect={(e) => setSelectCountry(e.country)}
           countries={["US", "GB", "FR", "DE", "IT"]}
           customLabels={{
             US: "EN-US",
@@ -57,44 +61,48 @@ export default function FilterArea({ onSubmit, loading, buttonText }) {
             DE: "DE",
             IT: "IT",
           }}
-          placeholder="Select Language"
+          placeholder="Nacionalidade"
         />
       </FlagSelectorSection>
       <SelectLanguageSection>
-        <label>Idioma:</label>
-        <ReactLanguageSelect
+        <FlagSelector
           value={selectLanguage}
-          onChange={(e) => setSelectLanguage(e.target.value)}
-          languages={["en", "fr", "de", "it", "es"]}
-          customLabels={{ en: "EN-US", fr: "FR", de: "DE", it: "IT" }}
-          placeholder="Select Language"
-          showSelectedLabel={false}
+          onChange={setSelectLanguage}
+          onSelect={(e) => setSelectLanguage(e.language)}
+          countries={["US", "GB", "FR", "DE", "IT"]}
+          customLabels={{
+            US: "EN-US",
+            GB: "EN-GB",
+            FR: "FR",
+            DE: "DE",
+            IT: "IT",
+          }}
+          placeholder="Idioma"
         />
       </SelectLanguageSection>
 
       <PickTimeSection>
-        <label>Horário:</label>
-        <DatePicker
+        {/* <DatePicker
           selected={pickTime}
           onChange={(time) => setPickTime(time)}
           showTimeSelect
           showTimeSelectOnly
           timeIntervals={15}
+          dateFormat="Pp"
           timeFormat="HH:mm"
-          dateFormat="HH:mm"
+          //dateFormat="HH:mm"
           placeholderText="Selecione o horário"
-        />
+        /> */}
       </PickTimeSection>
       <PickDateSection>
         <Calendar
           value={dates}
           onChange={(e) => setDates(e.value)}
-          selectionMode="range"
+          placeholder="Data da interação"
           readOnlyInput
           hideOnRangeSelection
           showButtonBar
           dateFormat="dd/mm/yy"
-          // view="year"
         />{" "}
       </PickDateSection>
       <button type="submit">

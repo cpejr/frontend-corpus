@@ -2,9 +2,16 @@ import styled from "styled-components";
 import { colors, breakpoints } from "../../../styles/stylesVariables";
 import ReactFlagsSelect from "react-flags-select";
 import { Calendar as PrimeCalendar } from "primereact/calendar";
+import Select from "react-select";
 
-export const FlagSelector = styled(ReactFlagsSelect)`
+export const StyledSelect = styled(Select)`
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
   background-color: ${colors.background};
+`;
+export const FlagSelector = styled(ReactFlagsSelect)`
   color: black;
   width: 50%;
   align-items: center;
@@ -27,14 +34,17 @@ export const FlagSelectorSection = styled.div`
   align-items: center;
 `;
 export const TotalParticipantsSelectSection = styled.div`
-  width: 100%;
-  justify-content: space-between;
+  background-color: ${colors.background};
+  color: black;
+  width: 50%;
   align-items: center;
+  gap: 50px;
 `;
 export const PickTimeSection = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  gap: 50px;
 `;
 export const PickDateSection = styled.div`
   width: 100%;
