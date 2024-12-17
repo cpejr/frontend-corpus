@@ -2,8 +2,6 @@ import styled from "styled-components";
 import { breakpoints, colors, fonts } from "../../styles/stylesVariables";
 import { image } from "../../assets/index";
 
-import { Calendar as PrimeCalendar } from "primereact/calendar";
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -76,46 +74,7 @@ export const DivSelect = styled.div`
   flex-direction: row;
   align-items: center;
   border-radius: 5px;
-  width: 200px;
-`;
-
-export const Calendar = styled(PrimeCalendar)`
-  width: ${(props) => (props.width ? props.width : "95%")};
-  align-self: center;
-  display: flex;
-  justify-content: center;
-  border-radius: 25px;
-
-  @media (max-width: ${breakpoints.smallMobile}) {
-    margin-top: 0px;
-  }
-
-  .p-inputtext {
-    width: 100%;
-    height: 3rem;
-    background-color: ${colors.background.primary};
-    color: ${colors.font.primary};
-    border: solid 1px ${colors.font.title};
-    padding-left: 10px;
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-
-    &:focus {
-      outline: none;
-    }
-
-    &::placeholder {
-      color: ${colors.font.primary};
-    }
-
-    &:hover {
-      border-color: ${colors.accent.primary};
-    }
-  }
-
-  .p-datepicker {
-    border: 2px solid black;
-  }
+  width: 500px;
 `;
 
 export const LoadingStyles = styled.div`

@@ -4,7 +4,6 @@ import {
   Title,
   DivSelect,
   DivLine,
-  Calendar,
   ContainerSearchFilter,
   DivTitle,
   ContainerSearchBar,
@@ -18,9 +17,9 @@ import { useNavigate } from "react-router-dom";
 import { getVideos } from "../../services/endpoints";
 import { useQuery } from "@tanstack/react-query";
 import Pagination from "../../components/features/Pagination/Pagination";
+import FilterArea from "../../components/features/FilterArea/FilterArea";
 
 export default function Videos() {
-  const [dates, setDates] = useState(null);
   const [searchValue, setSearchValue] = useState("");
 
   const { data: videos = [] } = useQuery({
@@ -65,6 +64,9 @@ export default function Videos() {
     setSearchValue(e.target.value);
     setCurrentPage(0);
   };
+  const handleSubmit = async (data) => {
+    console.log(data);
+  };
 
   const navigate = useNavigate();
   const paginatedVideos = SearchBarFilter.slice(
@@ -90,19 +92,12 @@ export default function Videos() {
           />
         </ContainerSearchBar>{" "}
         <DivSelect>
-          <Calendar
-            value={dates}
-            onChange={(e) => setDates(e.value)}
-            selectionMode="range"
-            readOnlyInput
-            hideOnRangeSelection
-            placeholder={translation.calendar}
-            showButtonBar
-            dateFormat="dd/mm/yy"
-            // view="year"
+          <FilterArea
+            onSubmit={handleSubmit} //loading = {isPending}
           />
         </DivSelect>
       </ContainerSearchFilter>
+
       {paginatedVideos.map((video) => (
         <DivLine key={video._id}>
           <Card

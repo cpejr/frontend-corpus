@@ -1,50 +1,86 @@
 import styled from "styled-components";
-import { color, breakpoints } from "../../../styles/stylesVariables";
+import { colors, breakpoints } from "../../../styles/stylesVariables";
+import ReactFlagsSelect from "react-flags-select";
+import { Calendar as PrimeCalendar } from "primereact/calendar";
 
-export const FormContainer = styled.form`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  max-width: 600px !important;
-  gap: 2rem !important;
-  box-shadow: none;
-  z-index: 0;
-  @media (max-width: 700px) {
-    align-items: center;
-    flex-direction: column;
-    width: 90%;
-    gap: 0%;
-  }
-
-  @media (min-width: 1440px) {
-    max-width: 144rem;
-  }
-`;
-
-export const InputKeep = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+export const FlagSelector = styled(ReactFlagsSelect)`
+  background-color: ${colors.background};
   color: black;
-`;
-export const Selects = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 70%;
-  gap: 10rem;
-  justify-content: space-around;
-
-  @media (max-width: 850px) {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-  }
-`;
-
-export const UploadSection = styled.div`
-  display: flex;
-  flex-direction: row;
+  width: 50%;
   align-items: center;
+`;
+export const Section = styled.div`
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+`;
+export const StyledForm = styled.div`
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+`;
+export const FlagSelectorSection = styled.div`
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const TotalParticipantsSelectSection = styled.div`
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const PickTimeSection = styled.div`
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const PickDateSection = styled.div`
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const SelectLanguageSection = styled.div`
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const Calendar = styled(PrimeCalendar)`
+  width: ${(props) => (props.width ? props.width : "95%")};
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  border-radius: 25px;
+
+  @media (max-width: ${breakpoints.smallMobile}) {
+    margin-top: 0px;
+  }
+
+  .p-inputtext {
+    width: 100%;
+    height: 3rem;
+    background-color: ${colors.background.primary};
+    color: ${colors.font.primary};
+    border: solid 1px ${colors.font.title};
+    padding-left: 10px;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: ${colors.font.primary};
+    }
+
+    &:hover {
+      border-color: ${colors.accent.primary};
+    }
+  }
+
+  .p-datepicker {
+    border: 2px solid black;
+  }
 `;
