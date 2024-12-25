@@ -60,6 +60,7 @@ export function useGetVideosByParameters({
   ShortDescription,
   code,
   context,
+  time,
   responsibles,
 
   onSuccess = () => {},
@@ -73,6 +74,7 @@ export function useGetVideosByParameters({
         ShortDescription,
         code,
         context,
+        time,
         responsibles,
       },
     ],
@@ -82,6 +84,7 @@ export function useGetVideosByParameters({
         ShortDescription,
         code,
         context,
+        time,
         responsibles,
       }),
     onSuccess,

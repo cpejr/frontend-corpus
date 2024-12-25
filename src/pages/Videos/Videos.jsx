@@ -1,4 +1,6 @@
 import { useMemo, useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import { useGetVideosByParameters } from "../../hooks/query/videos";
 import {
   Container,
   Title,
@@ -15,33 +17,63 @@ import { TranslateText } from "./translations";
 import Card from "../../components/features/Card/Card";
 import { useNavigate } from "react-router-dom";
 import { getVideos } from "../../services/endpoints";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Pagination from "../../components/features/Pagination/Pagination";
 import FilterArea from "../../components/features/FilterArea/FilterArea";
 
 export default function Videos() {
+  const queryClient = useQueryClient;
   const [searchValue, setSearchValue] = useState("");
 
   const { data: videos = [] } = useQuery({
     queryKey: ["videos"],
     queryFn: getVideos,
   });
+  const { mutate: getVideos } = useGetVideosByParameters({
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["video"],
+      });
+      toast.success();
+    },
+    onError: (err) => {
+      toast.error(err);
+    },
+  });
+
+  // const SearchBarFilter = useMemo(() => {
+  //   return videos.filter(
+  //     (video) =>
+  //       video.title.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+  //       video.ShortDescription.toLowerCase().includes(
+  //         searchValue.toLocaleLowerCase()
+  //       ) ||
+  //       video.code.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+  //       video.context.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+  //       video.responsibles
+  //         .toLowerCase()
+  //         .includes(searchValue.toLocaleLowerCase())
+  //   );
+  // }, [videos, searchValue]);
 
   const SearchBarFilter = useMemo(() => {
-    return videos.filter(
-      (video) =>
-        video.title.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
-        video.ShortDescription.toLowerCase().includes(
-          searchValue.toLocaleLowerCase()
-        ) ||
-        video.code.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
-        video.context.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
-        video.responsibles
-          .toLowerCase()
-          .includes(searchValue.toLocaleLowerCase())
-    );
+    return videos.filter((video) => {
+      const title = video.title?.toLowerCase() || "";
+      const shortDescription = video.ShortDescription?.toLowerCase() || "";
+      const code = video.code?.toLowerCase() || "";
+      const context = video.context?.toLowerCase() || "";
+      const responsibles = video.responsibles?.toLowerCase() || "";
+      const search = searchValue.toLocaleLowerCase();
+      console.log(video);
+      return (
+        title.includes(search) ||
+        shortDescription.includes(search) ||
+        code.includes(search) ||
+        context.includes(search) ||
+        responsibles.includes(search)
+      );
+    });
   }, [videos, searchValue]);
-  console.log(SearchBarFilter);
 
   //translations
   const { globalLanguage } = useGlobalLanguage();

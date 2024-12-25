@@ -22,7 +22,7 @@ export const Section = styled.div`
   align-items: center;
   gap: 50px;
 `;
-export const StyledForm = styled.div`
+export const StyledForm = styled.form`
   width: 100%;
   justify-content: space-between;
   align-items: center;
