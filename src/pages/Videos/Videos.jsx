@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from "react";
-import { toast } from "react-toastify";
+
 import { useGetVideosByParameters } from "../../hooks/query/videos";
 import {
   Container,
@@ -16,28 +16,33 @@ import { useGlobalLanguage } from "../../stores/globalLanguage";
 import { TranslateText } from "./translations";
 import Card from "../../components/features/Card/Card";
 import { useNavigate } from "react-router-dom";
-import { getVideos } from "../../services/endpoints";
+
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Pagination from "../../components/features/Pagination/Pagination";
 import FilterArea from "../../components/features/FilterArea/FilterArea";
 
 export default function Videos() {
-  const queryClient = useQueryClient;
+  const queryClient = useQueryClient();
   const [searchValue, setSearchValue] = useState("");
 
-  const { data: videos = [] } = useQuery({
-    queryKey: ["videos"],
-    queryFn: getVideos,
-  });
-  const { mutate: getVideos } = useGetVideosByParameters({
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["video"],
+  const { mutate: getVideos } = useGetVideosByParameters(
+    ({
+      filters = {},
+      onSuccess = () => {},
+      onError = (err) => console.error(err),
+    } = {}) => {
+      return useQuery({
+        queryKey: ["videos", filters],
+        queryFn: () => getVideos(filters),
+        onSuccess,
+        onError,
       });
-      toast.success();
-    },
-    onError: (err) => {
-      toast.error(err);
+    }
+  );
+
+  const { data: videos = [] } = useGetVideosByParameters({
+    filters: {
+      title: searchValue,
     },
   });
 
