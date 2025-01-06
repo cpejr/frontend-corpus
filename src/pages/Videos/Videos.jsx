@@ -1,5 +1,4 @@
 import { useMemo, useState, useEffect } from "react";
-
 import { useGetVideosByParameters } from "../../hooks/query/videos";
 import {
   Container,
@@ -17,49 +16,24 @@ import { TranslateText } from "./translations";
 import Card from "../../components/features/Card/Card";
 import { useNavigate } from "react-router-dom";
 
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Pagination from "../../components/features/Pagination/Pagination";
 import FilterArea from "../../components/features/FilterArea/FilterArea";
 
 export default function Videos() {
-  const queryClient = useQueryClient();
   const [searchValue, setSearchValue] = useState("");
-
-  const { mutate: getVideos } = useGetVideosByParameters(
-    ({
-      filters = {},
-      onSuccess = () => {},
-      onError = (err) => console.error(err),
-    } = {}) => {
-      return useQuery({
-        queryKey: ["videos", filters],
-        queryFn: () => getVideos(filters),
-        onSuccess,
-        onError,
-      });
-    }
-  );
-
-  const { data: videos = [] } = useGetVideosByParameters({
-    filters: {
-      title: searchValue,
-    },
+  const [filters, setFilters] = useState({
+    totalParticipants: null,
+    duration: null,
+    language: null,
+    country: null,
+    date: null,
   });
-
-  // const SearchBarFilter = useMemo(() => {
-  //   return videos.filter(
-  //     (video) =>
-  //       video.title.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
-  //       video.ShortDescription.toLowerCase().includes(
-  //         searchValue.toLocaleLowerCase()
-  //       ) ||
-  //       video.code.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
-  //       video.context.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
-  //       video.responsibles
-  //         .toLowerCase()
-  //         .includes(searchValue.toLocaleLowerCase())
-  //   );
-  // }, [videos, searchValue]);
+  const { data: videos = [] } = useGetVideosByParameters({
+    filters,
+  });
+  const handleFilterSubmit = (data) => {
+    setFilters(data);
+  };
 
   const SearchBarFilter = useMemo(() => {
     return videos.filter((video) => {
@@ -69,7 +43,7 @@ export default function Videos() {
       const context = video.context?.toLowerCase() || "";
       const responsibles = video.responsibles?.toLowerCase() || "";
       const search = searchValue.toLocaleLowerCase();
-      console.log(video);
+
       return (
         title.includes(search) ||
         shortDescription.includes(search) ||
@@ -101,9 +75,6 @@ export default function Videos() {
     setSearchValue(e.target.value);
     setCurrentPage(0);
   };
-  const handleSubmit = async (data) => {
-    console.log(data);
-  };
 
   const navigate = useNavigate();
   const paginatedVideos = SearchBarFilter.slice(
@@ -129,9 +100,7 @@ export default function Videos() {
           />
         </ContainerSearchBar>{" "}
         <DivSelect>
-          <FilterArea
-            onSubmit={handleSubmit} //loading = {isPending}
-          />
+          <FilterArea onSubmit={handleFilterSubmit} />
         </DivSelect>
       </ContainerSearchFilter>
 
@@ -142,6 +111,11 @@ export default function Videos() {
             context={video.context}
             responsibles={video.responsibles}
             code={video.code}
+            country={video.country}
+            language={video.language}
+            duration={video.duration}
+            date={video.date}
+            totalParticipants={video.totalParticipants}
             ShortDescription={video.ShortDescription}
             textButton={translation.buttonCard}
             event={() => {

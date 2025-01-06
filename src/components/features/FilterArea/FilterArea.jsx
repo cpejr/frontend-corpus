@@ -20,7 +20,7 @@ export default function FilterArea({ onSubmit }) {
   const [selectTotalParticipants, setSelectTotalParticipants] = useState(null);
   const [selectCountry, setSelectCountry] = useState(null);
   const [selectLanguage, setSelectLanguage] = useState(null);
-  const [InteractionTime, setInteractionTime] = useState("10:00");
+  const [InteractionTime, setInteractionTime] = useState("");
   const [dates, setDates] = useState(null);
 
   function submitHandler(data) {
@@ -34,7 +34,6 @@ export default function FilterArea({ onSubmit }) {
     };
     onSubmit(toFilter);
     reset();
-    console.log(toFilter);
   }
   //Array de opções para o select de Total de Participantes
   const options = [

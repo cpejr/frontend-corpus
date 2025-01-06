@@ -9,8 +9,13 @@ export const getCategoryPrice = async (filters = {}) => {
 
 // Videos
 
-export const getVideos = async (filters = {}) => {
+export const getVideos = async () => {
+  const { data } = await api.get(`/video`);
+  return data;
+};
+export const getVideosByParameters = async (filters = {}) => {
   const { data } = await api.get(`/video`, { params: filters });
+  console.log(filters);
   return data;
 };
 export const deleteVideos = async (_id) => {

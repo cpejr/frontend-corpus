@@ -93,6 +93,11 @@ export const Group = styled.div`
   margin-left: 5%;
   margin-right: 5%;
 `;
+export const FilterParams = styled.div`
+  display: none;
+  margin-left: 5%;
+  margin-right: 5%;
+`;
 
 export const ButtonDiv = styled.div`
   display: flex;

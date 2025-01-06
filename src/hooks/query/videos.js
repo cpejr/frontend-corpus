@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import {
+  getVideosByParameters,
   getVideos,
   createVideos,
   deleteVideos,
@@ -56,12 +57,7 @@ export function useGetVideosByCategoryId({
   });
 }
 export function useGetVideosByParameters({
-  title,
-  ShortDescription,
-  code,
-  context,
-  time,
-  responsibles,
+  filters,
 
   onSuccess = () => {},
   onError = (err) => console.error(err),
@@ -70,22 +66,12 @@ export function useGetVideosByParameters({
     queryKey: [
       "videos",
       {
-        title,
-        ShortDescription,
-        code,
-        context,
-        time,
-        responsibles,
+        filters,
       },
     ],
     queryFn: () =>
-      getVideos({
-        title,
-        ShortDescription,
-        code,
-        context,
-        time,
-        responsibles,
+      getVideosByParameters({
+        filters,
       }),
     onSuccess,
     onError,
