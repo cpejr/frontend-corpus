@@ -53,11 +53,11 @@ export default function Card({
 }
 
 Card.propTypes = {
-  totalParticipants: PropTypes.string.isRequired,
-  country: PropTypes.string.isRequired,
-  language: PropTypes.string.isRequired,
-  duration: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
+  totalParticipants: PropTypes.string,
+  country: PropTypes.string,
+  language: PropTypes.string,
+  duration: PropTypes.string,
+  date: PropTypes.sring,
   textButton: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   code: PropTypes.string.isRequired,

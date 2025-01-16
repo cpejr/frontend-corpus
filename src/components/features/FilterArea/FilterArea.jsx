@@ -18,8 +18,8 @@ export default function FilterArea({ onSubmit }) {
   const { handleSubmit, reset, register, control } = useForm();
 
   const [selectTotalParticipants, setSelectTotalParticipants] = useState(null);
-  const [selectCountry, setSelectCountry] = useState(null);
-  const [selectLanguage, setSelectLanguage] = useState(null);
+  const [selectCountry] = useState(null);
+  const [selectLanguage] = useState(null);
   const [InteractionTime, setInteractionTime] = useState("");
   const [dates, setDates] = useState(null);
 
@@ -48,7 +48,7 @@ export default function FilterArea({ onSubmit }) {
         <Controller
           name="TotalParticipants"
           control={control}
-          defaultValue={null}
+          defaultValue=""
           render={({ field }) => (
             <StyledSelect
               {...field}
@@ -67,12 +67,11 @@ export default function FilterArea({ onSubmit }) {
         <Controller
           name="country"
           control={control}
-          defaultValue={null}
+          defaultValue=""
           render={({ field }) => (
             <FlagSelector
               {...field}
               onChange={(SelectCountry) => {
-                setSelectCountry(SelectCountry.value);
                 field.onChange(SelectCountry.value);
               }}
               countries={["US", "GB", "FR", "DE", "IT"]}
@@ -92,12 +91,11 @@ export default function FilterArea({ onSubmit }) {
         <Controller
           name="language"
           control={control}
-          defaultValue={null}
+          defaultValue=""
           render={({ field }) => (
             <FlagSelector
               {...field}
               onChange={(SelectLanguage) => {
-                setSelectLanguage(SelectLanguage.value);
                 field.onChange(SelectLanguage.value);
               }}
               countries={["US", "GB", "FR", "DE", "IT"]}
@@ -126,7 +124,7 @@ export default function FilterArea({ onSubmit }) {
         <Controller
           name="dates"
           control={control}
-          defaultValue={null}
+          defaultValue=""
           render={({ field }) => (
             <Calendar
               {...field}

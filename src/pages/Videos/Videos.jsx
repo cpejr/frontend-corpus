@@ -23,9 +23,9 @@ export default function Videos() {
   const [searchValue, setSearchValue] = useState("");
   const [filters, setFilters] = useState({
     totalParticipants: null,
-    duration: null,
-    language: null,
     country: null,
+    language: null,
+    duration: null,
     date: null,
   });
   const { data: videos = [] } = useGetVideosByParameters({

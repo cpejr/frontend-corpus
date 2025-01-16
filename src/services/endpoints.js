@@ -14,8 +14,8 @@ export const getVideos = async () => {
   return data;
 };
 export const getVideosByParameters = async (filters = {}) => {
-  const { data } = await api.get(`/video`, { params: filters });
-  console.log(filters);
+  const { data } = await api.get(`/videofilter`, { params: filters });
+  console.log(data);
   return data;
 };
 export const deleteVideos = async (_id) => {
