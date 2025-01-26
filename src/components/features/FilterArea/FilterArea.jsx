@@ -18,20 +18,21 @@ export default function FilterArea({ onSubmit }) {
   const { handleSubmit, reset, register, control } = useForm();
 
   const [selectTotalParticipants, setSelectTotalParticipants] = useState(null);
-  const [selectCountry] = useState(null);
-  const [selectLanguage] = useState(null);
-  const [InteractionTime, setInteractionTime] = useState("");
+  const [country, setCountry] = useState(null);
+  const [language, setLanguage] = useState(null);
+  const [duration, setDuration] = useState("");
   const [dates, setDates] = useState(null);
 
   function submitHandler(data) {
     const toFilter = {
       ...data,
       totalParticipants: selectTotalParticipants,
-      country: selectCountry,
-      language: selectLanguage,
-      duration: InteractionTime,
-      date: dates,
+      country,
+      language,
+      duration,
+      dates,
     };
+
     onSubmit(toFilter);
     reset();
   }
@@ -46,15 +47,15 @@ export default function FilterArea({ onSubmit }) {
     <StyledForm onSubmit={handleSubmit(submitHandler)}>
       <TotalParticipantsSelectSection>
         <Controller
-          name="TotalParticipants"
+          name="totalParticipants"
           control={control}
           defaultValue=""
           render={({ field }) => (
             <StyledSelect
               {...field}
-              onChange={(participants) => {
-                setSelectTotalParticipants(participants.value);
-                field.onChange(participants.value);
+              onChange={(e) => {
+                setSelectTotalParticipants(e.value);
+                field.onChange(e.value);
               }}
               isSearchable={false}
               placeholder="Total de Participantes"
@@ -71,8 +72,10 @@ export default function FilterArea({ onSubmit }) {
           render={({ field }) => (
             <FlagSelector
               {...field}
-              onChange={(SelectCountry) => {
-                field.onChange(SelectCountry.value);
+              selected={country}
+              onSelect={(e) => {
+                setCountry(e);
+                field.onChange(e);
               }}
               countries={["US", "GB", "FR", "DE", "IT"]}
               customLabels={{
@@ -95,8 +98,10 @@ export default function FilterArea({ onSubmit }) {
           render={({ field }) => (
             <FlagSelector
               {...field}
-              onChange={(SelectLanguage) => {
-                field.onChange(SelectLanguage.value);
+              selected={language}
+              onSelect={(e) => {
+                setLanguage(e);
+                field.onChange(e);
               }}
               countries={["US", "GB", "FR", "DE", "IT"]}
               customLabels={{
@@ -113,12 +118,23 @@ export default function FilterArea({ onSubmit }) {
       </SelectLanguageSection>
 
       <PickTimeSection>
-        <input
-          placeholder="Tempo de interação"
-          {...register("InteractionTime")}
-          onChange={(e) => setInteractionTime(e.value)}
-          value={InteractionTime}
-        ></input>
+        <Controller
+          name="duration"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <input
+              {...field}
+              placeholder="tempo de duração"
+              {...register("duration")}
+              onChange={(e) => {
+                setDuration(e.target.value);
+                field.onChange(e.value);
+              }}
+              value={duration}
+            ></input>
+          )}
+        />
       </PickTimeSection>
       <PickDateSection>
         <Controller
