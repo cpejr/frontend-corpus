@@ -12,6 +12,7 @@ import {
   TotalParticipantsSelectSection,
   Calendar,
   StyledSelect,
+  StyledInput,
 } from "./styles";
 
 export default function FilterArea({ onSubmit }) {
@@ -53,7 +54,8 @@ export default function FilterArea({ onSubmit }) {
           render={({ field }) => (
             <StyledSelect
               {...field}
-              onChange={(e) => {
+              defaultValue={selectTotalParticipants}
+              onSelect={(e) => {
                 setSelectTotalParticipants(e.value);
                 field.onChange(e.value);
               }}
@@ -123,7 +125,7 @@ export default function FilterArea({ onSubmit }) {
           control={control}
           defaultValue=""
           render={({ field }) => (
-            <input
+            <StyledInput
               {...field}
               placeholder="tempo de duração"
               {...register("duration")}
@@ -132,7 +134,7 @@ export default function FilterArea({ onSubmit }) {
                 field.onChange(e.value);
               }}
               value={duration}
-            ></input>
+            ></StyledInput>
           )}
         />
       </PickTimeSection>

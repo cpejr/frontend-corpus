@@ -23,7 +23,7 @@ export const DivTitle = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: ${colors.white};
+  color: #ccd5ae;
   font-size: 36px;
   text-transform: uppercase;
   font-family: ${fonts.Cabin};
@@ -59,10 +59,12 @@ export const ContainerSearchFilter = styled.div`
   flex-direction: column;
   width: 100%;
   align-items: center;
+  color: #d4a373;
 `;
 
 export const ContainerSearchBar = styled.div`
   display: flex;
+  color: #d4a373;
   flex-direction: row;
   width: 100%;
   align-items: center;
@@ -76,6 +78,7 @@ export const DivSelect = styled.div`
   align-items: center;
   border-radius: 5px;
   width: 500px;
+  color: #d4a373;
 `;
 
 export const LoadingStyles = styled.div`

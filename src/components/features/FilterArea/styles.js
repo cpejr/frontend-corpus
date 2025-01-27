@@ -9,10 +9,24 @@ export const StyledSelect = styled(Select)`
   justify-content: space-between;
   align-items: center;
   gap: 50px;
-  background-color: ${colors.background};
+  color: #d4a373;
+  border-color: #d4a373;
+  background-color: ${colors.background.primary};
+`;
+export const StyledInput = styled.input`
+  width: 250px;
+  border-radius: #d4a373 4px;
+  border-color: #d4a373;
+  background-color: ${colors.background.primary};
+  height: 30px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+  color: #d4a373;
 `;
 export const FlagSelector = styled(ReactFlagsSelect)`
   color: black;
+  border: #d4a373;
   width: 50%;
   align-items: center;
 `;
@@ -26,6 +40,7 @@ export const StyledForm = styled.form`
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  color: #d4a373;
   gap: 50px;
 `;
 export const FlagSelectorSection = styled.div`
@@ -34,8 +49,8 @@ export const FlagSelectorSection = styled.div`
   align-items: center;
 `;
 export const TotalParticipantsSelectSection = styled.div`
-  background-color: ${colors.background};
-  color: black;
+  color: #d4a373;
+  border-color: ${colors.background.primary};
   width: 50%;
   align-items: center;
   gap: 50px;
@@ -43,6 +58,8 @@ export const TotalParticipantsSelectSection = styled.div`
 export const PickTimeSection = styled.div`
   width: 100%;
   justify-content: space-between;
+  color: #d4a373;
+  border-color: #d4a373;
   align-items: center;
   gap: 50px;
 `;
@@ -71,8 +88,8 @@ export const Calendar = styled(PrimeCalendar)`
     width: 100%;
     height: 3rem;
     background-color: ${colors.background.primary};
-    color: ${colors.font.primary};
-    border: solid 1px ${colors.font.title};
+    color: #d4a373;
+    border: solid 1px #d4a373;
     padding-left: 10px;
     font-size: 1.2rem;
     margin-bottom: 2rem;
@@ -82,15 +99,15 @@ export const Calendar = styled(PrimeCalendar)`
     }
 
     &::placeholder {
-      color: ${colors.font.primary};
+      color: #d4a373;
     }
 
     &:hover {
-      border-color: ${colors.accent.primary};
+      border-color: #d4a373;
     }
   }
 
   .p-datepicker {
-    border: 2px solid black;
+    border: 2px solid #d4a373;
   }
 `;

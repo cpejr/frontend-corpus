@@ -26,7 +26,7 @@ export const Message = styled.h1`
 
 export const ModalStyle = styled(Modal)`
   .ant-modal-content {
-    background-color: #a4c3b2;
+    background-color: #fefae0;
     padding: 1rem;
     align-items: center;
     justify-content: center;

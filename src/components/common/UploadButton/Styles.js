@@ -6,7 +6,7 @@ export const AddButton = styled(Button)`
   height: 40px;
   align-items: center;
   justify-content: center;
-  color: #6b9080;
+  color: #ccd5ae;
   background-color: white;
   border-radius: 10px;
 `;

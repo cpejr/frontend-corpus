@@ -27,7 +27,7 @@ export const Container = styled.div`
 `;
 
 export const LogoHeader = styled.img`
-  width: 150px;
+  width: 300px;
   display: flex;
   cursor: pointer;
   @media (max-width: ${breakpoints.mobile}) {

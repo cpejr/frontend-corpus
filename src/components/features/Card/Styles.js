@@ -10,7 +10,7 @@ export const StyledCard = styled(Card)`
   align-items: center;
   border-radius: 24px;
   gap: 3.33rem;
-  background-color: white;
+  background-color: #e9edc9;
   margin-bottom: 4rem;
   &:hover {
   }
@@ -103,7 +103,7 @@ export const ButtonDiv = styled.div`
 export const OrangeButton = styled(Button)`
   width: 10rem;
   height: 2.5rem;
-  background-color: ${colors.background.primary};
+  background-color: #d4a373;
   border: none;
   margin-top: 1rem;
   border-radius: 10px;

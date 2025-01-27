@@ -99,6 +99,7 @@ export default function Videos() {
             placeholder={translation.placeholder}
             value={searchValue}
             search={handleSearch}
+            color="#d4a373"
           />
         </ContainerSearchBar>{" "}
         <DivSelect>
