@@ -107,7 +107,6 @@ export const TypeSelect = styled(Select)`
   .ant-select-selection-item {
     color: #debc96 !important;
   }
-
   .ant-select-arrow {
     display: none;
   }

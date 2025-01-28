@@ -189,7 +189,6 @@ export default function ManageVideosPage() {
   }, [videos, searchValue]);
 
   const handleSubmit = async (data) => {
-    console.log(data);
     createVideo(data);
   };
 

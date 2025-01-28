@@ -82,10 +82,12 @@ export const Modals = styled.div`
 `;
 
 export const StyledEditOutlined = styled(EditOutlined)`
+  color: #d4a373;
   width: 50px;
   font-size: 24px;
 `;
 export const StyledDeleteOutlined = styled(DeleteOutlined)`
+  color: #d4a373;
   width: 50px;
   font-size: 24px;
 `;

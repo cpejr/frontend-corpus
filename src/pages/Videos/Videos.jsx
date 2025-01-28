@@ -31,10 +31,9 @@ export default function Videos() {
   const { data: videos = [] } = useGetVideosByParameters({
     filters,
   });
-  console.log("Aqui no useGetVideoByParameters em Videos.jsx", filters);
+
   const handleFilterSubmit = (data) => {
     setFilters(data);
-    console.log("Aqui em videos.jsx, no data em handlefiltersubmit", data);
   };
 
   const SearchBarFilter = useMemo(() => {

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import PropTypes from "prop-types";
+import { useGlobalLanguage } from "../../../stores/globalLanguage";
 
 import {
   FlagSelector,
@@ -14,6 +15,7 @@ import {
   StyledSelect,
   StyledInput,
 } from "./styles";
+import { TranslateText } from "./translations";
 
 export default function FilterArea({ onSubmit }) {
   const { handleSubmit, reset, register, control } = useForm();
@@ -33,9 +35,11 @@ export default function FilterArea({ onSubmit }) {
       duration,
       dates,
     };
-
-    onSubmit(toFilter);
     reset();
+    setCountry(null);
+    setLanguage(null);
+    setDuration("");
+    onSubmit(toFilter);
   }
   //Array de opções para o select de Total de Participantes
   const options = [
@@ -43,7 +47,8 @@ export default function FilterArea({ onSubmit }) {
     { value: { min: 6, max: 10 }, label: "6 a 10" },
     { value: { min: 10, max: null }, label: "10+" },
   ];
-
+  const { globalLanguage } = useGlobalLanguage();
+  const translateText = TranslateText({ globalLanguage });
   return (
     <StyledForm onSubmit={handleSubmit(submitHandler)}>
       <TotalParticipantsSelectSection>
@@ -60,7 +65,7 @@ export default function FilterArea({ onSubmit }) {
                 field.onChange(e.value);
               }}
               isSearchable={false}
-              placeholder="Total de Participantes"
+              placeholder={translateText.totalParticipantsPlaceholder}
               options={options}
             />
           )}
@@ -87,7 +92,7 @@ export default function FilterArea({ onSubmit }) {
                 DE: "DE",
                 IT: "IT",
               }}
-              placeholder="Nacionalidade"
+              placeholder={translateText.countryPlaceholder}
             />
           )}
         />
@@ -113,7 +118,7 @@ export default function FilterArea({ onSubmit }) {
                 DE: "DE",
                 IT: "IT",
               }}
-              placeholder="Idioma"
+              placeholder={translateText.languagePlaceholder}
             />
           )}
         />
@@ -127,7 +132,7 @@ export default function FilterArea({ onSubmit }) {
           render={({ field }) => (
             <StyledInput
               {...field}
-              placeholder="tempo de duração"
+              placeholder={translateText.durationPlaceholder}
               {...register("duration")}
               onChange={(e) => {
                 setDuration(e.target.value);
@@ -150,7 +155,7 @@ export default function FilterArea({ onSubmit }) {
                 setDates(dates.value);
                 field.onChange(dates.value);
               }}
-              placeholder="Data da interação"
+              placeholder={translateText.calendarPlaceholder}
               readOnlyInput
               hideOnRangeSelection
               showButtonBar

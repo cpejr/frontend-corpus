@@ -15,19 +15,18 @@ export const getVideos = async () => {
 };
 export const getVideosByParameters = async (filters = {}) => {
   const { data } = await api.get(`/videofilter`, { params: filters });
-  console.log(data);
+
   return data;
 };
 export const deleteVideos = async (_id) => {
   const { data } = await api.delete(`/video/${_id}`);
   return data;
 };
-console.log(5);
+
 export const createVideos = async (newVideo) => {
   const { data } = await api.post(`/video`, newVideo);
   return data;
 };
-console.log(6);
 
 export async function updateVideos({ _id, body }) {
   const { data } = await api.put(`/video/${_id}`, body);
