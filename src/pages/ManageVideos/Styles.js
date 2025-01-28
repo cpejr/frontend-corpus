@@ -65,20 +65,57 @@ export const Section = styled.section`
     font-weight: 400;
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: ${breakpoints.mobile}) {
     width: 80%;
+  }
+`;
+
+export const SectionList = styled.section`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  height: 100%;
+  gap: 2rem;
+  margin-bottom: 30px;
+  ::placeholder {
+    color: black;
+    font-weight: 400;
   }
 `;
 
 export const CardVideo = styled.div`
   display: flex;
-  font-size: 25px;
   align-items: center;
   justify-content: space-between;
-  width: auto;
+  width: 93%;
 `;
-export const Modals = styled.div`
-  width: 100%;
+
+export const VideoTitle = styled.div`
+  cursor: pointer;
+  font-size: 25px;
+
+  @media (max-width: ${breakpoints.smallMobile}) {
+    font-size: 18px;
+  }
+`;
+
+export const ListLine = styled.div`
+  border-bottom: 2px solid white;
+  flex-grow: 1;
+  height: 17px;
+  margin-left: 15px;
+  margin-right: 15px;
+
+  @media (max-width: ${breakpoints.smallMobile}) {
+    height: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+`;
+
+export const Buttons = styled.div`
 `;
 
 export const StyledEditOutlined = styled(EditOutlined)`
@@ -86,6 +123,7 @@ export const StyledEditOutlined = styled(EditOutlined)`
   width: 50px;
   font-size: 24px;
 `;
+
 export const StyledDeleteOutlined = styled(DeleteOutlined)`
   color: #d4a373;
   width: 50px;

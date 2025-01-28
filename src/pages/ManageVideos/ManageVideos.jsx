@@ -11,32 +11,31 @@ import {
   StyledDeleteOutlined,
   StyledEditOutlined,
   VideoTitle,
+  ListLine,
+  Buttons,
+  SectionList,
 } from "./Styles";
 import { validationSchema } from "./utils";
 import { TranslateText } from "./translations";
 import { useGlobalLanguage } from "../../stores/globalLanguage";
 import ModalEditVideos from "../../components/features/modals/ModalEditVideos/ModalEditVideos";
 import ModalDeleteVideo from "../../components/features/modals/ModalDeleteVideos/ModalDeleteVideos";
-import { useCreateVideos, useUpdateVideos } from "../../hooks/query/videos";
+import { useCreateVideos, useGetVideos } from "../../hooks/query/videos";
 import { toast } from "react-toastify";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { getVideos } from "../../services/endpoints";
+import translateText from "../../services/others/translateAPI";
 
 export default function ManageVideosPage() {
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
+  const translateLanguage = globalLanguage.toLowerCase();
 
   const [inputs, setInputs] = useState([]);
+  const [allVideos, setAllVideos] = useState([]);
 
-  const [searchValue, setSearchValue] = useState("");
-  const [showEditModal, setShowEditModal] = useState("");
-  const [showDeleteModal, setShowDeleteModal] = useState("");
 
-  const [videoId, setVideoId] = useState("");
-
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   const { data: videos = [] } = useQuery({
     queryKey: ["videos"],
@@ -56,13 +55,6 @@ export default function ManageVideosPage() {
         key: "ShortDescription",
         placeholder: translation.placeholder2,
         label: "ShortDescription",
-      },
-      {
-        type: "file",
-        key: "videoFile",
-        placeholder: translation.placeholder3,
-        label: "videoFile",
-        errors: [translation.error1, translation.error2],
       },
       {
         type: "text",
@@ -105,42 +97,55 @@ export default function ManageVideosPage() {
         label: "language",
       },
       {
+        type: "date",
+        key: "date",
+        placeholder: translation.placeholder11,
+        label: "date",
+      },
+      {
         type: "time",
         key: "duration",
         placeholder: translation.placeholder10,
         label: "duration",
       },
       {
-        type: "date",
-        key: "date",
-        placeholder: translation.placeholder11,
-        label: "date",
+        type: "file",
+        key: "videoFile",
+        placeholder: translation.placeholder3,
+        label: "videoFile",
+        errors: [translation.error1, translation.error2],
       },
     ]);
+
+    translateTitles();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalLanguage]);
 
-  // const videos = [
-  //   {
-  //     id: "1",
-  //     title: "Vídeo 1",
-  //     linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4",
-  //     name: "Video 1",
-  //   },
-  //   {
-  //     id: "2",
-  //     title: "Vídeo 2",
-  //     linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4",
-  //     name: "Video 2",
-  //   },
-  //   {
-  //     id: "3",
-  //     title: "Foda",
-  //     linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4",
-  //     name: "Foda",
-  //   },
-  // ];
+  async function translateTitles() {
+    const translatedTitles = await Promise.all(
+      videos.map(async (video) => {
+        return { ...video, title: await translateText(video.title, translateLanguage)}; 
+      })
+    );
+
+    setAllVideos(translatedTitles);
+  }
+
+  const navigate = useNavigate();
+
+  const [searchValue, setSearchValue] = useState("");
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const queryClient = useQueryClient();
+
+  const [videoId, setVideoId] = useState("");
+
+  const videosArray = [
+    { _id: "1", title: "Vídeo 1", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Video 1" },
+    { _id: "2", title: "Vídeo 2", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Video 2" },
+    { _id: "3", title: "Foda", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Foda" },
+  ];
 
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
@@ -151,11 +156,15 @@ export default function ManageVideosPage() {
     setShowDeleteModal(true);
   };
 
-  function handleEditVideo(id) {
+  function handleEdit(id) {
     setVideoId(id);
     setShowEditModal(true);
-    updateVideos();
   }
+
+  const { data: videos, isLoading } = useGetVideos({
+    onError: () => {
+    },
+  });
 
   const { mutate: createVideo, isPending } = useCreateVideos({
     onSuccess: () => {
@@ -190,6 +199,9 @@ export default function ManageVideosPage() {
 
   const handleSubmit = async (data) => {
     createVideo(data);
+  const handleSubmit = async (data) => {
+    console.log(data);
+    //createVideo(data);
   };
 
   return (
@@ -243,22 +255,35 @@ export default function ManageVideosPage() {
 
             <StyledEditOutlined onClick={() => handleEditVideo(video._id)} />
             <StyledDeleteOutlined onClick={() => handleDelete(video._id)} />
+      <SectionList>
+        {videosArray // trocar para allVideos
+        .filter((obj) => obj.title.toLowerCase().includes(searchValue.toLowerCase()),)
+        .map((video) => (
+          <CardVideo key={video.id}>
+            <VideoTitle onClick={() => { navigate(`/videos/${video.title}`, { state: video } )}}> 
+              {video.title}
+            </VideoTitle>
+            <ListLine/>
+            <Buttons>
+              <StyledEditOutlined onClick={() => handleEdit(video?._id)} />
+              <StyledDeleteOutlined onClick={() => handleDelete(video?._id)} />
+            </Buttons>
           </CardVideo>
         ))}
-        <Modals>
+      </SectionList>
+
+      <Modals>
           <ModalDeleteVideo
             openModal={showDeleteModal}
             closeModal={() => setShowDeleteModal(false)}
             id={videoId}
           />
           <ModalEditVideos
-            modal={showEditModal}
-            handleEditVideo={setVideoId}
-            close={() => setShowEditModal(false)}
+            openModal={showEditModal}
+            closeModal={() => setShowEditModal(false)}
             id={videoId}
           />
-        </Modals>
-      </Section>
+      </Modals>
     </Container>
   );
 }

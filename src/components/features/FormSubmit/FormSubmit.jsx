@@ -38,6 +38,7 @@ export default function FormSubmit({
     //resolver: zodResolver(schema),
   });
 
+
   function submitHandler(data) {
     onSubmit(data);
     reset();
@@ -108,7 +109,7 @@ export default function FormSubmit({
                 defaultValue={input?.defaultValue}
                 isSubmitSuccessful={isSubmitSuccessful}
                 onChange={(date) =>
-                  setValue(input.key, date, { shouldValidate: true })
+                  setValue(input.label, date, { shouldValidate: true })
                 }
                 color={color}
               />
@@ -166,10 +167,13 @@ export default function FormSubmit({
             <InputKeep key={input.key}>
               <TimePicker
                 inputKey={input.key}
+                label={input.label}
                 format="HH:mm:ss"
                 placeholder={input.placeholder}
+                error={errors[input.key] ? true : false || requestError}
                 setValue={setValue}
                 control={control}
+                {...register(input.key)}
               />
               {errors[input.key]?.message && (
                 <ErrorMessage>{errors[input.key]?.message}</ErrorMessage>
