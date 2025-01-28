@@ -57,6 +57,10 @@ export const StyledForm = styled.form`
   align-items: center;
   color: #d4a373;
   gap: 50px;
+  @media (max-width: ${breakpoints.smallMobile}) {
+    margin-top: 0px;
+    width: 250px
+  }
 `;
 export const FlagSelectorSection = styled.div`
   width: 100%;
@@ -97,6 +101,7 @@ export const Calendar = styled(PrimeCalendar)`
 
   @media (max-width: ${breakpoints.smallMobile}) {
     margin-top: 0px;
+    width: 250px
   }
 
   .p-inputtext {

@@ -38,11 +38,7 @@ export const Title = styled.h1`
     font-size: 24px;
   }
 `;
-export const VideoTitle = styled.div`
-  cursor: pointer;
-  color: #dfc89e;
-  text-decoration: underline;
-`;
+
 
 export const ContainerSearchBar = styled.div`
   display: flex;
@@ -128,4 +124,7 @@ export const StyledDeleteOutlined = styled(DeleteOutlined)`
   color: #d4a373;
   width: 50px;
   font-size: 24px;
+`;
+export const Modals = styled.div`
+  width: 100%;
 `;

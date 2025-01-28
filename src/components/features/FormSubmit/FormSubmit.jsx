@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
   Form as FormContainer,
   ErrorMessage,
@@ -40,11 +40,6 @@ export default function FormSubmit({
 
 
   function submitHandler(data) {
-    onSubmit(data);
-    reset();
-  }
-
-  function handleFileUpload(data) {
     onSubmit(data);
     reset();
   }

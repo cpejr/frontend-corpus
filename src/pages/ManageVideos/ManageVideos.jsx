@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { FormSubmit, SearchBar } from "../../components";
 import {
   Container,
@@ -22,9 +22,8 @@ import ModalEditVideos from "../../components/features/modals/ModalEditVideos/Mo
 import ModalDeleteVideo from "../../components/features/modals/ModalDeleteVideos/ModalDeleteVideos";
 import { useCreateVideos, useGetVideos } from "../../hooks/query/videos";
 import { toast } from "react-toastify";
-import { useQueryClient, useQuery } from "@tanstack/react-query";
+//import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { getVideos } from "../../services/endpoints";
 import translateText from "../../services/others/translateAPI";
 
 export default function ManageVideosPage() {
@@ -34,13 +33,6 @@ export default function ManageVideosPage() {
 
   const [inputs, setInputs] = useState([]);
   const [allVideos, setAllVideos] = useState([]);
-
-
-
-  const { data: videos = [] } = useQuery({
-    queryKey: ["videos"],
-    queryFn: getVideos,
-  });
 
   useEffect(() => {
     setInputs([
@@ -52,9 +44,9 @@ export default function ManageVideosPage() {
       },
       {
         type: "text",
-        key: "ShortDescription",
+        key: "description",
         placeholder: translation.placeholder2,
-        label: "ShortDescription",
+        label: "description",
       },
       {
         type: "text",
@@ -70,9 +62,9 @@ export default function ManageVideosPage() {
       },
       {
         type: "text",
-        key: "responsibles",
+        key: "responsible",
         placeholder: translation.placeholder6,
-        label: "responsibles",
+        label: "responsible",
       },
       {
         type: "select",
@@ -137,15 +129,10 @@ export default function ManageVideosPage() {
   const [searchValue, setSearchValue] = useState("");
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const queryClient = useQueryClient();
+  //const queryClient = useQueryClient();
 
   const [videoId, setVideoId] = useState("");
 
-  const videosArray = [
-    { _id: "1", title: "Vídeo 1", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Video 1" },
-    { _id: "2", title: "Vídeo 2", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Video 2" },
-    { _id: "3", title: "Foda", linkVideo: "https://www.youtube.com/embed/_N8zSuvqHh4", name: "Foda" },
-  ];
 
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
@@ -161,7 +148,7 @@ export default function ManageVideosPage() {
     setShowEditModal(true);
   }
 
-  const { data: videos, isLoading } = useGetVideos({
+  const { data: videos } = useGetVideos({
     onError: () => {
     },
   });
@@ -169,9 +156,6 @@ export default function ManageVideosPage() {
   const { mutate: createVideo, isPending } = useCreateVideos({
     onSuccess: () => {
       toast.success(translation.successToast);
-      queryClient.invalidateQueries({
-        queryKey: ["videos"],
-      });
     },
     onError: (err) => {
       console.log(err);
@@ -179,26 +163,6 @@ export default function ManageVideosPage() {
     },
   });
 
-  const { mutate: updateVideos } = useUpdateVideos({
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["videos"],
-      });
-      toast.success(translation.successToast);
-    },
-    onError: (err) => {
-      console.log(err);
-      //toast.error(TranslateToastError(globalLanguage, err.response.status));
-    },
-  });
-  const filteredVideos = useMemo(() => {
-    return videos.filter((video) =>
-      video.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
-  }, [videos, searchValue]);
-
-  const handleSubmit = async (data) => {
-    createVideo(data);
   const handleSubmit = async (data) => {
     console.log(data);
     //createVideo(data);
@@ -229,34 +193,12 @@ export default function ManageVideosPage() {
           aria-label="Barra de pesquisa"
           placeholder={translation.placeholderSearch}
           value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
           search={handleSearch}
         />
       </ContainerSearchBar>
 
-      <Section>
-        {filteredVideos.map((video) => (
-          <CardVideo key={video._id}>
-            <VideoTitle
-              onClick={() => {
-                navigate(`/videos/${video.title}`, { state: video });
-              }}
-            >
-              {video.title}
-            </VideoTitle>
-            <div
-              style={{
-                flexGrow: 1,
-                height: "2px",
-                backgroundColor: "black",
-                margin: "0 500px",
-              }}
-            ></div>
-
-            <StyledEditOutlined onClick={() => handleEditVideo(video._id)} />
-            <StyledDeleteOutlined onClick={() => handleDelete(video._id)} />
       <SectionList>
-        {videosArray // trocar para allVideos
+        {allVideos // trocar para allVideos
         .filter((obj) => obj.title.toLowerCase().includes(searchValue.toLowerCase()),)
         .map((video) => (
           <CardVideo key={video.id}>

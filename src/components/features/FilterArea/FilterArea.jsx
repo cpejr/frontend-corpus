@@ -27,6 +27,7 @@ export default function FilterArea({ onSubmit }) {
   const [dates, setDates] = useState(null);
 
   function submitHandler(data) {
+    console.log(selectTotalParticipants)
     const toFilter = {
       ...data,
       totalParticipants: selectTotalParticipants,
@@ -39,6 +40,7 @@ export default function FilterArea({ onSubmit }) {
     setCountry(null);
     setLanguage(null);
     setDuration("");
+    setSelectTotalParticipants(null)
     onSubmit(toFilter);
   }
   //Array de opções para o select de Total de Participantes
@@ -47,6 +49,7 @@ export default function FilterArea({ onSubmit }) {
     { value: { min: 6, max: 10 }, label: "6 a 10" },
     { value: { min: 10, max: null }, label: "10+" },
   ];
+
   const { globalLanguage } = useGlobalLanguage();
   const translateText = TranslateText({ globalLanguage });
   return (
@@ -60,10 +63,11 @@ export default function FilterArea({ onSubmit }) {
             <StyledSelect
               {...field}
               defaultValue={selectTotalParticipants}
-              onSelect={(e) => {
+              onChange={(e) => {
+                console.log(e.label)
                 setSelectTotalParticipants(e.value);
-                field.onChange(e.value);
-              }}
+                field.onChange(e);
+              }}              
               isSearchable={false}
               placeholder={translateText.totalParticipantsPlaceholder}
               options={options}
