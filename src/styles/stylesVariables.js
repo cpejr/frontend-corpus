@@ -11,7 +11,7 @@ export const colors = {
   font: {
     primary: "#000000",
     secondary: "#FFF",
-    title: "#000000",
+    title: "#ccd5ae",
     line: "#FFD599",
   },
   background: {

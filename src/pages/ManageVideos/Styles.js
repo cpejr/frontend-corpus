@@ -23,7 +23,7 @@ export const DivTitle = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: ${colors.white};
+  color: #ccd5ae;
   font-size: 36px;
   text-transform: uppercase;
   font-family: ${fonts.Cabin};
@@ -40,6 +40,7 @@ export const Title = styled.h1`
 `;
 export const VideoTitle = styled.div`
   cursor: pointer;
+  color: #dfc89e;
   text-decoration: underline;
 `;
 
