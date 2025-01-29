@@ -16,7 +16,7 @@ export const Container = styled.div`
 `;
 
 export const LogoFooter = styled.img`
-  width: 300px;
+  width: 10%;
   display: flex;
   cursor: pointer;
   @media (max-width: ${breakpoints.mobile}) {
