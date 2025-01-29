@@ -9,18 +9,33 @@ import {
   CodeLine,
 } from "./Styles";
 import PropTypes from "prop-types";
+import { useGetArchives } from "../../../hooks/query/archives";
+import { ClipLoader } from "react-spinners";
 export default function Card({
   textButton,
-  thumbnail,
   event,
   title,
   ShortDescription,
   code,
+  archives,
 }) {
+  const { data: archiveData, isLoading } = useGetArchives({
+    id: archives,
+    name: title,
+    onError: () => {
+    },
+  });
   return (
     <StyledCard>
       <Image>
-        <img src={thumbnail} />
+      {isLoading ? (
+          <ClipLoader color="#FFA500" size={40} /> // Spinner enquanto carrega
+        ) : (
+          <img
+            src={`data:image/png;base64,${archiveData?.thumbFile}`}
+            alt={title}
+          />
+        )}
       </Image>
       <Group>
         <Line>{title}</Line>
@@ -46,4 +61,5 @@ Card.propTypes = {
   event: PropTypes.func.isRequired,
   thumbnail: PropTypes.string.isRequired,
   ShortDescription: PropTypes.string.isRequired,
+  archives: PropTypes.string
 };

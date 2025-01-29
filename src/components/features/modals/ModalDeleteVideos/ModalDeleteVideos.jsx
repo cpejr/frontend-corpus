@@ -11,7 +11,7 @@ import { useDeleteVideos } from "../../../../hooks/query/videos";
 export default function ModalDeleteVideo({ openModal, closeModal, id }) {
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText(globalLanguage);
-
+  console.log(id)
   const { mutate: deleteVideo } = useDeleteVideos({
     onSuccess: () => {
       toast.success(translation.successToast);

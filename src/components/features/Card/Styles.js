@@ -35,8 +35,8 @@ export const StyledCard = styled(Card)`
 
 export const Image = styled.div`
   display: flex;
+  width: 250px;  
   height: auto;
-  width: 100%;
   align-items: center;
   justify-content: center;
   cursor: pointer;

@@ -27,7 +27,7 @@ export default function FilterArea({ onSubmit }) {
   const [dates, setDates] = useState(null);
 
   function submitHandler(data) {
-    console.log(selectTotalParticipants)
+
     const toFilter = {
       ...data,
       totalParticipants: selectTotalParticipants,
@@ -64,7 +64,6 @@ export default function FilterArea({ onSubmit }) {
               {...field}
               defaultValue={selectTotalParticipants}
               onChange={(e) => {
-                console.log(e.label)
                 setSelectTotalParticipants(e.value);
                 field.onChange(e);
               }}              

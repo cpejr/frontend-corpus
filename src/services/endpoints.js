@@ -101,3 +101,10 @@ export async function refresh() {
 
   return data;
 }
+
+// archive
+export async function getArchives(_id) {
+  const {data} = await api.get(`/archive/${_id}`)
+
+  return data
+}

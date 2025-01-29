@@ -109,7 +109,7 @@ export default function Videos() {
       {paginatedVideos.map((video) => (
         <DivLine key={video._id}>
           <Card
-            thumbnail={video.thumbnail}
+          archives={video.archives}
             context={video.context}
             responsibles={video.responsibles}
             code={video.code}

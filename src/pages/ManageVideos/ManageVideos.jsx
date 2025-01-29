@@ -22,10 +22,10 @@ import ModalEditVideos from "../../components/features/modals/ModalEditVideos/Mo
 import ModalDeleteVideo from "../../components/features/modals/ModalDeleteVideos/ModalDeleteVideos";
 import { useCreateVideos, useGetVideos } from "../../hooks/query/videos";
 import { toast } from "react-toastify";
-//import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import translateText from "../../services/others/translateAPI";
-
+import { TranslateToastError } from "./translations";
 export default function ManageVideosPage() {
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
@@ -44,9 +44,9 @@ export default function ManageVideosPage() {
       },
       {
         type: "text",
-        key: "description",
+        key: "ShortDescription",
         placeholder: translation.placeholder2,
-        label: "description",
+        label: "ShortDescription",
       },
       {
         type: "text",
@@ -62,9 +62,9 @@ export default function ManageVideosPage() {
       },
       {
         type: "text",
-        key: "responsible",
+        key: "responsibles",
         placeholder: translation.placeholder6,
-        label: "responsible",
+        label: "responsibles",
       },
       {
         type: "select",
@@ -109,8 +109,6 @@ export default function ManageVideosPage() {
       },
     ]);
 
-    translateTitles();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalLanguage]);
 
@@ -129,7 +127,7 @@ export default function ManageVideosPage() {
   const [searchValue, setSearchValue] = useState("");
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  //const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
   const [videoId, setVideoId] = useState("");
 
@@ -147,26 +145,35 @@ export default function ManageVideosPage() {
     setVideoId(id);
     setShowEditModal(true);
   }
-
+  
   const { data: videos } = useGetVideos({
     onError: () => {
     },
   });
-
   const { mutate: createVideo, isPending } = useCreateVideos({
     onSuccess: () => {
       toast.success(translation.successToast);
+      queryClient.invalidateQueries({
+        queryKey: ["videos"],
+      });
     },
     onError: (err) => {
       console.log(err);
-      // toast.error(TranslateToastError(globalLanguage, err.response.status));
+       toast.error(TranslateToastError(globalLanguage, err.response.status));
     },
   });
 
   const handleSubmit = async (data) => {
-    console.log(data);
-    //createVideo(data);
+    const { birthday, ...rest } = data; 
+    const updatedObj = { ...rest, date: birthday }; 
+  
+    createVideo(updatedObj);
   };
+  useEffect(() => {
+    if (videos) { 
+      translateTitles();
+    }
+  }, [videos, globalLanguage]); 
 
   return (
     <Container>
