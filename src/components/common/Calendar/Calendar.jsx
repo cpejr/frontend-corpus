@@ -13,7 +13,7 @@ export default function CalendarFunction({
   isSubmitSuccessful,
   defaultValue,
 }) {
-  const [date, setDate] = useState(defaultValue || '');
+  const [date, setDate] = useState(defaultValue || "");
 
   const handleChange = (dateChange) => {
     setValue("birthday", dateChange.toLocaleDateString("pt-BR"), {
@@ -38,7 +38,7 @@ export default function CalendarFunction({
             selected={date}
             placeholder={placeholder}
             onChange={(e) => handleChange(e.value)}
-            dateFormat="dd/mm/yy"
+            dateFormat="yy"
             color={color}
             value={date}
           />

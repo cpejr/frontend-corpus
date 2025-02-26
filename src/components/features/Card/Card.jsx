@@ -5,17 +5,48 @@ import {
   Image,
   Group,
   ButtonDiv,
+
+  DescriptionLine,
+  CodeLine,
 } from "./Styles";
 import PropTypes from "prop-types";
-import logo from "../../../assets/logoFooter.svg";
-export default function Card({ data, textButton, event }) {
+import { useGetArchives } from "../../../hooks/query/archives";
+import { ClipLoader } from "react-spinners";
+export default function Card({
+  textButton,
+  event,
+  title,
+  ShortDescription,
+  code,
+  archives,
+}) {
+  const { data: archiveData, isLoading } = useGetArchives({
+    id: archives,
+    name: title,
+    onError: () => {
+    },
+  });
   return (
     <StyledCard>
       <Image>
-        <img src={logo} />
+      {isLoading ? (
+          <ClipLoader color="#FFA500" size={40} /> // Spinner enquanto carrega
+        ) : (
+          <img
+            src={`data:image/png;base64,${archiveData?.thumbFile}`}
+            alt={title}
+          />
+        )}
       </Image>
       <Group>
-        <Line>{data.name}</Line>
+        <Line>{title}</Line>
+      </Group>
+      <Group>
+        <DescriptionLine>{ShortDescription}</DescriptionLine>
+      </Group>
+      <Group>
+        <CodeLine>{code}</CodeLine>
+
       </Group>
 
       <ButtonDiv>
@@ -26,7 +57,13 @@ export default function Card({ data, textButton, event }) {
 }
 
 Card.propTypes = {
-  data: PropTypes.object.isRequired,
+
   textButton: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  code: PropTypes.string.isRequired,
   event: PropTypes.func.isRequired,
+  thumbnail: PropTypes.string.isRequired,
+  ShortDescription: PropTypes.string.isRequired,
+  archives: PropTypes.string
+
 };

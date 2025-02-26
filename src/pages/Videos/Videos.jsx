@@ -1,89 +1,100 @@
-import { useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useGetVideosByParameters } from "../../hooks/query/videos";
 import {
   Container,
   Title,
   DivSelect,
   DivLine,
-  Calendar,
   ContainerSearchFilter,
   DivTitle,
   ContainerSearchBar,
+  ButtonDiv,
 } from "./Styles";
 import { SearchBar } from "../../components";
 import { useGlobalLanguage } from "../../stores/globalLanguage";
 import { TranslateText } from "./translations";
 import Card from "../../components/features/Card/Card";
 import { useNavigate } from "react-router-dom";
+
+
+import Pagination from "../../components/features/Pagination/Pagination";
+import FilterArea from "../../components/features/FilterArea/FilterArea";
+
+
 export default function Videos() {
-  const [dates, setDates] = useState(null);
   const [searchValue, setSearchValue] = useState("");
+  const [filters, setFilters] = useState({
+    totalParticipants: null,
+    country: null,
+    language: null,
+    duration: null,
+    date: null,
+  });
+  const { data: videos = [] } = useGetVideosByParameters({
+    filters,
+  });
+
+  const handleFilterSubmit = (data) => {
+    setFilters(data);
+  };
+
+  const SearchBarFilter = useMemo(() => {
+    return videos.filter((video) => {
+      const title = video.title?.toLowerCase() || "";
+      const shortDescription = video.ShortDescription?.toLowerCase() || "";
+      const code = video.code?.toLowerCase() || "";
+      const context = video.context?.toLowerCase() || "";
+      const responsibles = video.responsibles?.toLowerCase() || "";
+      const search = searchValue.toLocaleLowerCase();
+
+      return (
+        title.includes(search) ||
+        shortDescription.includes(search) ||
+        code.includes(search) ||
+        context.includes(search) ||
+        responsibles.includes(search)
+      );
+    });
+  }, [videos, searchValue]);
 
   //translations
   const { globalLanguage } = useGlobalLanguage();
   const translation = TranslateText({ globalLanguage });
 
-  const videos = [
-    {
-      resume: "/videos/ContainerMultipleViewpointHeimat_English.mp4",
-      name: "ContainerMultipleViewpointHeimat English",
-    },
-    {
-      name: "OpenClosePeople 2",
-      resume: "/videos/OpenClosePeople_2.mp4",
-    },
-    {
-      resume: "/videos/GringoCulture.mp4",
-      name: "GringoCulture",
-    },
-    {
-      resume: "/videos/Homeland.mp4",
-      name: "Homeland",
-    },
-    {
-      resume: "/videos/RussianFoodCulture.mp4",
-      name: "RussianFoodCulture",
-    },
-    {
-      resume: "/videos/Intonation.mp4",
-      name: "Intonation",
-    },
-    {
-      resume: "/videos/Jeitinho_Fraco_English.mp4",
-      name: "Jeitinho Fraco English",
-    },
-    {
-      resume: "/videos/Jeitinho_BurlarNormas_English.mp4",
-      name: "Jeitinho BurlarNormas English",
-    },
-    {
-      resume: "/videos/Jeitinho_TrópicoFavorecimento_English.mp4",
-      name: "Jeitinho TrópicoFavorecimento English",
-    },
-    {
-      resume: "/videos/Sequence_ExpoCachaça_Eng.mp4",
-      name: "Sequence ExpoCachaça Eng",
-    },
-    {
-      resume: "/videos/Sequence_FaceTheWinter.mp4",
-      name: "Sequence FaceTheWinter",
-    },
-    {
-      resume: "/videos/Sequence_LostThePoint.mp4",
-      name: "Sequence LostThePoint",
-    },
-  ];
 
+  const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(
+    Math.ceil(videos.length / itemsPerPage)
+  );
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
+  };
+
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages - 1));
+  };
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
+    setCurrentPage(0);
   };
 
   const navigate = useNavigate();
-
+  const paginatedVideos = SearchBarFilter.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
+  useEffect(() => {
+    setTotalPages(Math.ceil(SearchBarFilter.length / itemsPerPage));
+  }, [SearchBarFilter.length]);
   return (
     <Container>
       <DivTitle>
         <Title>{translation.title}</Title>
       </DivTitle>
+
       <ContainerSearchFilter>
         <ContainerSearchBar>
           <SearchBar
@@ -91,37 +102,46 @@ export default function Videos() {
             placeholder={translation.placeholder}
             value={searchValue}
             search={handleSearch}
+            color="#d4a373"
           />
-        </ContainerSearchBar>
+        </ContainerSearchBar>{" "}
         <DivSelect>
-          <Calendar
-            value={dates}
-            onChange={(e) => setDates(e.value)}
-            selectionMode="range"
-            readOnlyInput
-            hideOnRangeSelection
-            placeholder={translation.calendar}
-            showButtonBar
-            dateFormat="yy"
-            view="year"
-          />
+
+          <FilterArea onSubmit={handleFilterSubmit} />
         </DivSelect>
       </ContainerSearchFilter>
-      {videos
-        .filter((obj) =>
-          obj.name.toLowerCase().includes(searchValue.toLowerCase())
-        )
-        .map((card, index) => (
-          <DivLine key={index}>
-            <Card
-              data={card}
-              textButton={translation.buttonCard}
-              event={() => {
-                navigate(`/videos/${card.name}`, { state: card });
-              }}
-            />
-          </DivLine>
-        ))}
+
+      {paginatedVideos.map((video) => (
+        <DivLine key={video._id}>
+          <Card
+          archives={video.archives}
+            context={video.context}
+            responsibles={video.responsibles}
+            code={video.code}
+            country={video.country}
+            language={video.language}
+            duration={video.duration}
+            date={video.date}
+            totalParticipants={video.totalParticipants}
+            ShortDescription={video.ShortDescription}
+            textButton={translation.buttonCard}
+            event={() => {
+              navigate(`/videos/${video.title}`, { state: video });
+            }}
+            title={video.title}
+          />
+        </DivLine>
+      ))}
+      <ButtonDiv>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          handlePrevPage={handlePrevPage}
+          handleNextPage={handleNextPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </ButtonDiv>
+
     </Container>
   );
 }
