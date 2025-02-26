@@ -39,6 +39,7 @@ export default function CalendarFunction({
             placeholder={placeholder}
             onChange={(e) => handleChange(e.value)}
             dateFormat="yy"
+            view="year"
             color={color}
             value={date}
           />

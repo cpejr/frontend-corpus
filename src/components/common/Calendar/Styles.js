@@ -34,7 +34,7 @@ export const StyledCalendar = styled(Calendar)`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+
   height: 50px;
   border: ${(props) =>
     props?.error ? "0.1rem red solid" : `0.1rem ${colors.black} solid`};
@@ -72,5 +72,9 @@ export const StyledCalendar = styled(Calendar)`
     @media (max-width: ${breakpoints.smallTablet}) {
       width: 225px;
     }
+  }
+  .p-yearpicker-year {
+    color: black !important;
+    background-color: black !important;
   }
 `;
