@@ -51,8 +51,10 @@ const router = createBrowserRouter(
       </Route>
       <Route path="register" element={<RegisterPage />} />
       <Route path="redefine-password/:token" element={<RedefinePassword />} />
-      <Route path="manage-videos" element={<ManageVideos />} />
+
       <Route element={<PrivateAdminRoutes />}>
+        {" "}
+        <Route path="manage-videos" element={<ManageVideos />} />
         <Route path="manage-users" element={<ManageUser />} />
       </Route>
     </Route>
