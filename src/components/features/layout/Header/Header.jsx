@@ -38,12 +38,10 @@ export default function Head() {
   const translations = TranslateText({ globalLanguage });
 
   const items = [
-
     {
       label: translations.headerText3,
       url: "/video",
     },
-
 
     ...(isAdmin === "admin"
       ? [
@@ -60,6 +58,20 @@ export default function Head() {
               {
                 label: translations.headerText5,
                 url: "/manage-users",
+              },
+              {
+                separator: true,
+              },
+              {
+                label: translations.headerText4,
+                url: "/politica-de-privacidade",
+              },
+              {
+                separator: true,
+              },
+              {
+                label: translations.headerText1,
+                url: "/sobre-nos",
               },
             ],
           },
